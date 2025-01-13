@@ -1,4 +1,4 @@
-function Purchase() {
+function PurchasePage() {
   return (
     <div>
       <h1>Purchase Page</h1>
@@ -6,4 +6,4 @@ function Purchase() {
   );
 }
 
-export default Purchase;
+export default PurchasePage;

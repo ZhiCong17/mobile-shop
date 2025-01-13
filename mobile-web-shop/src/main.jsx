@@ -2,22 +2,22 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Purchase from './pages/Purchase';
+import HomePage from './pages/HomePage';
+import CartPage from './pages/CartPage';
+import PurchasePage from './pages/PurchasePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
+    element: <HomePage />
   },
   {
     path: '/cart',
-    element: <Cart />
+    element: <CartPage />
   },
   {
     path: '/purchase',
-    element: <Purchase />
+    element: <PurchasePage />
   }
 ])
 
