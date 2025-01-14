@@ -1,11 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom';
+
+// Import Pages
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/login/LoginPage';
+
+// Import Components
 import NavBar from './components/NavBar';
 
 const router = createBrowserRouter([
@@ -25,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/order',
         element: <OrderPage />
+      },
+      {
+        path: '/login',
+        element: <LoginPage />
       }
     ]
   },
@@ -32,9 +41,12 @@ const router = createBrowserRouter([
 ])
 
 function NavBarWrapper() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+
   return (
     <div>
-      <NavBar />
+      {!isLoginPage && <NavBar />}
       <Outlet />
     </div>
   )
