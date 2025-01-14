@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+<<<<<<< HEAD
 import { useUserStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
+=======
+>>>>>>> 5c2ae20 (create login page and login route)
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+<<<<<<< HEAD
   const user = useUserStore(state => state.user);
   const login = useUserStore(state => state.login);
   const navigate = useNavigate();
@@ -53,6 +57,21 @@ function LoginForm() {
       <label className='font-bold mb-1' htmlFor='password'>Password</label>
       <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='password' value={password} name='password' id='password' placeholder='********' onChange={e => setPassword(e.target.value)} />
       <Button className='w-full' type='submit'>Login</Button>
+=======
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+  }
+
+  return (
+    <form action=''>
+      <p className='font-bold mb-1'>Email</p>
+      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='email' value={email} name='email' autoComplete='email' placeholder='me@example.com' onChange={e => setEmail(e.target.value)} />
+      <p className='font-bold mb-1'>Password</p>
+      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='password' value={password} name='password' placeholder='********' onChange={e => setPassword(e.target.value)} />
+      <Button className='w-full' onClick={handleSubmit}>Login</Button>
+>>>>>>> 5c2ae20 (create login page and login route)
     </form>
   )
 }
