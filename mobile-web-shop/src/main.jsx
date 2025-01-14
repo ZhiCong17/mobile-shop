@@ -1,27 +1,44 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
-import PurchasePage from './pages/PurchasePage';
+import OrderPage from './pages/OrderPage';
 import NotFoundPage from './pages/NotFoundPage';
+import NavBar from './components/NavBar';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-    errorElement: <NotFoundPage />
+    element: <NavBarWrapper />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />
+      },
+      {
+        path: '/cart',
+        element: <CartPage />
+      },
+      {
+        path: '/order',
+        element: <OrderPage />
+      }
+    ]
   },
-  {
-    path: '/cart',
-    element: <CartPage />
-  },
-  {
-    path: '/purchase',
-    element: <PurchasePage />
-  }
+
 ])
+
+function NavBarWrapper() {
+  return (
+    <div>
+      <NavBar />
+      <Outlet />
+    </div>
+  )
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

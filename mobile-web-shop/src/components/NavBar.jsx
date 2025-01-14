@@ -12,7 +12,7 @@ function NavBar() {
           <Link className='flex flex-col items-center' to="/cart"><ShoppingCart size={32}/>Cart</Link>
         </li>
         <li className='w-1/3' >
-          <Link className='flex flex-col items-center' to="/purchase"><ScrollText size={32}/>Purchase</Link>
+          <Link className='flex flex-col items-center' to="/order"><ScrollText size={32}/>Order</Link>
         </li>
       </ul>
     </nav>
