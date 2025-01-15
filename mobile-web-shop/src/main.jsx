@@ -4,15 +4,9 @@ import './index.css'
 import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom';
 
 // Import Pages
-<<<<<<< HEAD
 import HomePage from './pages/home/HomePage';
 import CartPage from './pages/cart/CartPage';
 import OrderPage from './pages/order/OrderPage';
-=======
-import HomePage from './pages/HomePage';
-import CartPage from './pages/CartPage';
-import OrderPage from './pages/OrderPage';
->>>>>>> 5c2ae20 (create login page and login route)
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/login/LoginPage';
 

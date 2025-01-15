@@ -3,15 +3,9 @@ import { Link } from 'react-router-dom';
 
 function LoginPage() {
   return (
-<<<<<<< HEAD
     <>
       <Link className='text-blue-500 block mx-5 mt-5' to='/'>Back to Home</Link>
       <div className='px-5 flex justify-center items-center min-h-[calc(100vh-84px)]'>
-=======
-    <div className>
-      <Link className='text-blue-500 block mx-5 mt-5' to='/'>Back to Home</Link>
-      <div className='flex justify-center items-center min-h-[calc(100vh-84px)]'>
->>>>>>> 5c2ae20 (create login page and login route)
         <div>
           <h1 className='text-center font-bold text-2xl mb-1'>Login</h1>
           <p className='text-center mb-5'>Enter your email below to login to your account</p>
@@ -19,11 +13,7 @@ function LoginPage() {
           <p className='my-5 text-center'>Dont have an account? <Link className='underline underline-offset-4' to='/cart'>Sign up</Link></p>
         </div>
       </div>
-<<<<<<< HEAD
     </>
-=======
-    </div>
->>>>>>> 5c2ae20 (create login page and login route)
   );
 }
 
