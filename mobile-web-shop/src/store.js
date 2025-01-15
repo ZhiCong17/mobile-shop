@@ -10,5 +10,9 @@ export const useUserStore = create((set) => {
       set({ user });
       localStorage.setItem('user', JSON.stringify(user));
     },
+    logout: () => {
+      set({ user: null });
+      localStorage.removeItem('user');
+    }
   }
 })
