@@ -1,4 +1,4 @@
-import users from './data/userList.js';
+import users from './data/users.json' assert { type: 'json' };
 
 export default [
   {
