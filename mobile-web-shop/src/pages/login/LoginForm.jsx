@@ -35,7 +35,6 @@ function LoginForm() {
         const user = result.data.user;
 
         login(user);
-        localStorage.setItem('user', JSON.stringify(user));
         navigate('/');
       } else {
         console.error('Error:', result.data.message);
