@@ -18,7 +18,12 @@ export default [
     url: '/api/login',
     method: 'post',
     response: ({ body }) => {
-      return validateUser(body);
+      const result = validateUser(body);
+
+      return {
+        status: result.status,
+        data: result
+      }
     }
   }
 ]
@@ -28,13 +33,13 @@ function validateUser(loginInfo) {
 
   if (user && user.password === loginInfo.password) {
     return {
-      code: 200,
+      status: 200,
       message: 'Login successful',
-      user: { id: user.id, name: user.name, email: user.email }
+      user: { id: user.id, email: user.email }
     }
   } else {
     return {
-      code: 401,
+      status: 401,
       message: 'Invalid email or password'
     }
   }

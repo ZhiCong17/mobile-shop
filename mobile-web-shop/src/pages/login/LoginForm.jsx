@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useUserStore } from '@/store';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user = useUserStore(state => state.user);
+  const login = useUserStore(state => state.login);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +27,19 @@ function LoginForm() {
         body: JSON.stringify(loginData),
       })
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (response.ok) {
-        console.log(data);
+      if (result.data.status === 200) {
+        console.log('Login successful:', result.data);
+
+        const user = result.data.user;
+
+        login(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/');
       } else {
-        console.error('Error:', data.message);
-        alert(data.message);
+        console.error('Error:', result.data.message);
+        alert(result.data.message);
       }
     } catch (error) {
       console.error('Error:', error);
