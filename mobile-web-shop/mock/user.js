@@ -1,16 +1,16 @@
-import validateUser from "./validateUser";
+import validateUser from './validateUser';
+import addUser from './addUser';
 
 export default [
   {
-    url: '/api/users',
-    method: 'get',
-    response: () => {
+    url: '/api/add-user',
+    method: 'post',
+    response: ({ body }) => {
+      const result = addUser(body);
+
       return {
-        code: 200,
-        data: [
-          { id: 1, name: 'John Doe', email: 'john@example.com' },
-          { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
-        ]
+        status: result.status,
+        data: result
       }
     }
   },
