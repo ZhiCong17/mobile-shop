@@ -21,32 +21,27 @@ function SignUpForm() {
       return;
     }
 
-    // const signUpData = { email, password };
+    const signUpData = { email, password };
 
-    // try {
-    //   const response = await fetch('/api/login', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(loginData),
-    //   })
+    try {
+      const response = await fetch('/api/add-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(signUpData),
+      })
 
-    //   const result = await response.json();
+      const result = await response.json();
 
-    //   if (result.data.status === 200) {
-    //     console.log('Login successful:', result.data);
-
-    //     const user = result.data.user;
-
-    //     login(user);
-    //     navigate('/');
-    //   } else {
-    //     console.error('Error:', result.data.message);
-    //     alert(result.data.message);
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   alert('There was an error during login. Please try again later.');
-    // }
+      if (result.data.status === 200) {
+        alert(result.data.message);
+        navigate('/login');
+      } else {
+        alert(result.data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('There was an error during signing up. Please try again later.');
+    }
   }
 
   return (
