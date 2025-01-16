@@ -9,6 +9,7 @@ import CartPage from './pages/cart/CartPage';
 import OrderPage from './pages/order/OrderPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/login/LoginPage';
+import SignUpPage from './pages/sign-up/SignUpPage';
 
 // Import Components
 import NavBar from './components/NavBar';
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />
+      },
+      {
+        path: '/signup',
+        element: <SignUpPage />
       }
     ]
   },
@@ -43,10 +48,11 @@ const router = createBrowserRouter([
 function NavBarWrapper() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
+  const isSignUpPage = location.pathname === '/signup';
 
   return (
     <div>
-      {!isLoginPage && <NavBar />}
+      {!isLoginPage && !isSignUpPage && <NavBar />}
       <Outlet />
     </div>
   )

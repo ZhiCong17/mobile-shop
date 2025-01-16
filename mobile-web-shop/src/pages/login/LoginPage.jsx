@@ -10,7 +10,7 @@ function LoginPage() {
           <h1 className='text-center font-bold text-2xl mb-1'>Login</h1>
           <p className='text-center mb-5'>Enter your email below to login to your account</p>
           <LoginForm />
-          <p className='my-5 text-center'>Dont have an account? <Link className='underline underline-offset-4' to='/cart'>Sign up</Link></p>
+          <p className='my-5 text-center'>Dont have an account? <Link className='underline underline-offset-4' to='/signup'>Sign up</Link></p>
         </div>
       </div>
     </>
