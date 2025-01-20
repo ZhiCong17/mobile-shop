@@ -16,3 +16,10 @@ export const useUserStore = create((set) => {
     }
   }
 })
+
+export const useSearchStore = create((set) => {
+  return {
+    search: '',
+    setSearch: (search) => set({ search }),
+  }
+})
