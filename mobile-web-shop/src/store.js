@@ -23,3 +23,10 @@ export const useSearchStore = create((set) => {
     setSearch: (search) => set({ search }),
   }
 })
+
+export const useCategoryStore = create((set) => {
+  return {
+    category: '',
+    setCategory: (category) => set({ category }),
+  }
+})
