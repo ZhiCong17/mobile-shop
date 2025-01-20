@@ -1,16 +1,19 @@
-import ProductCard from './ProductCard';
+import ProductDisplay from './ProductDisplay';
 import SearchBar from './SearchBar';
+import CategoryFilterMenu from './CategoryFilterMenu';
 
 function HomePage() {
   return (
-    <div className='mx-5'>
-      <SearchBar className='my-5'/>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+    <div className='pb-20'>
+      <SearchBar className='m-5'/>
+      <div className='grid grid-cols-4'>
+        <div className='col-span-1'>
+          <CategoryFilterMenu />
+        </div>
+        <div className='col-span-3 mr-5'>
+          <ProductDisplay />
+        </div>
+      </div>
     </div>
   );
 }
