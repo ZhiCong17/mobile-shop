@@ -5,6 +5,7 @@ function CategoryFilterMenu() {
   const categories = products.map((product) => product.category);
   const uniqueCategories = [...new Set(categories)];
   const isLastCategory = (category) => category === uniqueCategories[uniqueCategories.length - 1];
+  const isFirstCategory = (category) => category === uniqueCategories[0];
 
   // Global category state
   const categoryInStore = useCategoryStore(state => state.category);
@@ -21,7 +22,12 @@ function CategoryFilterMenu() {
   const categoryListDisplay = uniqueCategories.map((category) => (
     <li
       key={category}
-      className={`px-2 py-3 text-sm border-b break-words ${isLastCategory(category) ? '' : 'border-b-neutral-500'} ${category === categoryInStore ? 'text-blue-500' : ''}`}
+      className={`
+        px-2 py-3 text-sm border-b break-words
+        ${isLastCategory(category) ? '' : 'border-b-neutral-500'}
+        ${category === categoryInStore ? 'text-white bg-zinc-400' : ''}
+        ${category === categoryInStore && isLastCategory(category) ? 'rounded-br-lg' : ''}
+        ${category === categoryInStore && isFirstCategory(category) ? 'rounded-tr-lg' : ''}`}
       onClick={handleCategoryClick}
     >
       {category}
