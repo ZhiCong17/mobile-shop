@@ -1,9 +1,6 @@
-import products from '../../../mock/data/products.json' with { type: 'json' };
 import { CirclePlus } from 'lucide-react';
 
-const product = products[0];
-
-function ProductCard() {
+function ProductCard({ product }) {
   return (
     <div className='flex pl-4 pb-4 pr-0 gap-2'>
       <img src={product.image} alt={product.name} className='w-24 h-24 rounded' />
