@@ -1,4 +1,5 @@
-import users from './data/users.json' assert { type: 'json' };
+import users from './data/users.json' with { type: 'json' };
+import carts from './data/carts.json' with { type: 'json' };
 import fs from 'fs';
 
 function addUser(userData) {
@@ -13,13 +14,20 @@ function addUser(userData) {
 
   if (userData.email) {
     try {
-      const latestUserId = users.reduce((maxId, user) => {
-        return user.id ? Math.max(maxId, user.id) : maxId;
-      }, 1);
-      const newUser = { id: latestUserId + 1, email: userData.email, password: userData.password };
+      // Add new user to users.json
+      const latestUserId = getLatestId(users);
+      const newUserId = latestUserId + 1;
+      const newUser = { id: newUserId, email: userData.email, password: userData.password };
       const updatedUsers = [...users, newUser];
 
       fs.writeFileSync('./mock/data/users.json', JSON.stringify(updatedUsers, null, 2));
+
+      // Add new cart to carts.json
+      const latestCartId = getLatestId(carts);
+      const newCart = { id: latestCartId + 1, userId: newUserId, items: [] };
+      const updatedCarts = [...carts, newCart];
+
+      fs.writeFileSync('./mock/data/carts.json', JSON.stringify(updatedCarts, null, 2));
 
       return {
         status: 200,
@@ -37,3 +45,9 @@ function addUser(userData) {
 }
 
 export default addUser;
+
+function getLatestId(array) {
+  return array.reduce((maxId, item) => {
+    return item.id ? Math.max(maxId, item.id) : maxId;
+  }, 1);
+}
