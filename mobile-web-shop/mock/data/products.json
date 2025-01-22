@@ -20,7 +20,7 @@
     "name": "Laptop Sleeve",
     "category": "Accessories",
     "price": 15.49,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A protective sleeve for your laptop, made of durable and water-resistant material."
   },
   {
@@ -28,7 +28,7 @@
     "name": "Smartphone Stand",
     "category": "Accessories",
     "price": 12.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A portable and adjustable stand for your smartphone or tablet."
   },
   {
@@ -44,7 +44,7 @@
     "name": "Fitness Tracker",
     "category": "Health & Fitness",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674440623627-8258b3698047?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Track your steps, heart rate, and calories with this stylish fitness tracker."
   },
   {
@@ -52,7 +52,7 @@
     "name": "Electric Kettle",
     "category": "Home Appliances",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Boil water quickly and safely with this sleek electric kettle."
   },
   {
@@ -68,7 +68,7 @@
     "name": "Coffee Maker",
     "category": "Home Appliances",
     "price": 89.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Brew your perfect cup of coffee every time with this easy-to-use coffee maker."
   },
   {
@@ -76,7 +76,7 @@
     "name": "LED Desk Lamp",
     "category": "Home & Office",
     "price": 19.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A dimmable LED desk lamp that provides excellent lighting for reading and working."
   },
   {
@@ -100,7 +100,7 @@
     "name": "Cordless Vacuum Cleaner",
     "category": "Home Appliances",
     "price": 129.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Keep your home spotless with this powerful and lightweight cordless vacuum cleaner."
   },
   {
@@ -108,7 +108,7 @@
     "name": "Air Fryer",
     "category": "Home Appliances",
     "price": 89.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Cook your favorite meals with less oil using this versatile air fryer."
   },
   {
@@ -116,7 +116,7 @@
     "name": "Refrigerator",
     "category": "Home Appliances",
     "price": 399.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "A spacious refrigerator with energy-efficient features to keep your food fresh."
   },
   {
@@ -124,7 +124,7 @@
     "name": "Electric Toothbrush",
     "category": "Health & Fitness",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674440623627-8258b3698047?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Achieve a deeper clean with this advanced electric toothbrush."
   },
   {
@@ -132,7 +132,7 @@
     "name": "Hiking Backpack",
     "category": "Sports & Outdoors",
     "price": 69.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A durable and comfortable hiking backpack for all your outdoor adventures."
   },
   {
@@ -140,7 +140,7 @@
     "name": "Yoga Mat",
     "category": "Sports & Outdoors",
     "price": 19.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A non-slip yoga mat, perfect for your workout or yoga practice."
   },
   {
@@ -164,7 +164,7 @@
     "name": "Electric Grill",
     "category": "Home Appliances",
     "price": 79.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Grill your favorite foods indoors with this easy-to-use electric grill."
   },
   {
@@ -172,7 +172,7 @@
     "name": "Instant Pot",
     "category": "Home Appliances",
     "price": 89.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Prepare meals quickly and easily with this versatile Instant Pot."
   },
   {
@@ -180,7 +180,7 @@
     "name": "Smart Thermostat",
     "category": "Home Appliances",
     "price": 149.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Control the temperature of your home from anywhere with this smart thermostat."
   },
   {
@@ -196,7 +196,7 @@
     "name": "Smart Light Bulbs",
     "category": "Home & Office",
     "price": 19.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Control your lighting remotely with these smart light bulbs."
   },
   {
@@ -204,7 +204,7 @@
     "name": "Portable Air Conditioner",
     "category": "Home Appliances",
     "price": 299.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Stay cool during hot summer days with this portable air conditioner."
   },
   {
@@ -220,7 +220,7 @@
     "name": "Electric Bike",
     "category": "Sports & Outdoors",
     "price": 899.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Eco-friendly electric bike that makes commuting a breeze."
   },
   {
@@ -236,7 +236,7 @@
     "name": "Electric Scooter",
     "category": "Sports & Outdoors",
     "price": 299.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "An eco-friendly and fun way to commute with this fast electric scooter."
   },
   {
@@ -244,7 +244,7 @@
     "name": "Portable Blender",
     "category": "Home Appliances",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Blend your smoothies and shakes on the go with this portable blender."
   },
   {
@@ -252,7 +252,7 @@
     "name": "Air Purifier",
     "category": "Home Appliances",
     "price": 119.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Improve indoor air quality with this powerful air purifier."
   },
   {
@@ -260,15 +260,15 @@
     "name": "Electric Blanket",
     "category": "Home Appliances",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Stay warm and cozy with this electric blanket on chilly nights."
   },
   {
     "id": 34,
     "name": "Cordless Drill",
-    "category": "Tools & Home Improvement",
+    "category": "Home Improvement",
     "price": 79.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1723478480754-436a04e21412?q=80&w=1059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Get your DIY projects done quickly with this versatile cordless drill."
   },
   {
@@ -276,7 +276,7 @@
     "name": "Pressure Cooker",
     "category": "Home Appliances",
     "price": 59.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Cook your meals faster and more efficiently with this pressure cooker."
   },
   {
@@ -284,7 +284,7 @@
     "name": "Vacuum Sealer",
     "category": "Home Appliances",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Seal your food for freshness and longevity with this easy-to-use vacuum sealer."
   },
   {
@@ -292,7 +292,7 @@
     "name": "Smart Light Switch",
     "category": "Home & Office",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Control your home’s lighting with ease using this smart light switch."
   },
   {
@@ -300,7 +300,7 @@
     "name": "Robot Vacuum",
     "category": "Home Appliances",
     "price": 199.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Let this smart robot vacuum clean your floors while you relax."
   },
   {
@@ -308,15 +308,15 @@
     "name": "Smart Plug",
     "category": "Home & Office",
     "price": 12.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Turn any device into a smart one with this smart plug."
   },
   {
     "id": 40,
     "name": "Electric Pressure Washer",
-    "category": "Tools & Home Improvement",
+    "category": "Home Improvement",
     "price": 129.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1723478480754-436a04e21412?q=80&w=1059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Effortlessly clean your outdoor surfaces with this powerful pressure washer."
   },
   {
@@ -324,7 +324,7 @@
     "name": "Outdoor String Lights",
     "category": "Home & Office",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Create a cozy outdoor ambiance with these energy-efficient string lights."
   },
   {
@@ -348,7 +348,7 @@
     "name": "Yoga Mat",
     "category": "Sports & Outdoors",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A comfortable and durable yoga mat to enhance your workouts."
   },
   {
@@ -356,7 +356,7 @@
     "name": "Treadmill",
     "category": "Health & Fitness",
     "price": 499.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674440623627-8258b3698047?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Stay fit and active with this space-saving treadmill for your home gym."
   },
   {
@@ -364,7 +364,7 @@
     "name": "Mini Fridge",
     "category": "Home Appliances",
     "price": 99.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Perfect for your dorm or office, this mini fridge keeps your beverages cold."
   },
   {
@@ -380,7 +380,7 @@
     "name": "Smart Lock",
     "category": "Home & Office",
     "price": 149.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Enhance your home security with this keyless entry smart lock."
   },
   {
@@ -388,7 +388,7 @@
     "name": "Standing Desk",
     "category": "Home & Office",
     "price": 199.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Improve your posture and productivity with this adjustable standing desk."
   },
   {
@@ -396,7 +396,7 @@
     "name": "Electric Toothbrush",
     "category": "Health & Personal Care",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1690959923318-afe5aa13c979?q=80&w=1031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Achieve a deeper clean and healthier gums with this advanced electric toothbrush."
   },
   {
@@ -404,7 +404,7 @@
     "name": "Smart Scale",
     "category": "Health & Fitness",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674440623627-8258b3698047?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Track your weight and body composition with this smart digital scale."
   },
   {
@@ -420,7 +420,7 @@
     "name": "Electric Shaver",
     "category": "Health & Personal Care",
     "price": 59.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1690959923318-afe5aa13c979?q=80&w=1031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Get a smooth shave with this high-performance electric shaver."
   },
   {
@@ -428,7 +428,7 @@
     "name": "Smart Watch",
     "category": "Health & Fitness",
     "price": 79.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674440623627-8258b3698047?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Track your fitness and receive notifications with this smart watch."
   },
   {
@@ -436,7 +436,7 @@
     "name": "Luggage Set",
     "category": "Travel & Luggage",
     "price": 129.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Travel in style with this durable 3-piece luggage set."
   },
   {
@@ -444,7 +444,7 @@
     "name": "Camera Tripod",
     "category": "Photography",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674389991678-0836ca77c7f7?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Achieve stable and professional shots with this adjustable camera tripod."
   },
   {
@@ -452,7 +452,7 @@
     "name": "Leather Wallet",
     "category": "Accessories",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "A sleek and stylish leather wallet with multiple compartments for cards and cash."
   },
   {
@@ -460,7 +460,7 @@
     "name": "Stylish Sunglasses",
     "category": "Accessories",
     "price": 19.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Protect your eyes in style with these UV-protective sunglasses."
   },
   {
@@ -468,7 +468,7 @@
     "name": "Smartphone Case",
     "category": "Accessories",
     "price": 14.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Protect your smartphone with this stylish and durable case."
   },
   {
@@ -476,7 +476,7 @@
     "name": "Canvas Backpack",
     "category": "Accessories",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Carry your essentials in style with this durable canvas backpack."
   },
   {
@@ -492,7 +492,7 @@
     "name": "Smart Thermostat",
     "category": "Home Appliances",
     "price": 149.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Control your home's temperature remotely with this energy-saving smart thermostat."
   },
   {
@@ -500,7 +500,7 @@
     "name": "Portable Air Conditioner",
     "category": "Home Appliances",
     "price": 349.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Stay cool during hot months with this energy-efficient portable air conditioner."
   },
   {
@@ -508,7 +508,7 @@
     "name": "Memory Foam Pillow",
     "category": "Home & Office",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Enjoy a restful night's sleep with this supportive memory foam pillow."
   },
   {
@@ -516,7 +516,7 @@
     "name": "Luxury Bath Towel Set",
     "category": "Home & Office",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Wrap yourself in luxury with this soft and absorbent bath towel set."
   },
   {
@@ -524,7 +524,7 @@
     "name": "Electric Grill",
     "category": "Home Appliances",
     "price": 89.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Grill your favorite foods indoors with this easy-to-use electric grill."
   },
   {
@@ -532,7 +532,7 @@
     "name": "Cordless Vacuum Cleaner",
     "category": "Home Appliances",
     "price": 159.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://media.istockphoto.com/id/1211554164/photo/3d-render-of-home-appliances-collection-set.jpg?s=612x612&w=is&k=20&c=fiAH6B0qfuQ9Is_dpG_OM0nKlHSSLnEREymeblqjsDE=",
     "description": "Easily clean your floors and carpets with this lightweight and powerful cordless vacuum."
   },
   {
@@ -540,7 +540,7 @@
     "name": "Chef's Knife",
     "category": "Kitchenware",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Slice and dice with precision using this high-quality chef's knife."
   },
   {
@@ -548,7 +548,7 @@
     "name": "Instant Pot",
     "category": "Kitchenware",
     "price": 99.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Prepare meals faster with this versatile pressure cooker, slow cooker, and rice cooker."
   },
   {
@@ -556,7 +556,7 @@
     "name": "Herb Garden Kit",
     "category": "Home & Garden",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1680286739871-01142bc609df?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Grow fresh herbs at home with this complete herb garden kit."
   },
   {
@@ -580,7 +580,7 @@
     "name": "Camping Tent",
     "category": "Sports & Outdoors",
     "price": 129.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Stay dry and comfortable during your outdoor adventures with this spacious camping tent."
   },
   {
@@ -588,7 +588,7 @@
     "name": "Travel Pillow",
     "category": "Travel & Luggage",
     "price": 24.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Support your neck and head while traveling with this memory foam travel pillow."
   },
   {
@@ -596,7 +596,7 @@
     "name": "Backpack Cooler",
     "category": "Sports & Outdoors",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Keep your drinks cold and your hands free with this convenient backpack cooler."
   },
   {
@@ -604,7 +604,7 @@
     "name": "Smartphone Gimbal",
     "category": "Photography",
     "price": 99.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1674389991678-0836ca77c7f7?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Stabilize your smartphone videos with this handheld gimbal."
   },
   {
@@ -612,7 +612,7 @@
     "name": "Multi-Tool Kit",
     "category": "Home & Garden",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1680286739871-01142bc609df?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Fix anything with ease using this versatile multi-tool kit."
   },
   {
@@ -620,7 +620,7 @@
     "name": "Pet Camera",
     "category": "Pet Supplies",
     "price": 89.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664371675057-83f34f7596a2?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Keep an eye on your pets while you're away with this smart pet camera."
   },
   {
@@ -628,7 +628,7 @@
     "name": "Ski Jacket",
     "category": "Sports & Outdoors",
     "price": 149.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Stay warm and dry on the slopes with this insulated ski jacket."
   },
   {
@@ -636,7 +636,7 @@
     "name": "Hiking Boots",
     "category": "Sports & Outdoors",
     "price": 79.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Trek comfortably through rough terrains with these durable hiking boots."
   },
   {
@@ -644,7 +644,7 @@
     "name": "Electric Pressure Cooker",
     "category": "Kitchenware",
     "price": 79.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Make cooking easier and faster with this electric pressure cooker."
   },
   {
@@ -652,7 +652,7 @@
     "name": "Soda Maker",
     "category": "Kitchenware",
     "price": 59.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Create fresh, carbonated drinks at home with this easy-to-use soda maker."
   },
   {
@@ -660,15 +660,15 @@
     "name": "Wine Glass Set",
     "category": "Kitchenware",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Enjoy your favorite wines with this elegant set of wine glasses."
   },
   {
     "id": 84,
     "name": "Cordless Electric Screwdriver",
-    "category": "Tools & Home Improvement",
+    "category": "Home Improvement",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1723478480754-436a04e21412?q=80&w=1059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Make DIY projects easier with this rechargeable cordless electric screwdriver."
   },
   {
@@ -676,7 +676,7 @@
     "name": "Pet Bed",
     "category": "Pet Supplies",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664371675057-83f34f7596a2?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Provide your pet with a comfortable place to rest with this cozy pet bed."
   },
   {
@@ -684,7 +684,7 @@
     "name": "Adjustable Standing Desk",
     "category": "Home & Office",
     "price": 179.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Improve your work posture with this height-adjustable standing desk."
   },
   {
@@ -692,7 +692,7 @@
     "name": "Bicycle Lock",
     "category": "Sports & Outdoors",
     "price": 24.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Keep your bike safe with this durable and secure bicycle lock."
   },
   {
@@ -700,7 +700,7 @@
     "name": "Solar Powered Garden Lights",
     "category": "Home & Garden",
     "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1680286739871-01142bc609df?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Illuminate your garden with these eco-friendly solar-powered lights."
   },
   {
@@ -708,7 +708,7 @@
     "name": "Smart Water Bottle",
     "category": "Sports & Outdoors",
     "price": 29.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1664358190450-2d84d93b9546?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Track your hydration and stay on top of your water intake with this smart water bottle."
   },
   {
@@ -716,7 +716,7 @@
     "name": "Leather Wallet",
     "category": "Accessories",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Keep your cash and cards organized with this stylish leather wallet."
   },
   {
@@ -724,7 +724,7 @@
     "name": "Smart Door Lock",
     "category": "Home Improvement",
     "price": 129.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1723478480754-436a04e21412?q=80&w=1059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Control access to your home with this advanced smart door lock."
   },
   {
@@ -732,7 +732,7 @@
     "name": "Wall Mounted TV Stand",
     "category": "Furniture",
     "price": 189.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1670076513880-f58e3c377903?q=80&w=1018&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Save space and showcase your TV with this sleek and modern wall-mounted stand."
   },
   {
@@ -740,7 +740,7 @@
     "name": "Travel Luggage Set",
     "category": "Travel & Luggage",
     "price": 249.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Travel in style with this durable and spacious luggage set."
   },
   {
@@ -764,15 +764,15 @@
     "name": "Electric Kettle",
     "category": "Kitchenware",
     "price": 34.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://plus.unsplash.com/premium_photo-1715071976149-6f26134fc7f0?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Boil water quickly and efficiently with this sleek electric kettle."
   },
   {
     "id": 97,
     "name": "Cordless Hair Clipper",
-    "category": "Beauty & Personal Care",
+    "category": "Health & Personal Care",
     "price": 59.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1690959923318-afe5aa13c979?q=80&w=1031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Trim your hair with precision using this rechargeable cordless hair clipper."
   },
   {
@@ -780,7 +780,7 @@
     "name": "Essential Oil Diffuser",
     "category": "Home & Office",
     "price": 39.99,
-    "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "image": "https://images.unsplash.com/photo-1463620910506-d0458143143e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "description": "Fill your home with relaxing scents using this ultrasonic essential oil diffuser."
   },
   {
