@@ -42,7 +42,7 @@ export function PaginationSection({ currentPage, setCurrentPage, productsPerPage
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink isActive={currentPage != 1 && currentPage != noOfPages}>
+          <PaginationLink isActive={currentPage != 1 && (noOfPages === 2 || currentPage != noOfPages)}>
             {
               currentPage < 3 ? 2 :
               currentPage > noOfPages - 2 ? noOfPages - 1 :
