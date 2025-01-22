@@ -1,4 +1,4 @@
-import { CirclePlus } from 'lucide-react';
+import ProductDrawer from './ProductDrawer';
 
 function ProductCard({ product }) {
   return (
@@ -8,7 +8,7 @@ function ProductCard({ product }) {
         <p className='mt-2'>{product.name}</p>
         <div className='absolute bottom-2 left-0 flex justify-between w-full'>
           <p className='my-auto'>${product.price}</p>
-          <button><CirclePlus /></button>
+          <ProductDrawer product={product} />
         </div>
       </div>
     </div>
