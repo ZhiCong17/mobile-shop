@@ -8,7 +8,7 @@
         "quantity": 2
       },
       {
-        "product": 72,
+        "productId": 72,
         "quantity": 1
       }
     ]
@@ -22,11 +22,11 @@
         "quantity": 3
       },
       {
-        "product": 50,
+        "productId": 50,
         "quantity": 1
       },
       {
-        "product": 100,
+        "productId": 100,
         "quantity": 1
       }
     ]
