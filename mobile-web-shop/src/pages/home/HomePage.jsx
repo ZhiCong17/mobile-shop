@@ -1,6 +1,7 @@
 import ProductDisplay from './ProductDisplay';
 import SearchBar from './SearchBar';
 import CategoryFilterMenu from './CategoryFilterMenu';
+import NavBar from '@/components/NavBar';
 
 function HomePage() {
   return (
@@ -14,6 +15,7 @@ function HomePage() {
           <ProductDisplay />
         </div>
       </div>
+      <NavBar />
     </div>
   );
 }
