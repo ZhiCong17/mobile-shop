@@ -1,4 +1,5 @@
 import ProductCard from './ProductCard';
+import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@/store';
 import carts from '@/../mock/data/carts.json' with { type: 'json' };
@@ -6,6 +7,8 @@ import products from '@/../mock/data/products.json' with { type: 'json' };
 
 function CartPage() {
   const user = useUserStore(state => state.user);
+  const totalAmount = 0;  // temporary value
+  const noOfProducts = 0;  // temporary value
   let cartDisplay, cartItems;
 
   if (user) {
@@ -23,12 +26,15 @@ function CartPage() {
   }
 
   return (
-    <div className='m-5'>
-      <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
-      <h1 className='text-center m-3 text-lg font-bold'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
-      <hr className='mb-5'/>
-      {cartDisplay}
-    </div>
+    <>
+      <div className='m-5 pb-20'>
+        <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
+        <h1 className='text-center m-3 text-lg font-bold'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
+        <hr className='mb-5'/>
+        {cartDisplay}
+      </div>
+      <Footer totalAmount={totalAmount} noOfProducts={noOfProducts} />
+    </>
   );
 }
 
