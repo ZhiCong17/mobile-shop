@@ -34,6 +34,25 @@ function ProductDrawer({ product }) {
     navigate('/login');
   }
 
+  async function handleAddToCartClick() {
+    try {
+      const response = await fetch('api/add-to-cart', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, productId: product.id, quantity: count }),
+      })
+      if (response.ok) {
+        const data = await response.json();
+
+        setCount(1);
+        alert(`${product.name} ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert(`There was an error adding ${product.name} to the cart. Please try again later.`);
+    }
+  }
+
   return (
     <Drawer>
       {user ? <DrawerTrigger><CirclePlus /></DrawerTrigger> : <CirclePlus onClick={handleClickWithoutLogin} />}
@@ -50,7 +69,9 @@ function ProductDrawer({ product }) {
           </div>
         </DrawerHeader>
         <DrawerFooter>
-          <Button>Add to Cart</Button>
+          <DrawerClose asChild>
+            <Button onClick={handleAddToCartClick}>Add to Cart</Button>
+          </DrawerClose>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
