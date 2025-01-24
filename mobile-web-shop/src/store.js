@@ -30,3 +30,10 @@ export const useCategoryStore = create((set) => {
     setCategory: (category) => set({ category }),
   }
 })
+
+export const usePathStore = create((set) => {
+  return {
+    returnPath: '/',
+    setReturnPath: (returnPath) => set({ returnPath }),
+  }
+})

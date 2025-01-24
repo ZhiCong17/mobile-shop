@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useUserStore } from '@/store';
+import { usePathStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
 import { CirclePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,7 @@ function ProductDrawer({ product }) {
   const [count, setCount] = useState(1);
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
+  const setReturnPath = usePathStore((state) => state.setReturnPath);
 
   function handlePlusClick() {
     setCount(count + 1);
@@ -31,6 +33,7 @@ function ProductDrawer({ product }) {
 
   function handleClickWithoutLogin() {
     alert('Please login to proceed');
+    setReturnPath('/');
     navigate('/login');
   }
 

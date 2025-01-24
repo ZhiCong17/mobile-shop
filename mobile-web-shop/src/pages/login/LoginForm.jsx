@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useUserStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
+import { usePathStore } from '@/store';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ function LoginForm() {
   const user = useUserStore(state => state.user);
   const login = useUserStore(state => state.login);
   const navigate = useNavigate();
+  const returnPath = usePathStore(state => state.returnPath);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ function LoginForm() {
         const user = result.data.user;
 
         login(user);
-        navigate('/');
+        navigate(returnPath);
       } else {
         console.error('Error:', result.data.message);
         alert(result.data.message);
