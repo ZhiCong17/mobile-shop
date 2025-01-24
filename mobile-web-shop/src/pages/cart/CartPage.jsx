@@ -33,7 +33,7 @@ function CartPage() {
         <hr className='mb-5'/>
         {cartDisplay}
       </div>
-      <Footer totalAmount={totalAmount} noOfProducts={noOfProducts} />
+      {user ? <Footer totalAmount={totalAmount} noOfProducts={noOfProducts} /> : null}
     </>
   );
 }
