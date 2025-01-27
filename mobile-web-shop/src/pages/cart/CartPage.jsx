@@ -1,18 +1,17 @@
 import ProductCard from './ProductCard';
 import Footer from './Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@/store';
-import carts from '@/../mock/data/carts.json' with { type: 'json' };
-import products from '@/../mock/data/products.json' with { type: 'json' };
 
 function CartPage() {
   const user = useUserStore(state => state.user);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState(new Set());
+  const [cartItems, setCartItems] = useState([]);
+  const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const noOfCheckOut = selectedItems.size;
-  let totalCheckOutAmount = 0;
-  let cartDisplay, cartItems = [];
+  let cartDisplay;
 
   const handleSelectAllChange = (checked) => {
     setSelectAll(checked);
@@ -33,21 +32,56 @@ function CartPage() {
     }
   }
 
-  if (user) {
-    const userId = user.id;
-    const userCart = carts.find(cart => cart.userId === userId);
-    cartItems = userCart.items;
+  useEffect(() => {
+    const fetchUserCartItems = async (userId) => {
+      try {
+        const response = await fetch(`/api/carts/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        const data = await response.json();
 
-    cartDisplay = cartItems.map(item => {
-      const product = products.find(product => product.id === item.productId);
-      if (selectedItems.has(item.productId)) {
-        totalCheckOutAmount += product.price * item.quantity;
+        if (data.status === 404) {
+          console.error(data.message);
+          setCartItems([]);
+        } else {
+          setCartItems(data.cartItems);
+        }
+      } catch (err) {
+        console.error('Error fetching user cart:', err);
+        setCartItems([]);
       }
+    }
 
+    if (user) {
+      fetchUserCartItems(user.id);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    let totalAmount = 0;
+    if (selectedItems.size > 0) {
+      totalAmount = [...selectedItems].reduce((total, productId) => {
+        const item = cartItems.find(item => item.productId === productId);
+
+        return total + item.price * item.quantity;
+      }, 0);
+    }
+
+    setTotalCheckOutAmount(totalAmount);
+  }, [selectedItems, cartItems]);
+
+  if (user) {
+    cartDisplay = cartItems.map(item => {
       return (
         <ProductCard
           key={item.productId}
-          product={product}
+          productId={item.productId}
+          name={item.name}
+          price={item.price}
+          image={item.image}
           quantity={item.quantity}
           isSelected={selectedItems.has(item.productId)}
           onSelectChange={checked => handleItemSelectChange(item.productId, checked)}

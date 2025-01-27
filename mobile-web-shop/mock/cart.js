@@ -87,5 +87,49 @@ export default [
         }
       }
     }
+  },
+  {
+    url: '/api/carts/:userId',
+    method: 'get',
+    response: ({ query }) => {
+      const { userId } = query;
+
+      try {
+        const carts = JSON.parse(fs.readFileSync('./mock/data/carts.json', 'utf-8'));
+        const userCart = carts.find(cart => cart.userId === parseInt(userId));
+        const productIds = userCart.items.map(item => item.productId);
+        const products = JSON.parse(fs.readFileSync('./mock/data/products.json', 'utf-8'));
+        const cartItems = products.filter(product => productIds.includes(product.id));
+        const cartItemsWithProductInfo = userCart.items.map(item => {
+          const product = cartItems.find(product => product.id === item.productId);
+
+          return {
+            ...item,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+          }
+        })
+
+        if (userCart) {
+          return {
+            status: 200,
+            cartItems: cartItemsWithProductInfo,
+          }
+        } else {
+          return {
+            status: 404,
+            message: 'cart not found',
+          }
+        }
+      } catch(err) {
+        console.error('Error reading file:', err);
+
+        return {
+          status: 500,
+          message: 'failed to fetch cart',
+        }
+      }
+    }
   }
 ]
