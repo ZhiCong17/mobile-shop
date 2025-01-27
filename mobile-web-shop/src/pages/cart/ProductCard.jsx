@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useState, useCallback } from 'react';
 import { useUserStore } from '@/store';
 
-function ProductCard({ product, quantity }) {
+function ProductCard({ product, quantity, isSelected, onSelectChange }) {
   const [quantityInCart, setQuantityInCart] = useState(quantity);
   const userId = useUserStore(state => state.user).id;
 
@@ -21,13 +21,12 @@ function ProductCard({ product, quantity }) {
     }
 
     setQuantityInCart(newQuantity);
-
     debouncedUpdateCart(userId, product.id, newQuantity);
   }
 
   return (
     <div className='flex items-center gap-4 pb-4'>
-      <Checkbox />
+      <Checkbox checked={isSelected} onCheckedChange={onSelectChange} />
       <img className='w-24 h-24 rounded object-cover' src={product.image} />
       <div className='relative h-24 flex-grow'>
         <p className='mt-2'>{product.name}</p>
