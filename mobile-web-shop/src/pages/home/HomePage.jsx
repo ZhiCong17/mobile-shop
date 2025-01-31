@@ -2,8 +2,18 @@ import ProductDisplay from './ProductDisplay';
 import SearchBar from './SearchBar';
 import CategoryFilterMenu from './CategoryFilterMenu';
 import NavBar from '@/components/NavBar';
+import { useEffect } from 'react';
+import { useCategoryStore } from '@/store';
 
 function HomePage() {
+  const clearCategory = useCategoryStore(state => state.clearCategory);
+
+  useEffect(() => {
+    return () => {
+      clearCategory();
+    }
+  }, [clearCategory])
+
   return (
     <div className='pb-20'>
       <SearchBar className='m-5'/>

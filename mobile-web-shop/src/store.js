@@ -28,6 +28,7 @@ export const useCategoryStore = create((set) => {
   return {
     category: '',
     setCategory: (category) => set({ category }),
+    clearCategory: () => set({ category: '' }),
   }
 })
 
