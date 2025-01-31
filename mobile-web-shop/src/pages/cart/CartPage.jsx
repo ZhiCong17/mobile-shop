@@ -3,6 +3,7 @@ import Footer from './Footer';
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@/store';
+import { Button } from '@/components/ui/button';
 
 function CartPage() {
   const user = useUserStore(state => state.user);
@@ -30,6 +31,32 @@ function CartPage() {
       selectedItems.delete(productId);
       setSelectedItems(new Set(selectedItems));
       setSelectAll(false);
+    }
+  }
+
+  const handleDeleteSelectedItems = async (userId, selectedItems) => {
+    try {
+      const response = await fetch('/api/remove-from-cart', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          selectedItems: [...selectedItems],
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === 200) {
+        const updatedCartItems = cartItems.filter(item => !selectedItems.has(item.productId));
+        setCartItems(updatedCartItems);
+        setSelectedItems(new Set());
+        setSelectAll(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
@@ -103,7 +130,6 @@ function CartPage() {
         <ProductCard
           key={item.productId}
           item={item}
-          // quantityInCart={quantityInCart}
           handlePlusMinusClick={e => handlePlusMinusClick(item.productId, e)}
           isSelected={selectedItems.has(item.productId)}
           onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
@@ -118,7 +144,10 @@ function CartPage() {
     <>
       <div className='m-5 pb-20'>
         <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
-        <h1 className='text-center m-3 text-lg font-bold'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
+        <div className='flex items-center relative p-7'>
+          <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
+          <Button className='absolute right-0' variant='destructive' onClick={() => handleDeleteSelectedItems(user.id, selectedItems)}>Delete</Button>
+        </div>
         <hr className='mb-5'/>
         {cartDisplay}
       </div>
@@ -138,7 +167,7 @@ export default CartPage;
 
 function updateCart(userId, productId, quantity) {
   try {
-    const response = fetch('/api/edit-cart', {
+    fetch('/api/edit-cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

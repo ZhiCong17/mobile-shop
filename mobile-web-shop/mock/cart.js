@@ -3,7 +3,7 @@ import fs from 'fs';
 export default [
   {
     url: '/api/add-to-cart',
-    method: 'put',
+    method: 'PUT',
     response: ({ body }) => {
       const { userId, productId, quantity } = body
       const carts = JSON.parse(fs.readFileSync('./mock/data/carts.json', 'utf-8'));
@@ -52,7 +52,7 @@ export default [
   },
   {
     url: '/api/edit-cart',
-    method: 'post',
+    method: 'POST',
     response: ({ body }) => {
       const { userId, productId, quantity } = body
       const carts = JSON.parse(fs.readFileSync('./mock/data/carts.json', 'utf-8'));
@@ -90,7 +90,7 @@ export default [
   },
   {
     url: '/api/carts/:userId',
-    method: 'get',
+    method: 'GET',
     response: ({ query }) => {
       const { userId } = query;
 
@@ -128,6 +128,43 @@ export default [
         return {
           status: 500,
           message: 'failed to fetch cart',
+        }
+      }
+    }
+  },
+  {
+    url: '/api/remove-from-cart',
+    method: 'DELETE',
+    response: ({ body }) => {
+      const { userId, selectedItems } = body;
+      const carts = JSON.parse(fs.readFileSync('./mock/data/carts.json', 'utf-8'));
+      const userCartIndex = carts.findIndex(cart => cart.userId === userId);
+
+      if (userCartIndex === -1) {
+        return {
+          status: 404,
+          message: 'cart not found',
+        }
+      }
+
+      const userCart = carts[userCartIndex];
+      const updatedItems = userCart.items.filter(item => !selectedItems.includes(item.productId));
+      const updatedCarts = [...carts];
+      updatedCarts[userCartIndex].items = updatedItems;
+
+      try {
+        fs.writeFileSync('./mock/data/carts.json', JSON.stringify(updatedCarts, null, 2));
+
+        return {
+          status: 200,
+          message: 'removed from cart',
+        }
+      } catch (err) {
+        console.error('Error writing file:', err);
+
+        return {
+          status: 500,
+          message: 'failed to remove from cart',
         }
       }
     }
