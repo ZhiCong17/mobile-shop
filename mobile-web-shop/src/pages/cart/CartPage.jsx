@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard';
 import Footer from './Footer';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@/store';
 
@@ -29,7 +29,31 @@ function CartPage() {
     } else {
       selectedItems.delete(productId);
       setSelectedItems(new Set(selectedItems));
+      setSelectAll(false);
     }
+  }
+
+  const debouncedUpdateCart = useCallback(debounce((userId, productId, newQuantity) => {
+    updateCart(userId, productId, newQuantity);
+  }, 1000), []);
+
+  function handlePlusMinusClick(productId, e) {
+    const itemIndex = cartItems.findIndex(item => item.productId === productId);
+    if (itemIndex === -1) return;
+
+    const updatedCartItems = [...cartItems];
+    let newQuantity = updatedCartItems[itemIndex].quantity;
+
+    if (e.target.textContent === '+') {
+      newQuantity = newQuantity + 1;
+    } else if (e.target.textContent === '-' && newQuantity > 1) {
+      newQuantity = newQuantity - 1;
+    }
+
+    updatedCartItems[itemIndex].quantity = newQuantity
+
+    setCartItems(updatedCartItems);
+    debouncedUpdateCart(user.id, productId, newQuantity);
   }
 
   useEffect(() => {
@@ -58,7 +82,7 @@ function CartPage() {
     if (user) {
       fetchUserCartItems(user.id);
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     let totalAmount = 0;
@@ -78,11 +102,9 @@ function CartPage() {
       return (
         <ProductCard
           key={item.productId}
-          productId={item.productId}
-          name={item.name}
-          price={item.price}
-          image={item.image}
-          quantity={item.quantity}
+          item={item}
+          // quantityInCart={quantityInCart}
+          handlePlusMinusClick={e => handlePlusMinusClick(item.productId, e)}
           isSelected={selectedItems.has(item.productId)}
           onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
         />
@@ -113,3 +135,33 @@ function CartPage() {
 }
 
 export default CartPage;
+
+function updateCart(userId, productId, quantity) {
+  try {
+    const response = fetch('/api/edit-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        productId,
+        quantity,
+      }),
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+function debounce(fn, delay) {
+  let timeoutId;
+
+  return function (...args) {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  }
+}

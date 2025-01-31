@@ -1,29 +1,9 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import { useState, useCallback } from 'react';
-import { useUserStore } from '@/store';
 
-function ProductCard({ ...props }) {
-  const { productId, name, price, image, quantity, isSelected, onSelectChange } = props;
-  const [quantityInCart, setQuantityInCart] = useState(quantity);
-  const userId = useUserStore(state => state.user).id;
-
-  const debouncedUpdateCart = useCallback(debounce((userId, productId, newQuantity) => {
-    updateCart(userId, productId, newQuantity);
-  }, 1000), []);
-
-  function handlePlusMinusClick(e) {
-    let newQuantity = quantityInCart;
-
-    if (e.target.textContent === '+') {
-      newQuantity = quantityInCart + 1;
-    } else if (e.target.textContent === '-' && quantityInCart > 1) {
-      newQuantity = quantityInCart - 1;
-    }
-
-    setQuantityInCart(newQuantity);
-    debouncedUpdateCart(userId, productId, newQuantity);
-  }
+function ProductCard(props) {
+  const { item,  handlePlusMinusClick, isSelected, onSelectChange } = props;
+  const { name, price, quantity, image } = item;
 
   return (
     <div className='flex items-center gap-4 pb-4'>
@@ -35,7 +15,7 @@ function ProductCard({ ...props }) {
           <p className='my-auto'>${price}</p>
           <div className='flex gap-3'>
             <Button className='w-7 h-7 p-0' onClick={handlePlusMinusClick} variant='outline'>-</Button>
-            <span>{quantityInCart}</span>
+            <span>{quantity}</span>
             <Button className='w-7 h-7 p-0' onClick={handlePlusMinusClick} variant='outline'>+</Button>
           </div>
         </div>
@@ -45,33 +25,3 @@ function ProductCard({ ...props }) {
 }
 
 export default ProductCard;
-
-function updateCart(userId, productId, quantity) {
-  try {
-    const response = fetch('/api/edit-cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId,
-        productId,
-        quantity,
-      }),
-    });
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-function debounce(fn, delay) {
-  let timeoutId;
-
-  return function (...args) {
-    clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
-  }
-}
