@@ -1,10 +1,26 @@
-import products from '../../../mock/data/products.json' with { type: 'json' };
 import ProductCard from './ProductCard';
 import { useSearchStore, useCategoryStore } from '../../store';
 import { useEffect, useState } from 'react';
 import PaginationSection from './PaginationSection';
 
 function ProductDisplay() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+
+        setProducts(data.products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
   // Filter products by search and category
   const search = useSearchStore(state => state.search);
   const category = useCategoryStore(state => state.category);
