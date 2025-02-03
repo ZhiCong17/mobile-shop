@@ -31,16 +31,14 @@ function LoginForm() {
 
       const result = await response.json();
 
-      if (result.data.status === 200) {
-        console.log('Login successful:', result.data);
-
-        const user = result.data.user;
+      if (result.status === 200) {
+        const user = result.user;
 
         login(user);
         navigate(returnPath);
       } else {
-        console.error('Error:', result.data.message);
-        alert(result.data.message);
+        console.error('Error:', result.message);
+        alert(result.message);
       }
     } catch (error) {
       console.error('Error:', error);
