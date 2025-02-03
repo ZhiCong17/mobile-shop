@@ -9,12 +9,25 @@ function ProductDisplay() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/products');
-        const data = await response.json();
+        const response = await fetch('/api/products', {
+          method: 'GET',
+        });
 
-        setProducts(data.products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+        if (!response.ok) {
+          const errorResult = await response.json();
+          console.error('Failed to fetch products:', errorResult.message);
+          return;
+        }
+
+        const result = await response.json();
+
+        if (result.data) {
+          setProducts(result.data);
+        } else {
+          console.error('Products not found');
+        }
+      } catch (err) {
+        console.error('Error fetching products:', err);
       }
     }
 

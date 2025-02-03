@@ -11,12 +11,12 @@ export default [
         if (products) {
           return {
             status: 200,
-            products: products,
+            data: products,
           }
          } else {
           return {
             status: 404,
-            message: 'products not found',
+            message: 'Products not found',
           }
         }
       } catch(err) {
@@ -24,7 +24,7 @@ export default [
 
         return {
           status: 500,
-          message: 'failed to fetch products',
+          message: 'Failed to fetch products',
         }
       }
     }
