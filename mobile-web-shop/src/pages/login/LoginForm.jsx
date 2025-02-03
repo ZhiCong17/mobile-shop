@@ -7,7 +7,6 @@ import { usePathStore } from '@/store';
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useUserStore(state => state.user);
   const login = useUserStore(state => state.login);
   const navigate = useNavigate();
   const returnPath = usePathStore(state => state.returnPath);
