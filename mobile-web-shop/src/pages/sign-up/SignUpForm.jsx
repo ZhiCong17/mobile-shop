@@ -32,11 +32,11 @@ function SignUpForm() {
 
       const result = await response.json();
 
-      if (result.data.status === 200) {
-        alert(result.data.message);
+      if (result.status === 200) {
+        alert(result.message);
         navigate('/login');
       } else {
-        alert(result.data.message);
+        alert(result.message);
       }
     } catch (error) {
       console.error('Error:', error);
