@@ -10,6 +10,8 @@ import OrderPage from './pages/order/OrderPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/login/LoginPage';
 import SignUpPage from './pages/sign-up/SignUpPage';
+import PaymentSuccessPage from './pages/payment/PaymentSuccessPage';
+import PaymentCancelledPage from './pages/payment/PaymentCancelledPage';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUpPage />
+  },
+  {
+    path: '/payment/success',
+    element: <PaymentSuccessPage />
+  },
+  {
+    path: '/payment/cancelled',
+    element: <PaymentCancelledPage />
   },
   {
     path: '*',
