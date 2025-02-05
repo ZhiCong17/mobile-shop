@@ -2,49 +2,65 @@ import dotenv from 'dotenv';
 import Stripe from 'stripe';
 
 dotenv.config();
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default [
   {
     url: '/api/create-checkout-session',
-    method: 'POST',
-    response: async () => {
-      try {
-        // Create a new Checkout Session
-        const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          line_items: [
-            {
+    method: 'post',
+    rawResponse: async (req, res) => {
+      let body = '';
+
+      req.on('data', (chunk) => {
+        body += chunk.toString();
+      })
+
+      req.on('end', async () => {
+        try {
+          const items = JSON.parse(body).items;
+
+          const lineItemsData = items.map((item) => {
+            const itemPriceInCents = +(item.price * 100).toFixed(2);
+            return {
               price_data: {
-                currency: 'usd',
+                currency: 'sgd',
                 product_data: {
-                  name: 'T-shirt', // Product name
+                  name: item.name,
                 },
-                unit_amount: 2000, // Price in cents (e.g., $20.00)
+                unit_amount: itemPriceInCents,
               },
-              quantity: 1,
-            },
-          ],
-          mode: 'payment',
-          success_url: 'http://localhost:5173/', // Redirect URL after successful payment
-          cancel_url: 'http://localhost:5173/',
-        });
-        console.log(session);
+              quantity: item.quantity,
+            }
+          });
 
-        // Respond with the session ID
-        return {
-          status: 200,
-          message: 'success',
-          sessionId: session.id,
-        }
-      } catch (error) {
-        console.error('Error creating checkout session:', error);
+          const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItemsData,
+            mode: 'payment',
+            success_url: 'http://localhost:5173/payment/success',
+            cancel_url: 'http://localhost:5173/payment/cancelled',
+          });
 
-        return {
-          status: 500,
-          message: error.message,
+          res.setHeader('Content-Type', 'application/json');
+          res.statusCode = 200;
+          res.end(JSON.stringify({
+            status: 200,
+            message: 'success',
+            sessionId: session.id,
+          }));
+        } catch (error) {
+          console.error('Detailed error:', error);
+
+          res.setHeader('Content-Type', 'application/json');
+          res.statusCode = 500;
+          res.end(JSON.stringify({
+            status: 500,
+            message: error.message,
+            error: error.toString(),
+          }));
         }
-      }
+      })
     }
   },
-]
+];
