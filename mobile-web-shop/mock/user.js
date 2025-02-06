@@ -75,10 +75,10 @@ function addUser(userData) {
   }
 }
 
-function getLatestId(array) {
+export function getLatestId(array) {
   return array.reduce((maxId, item) => {
     return item.id ? Math.max(maxId, item.id) : maxId;
-  }, 1);
+  }, 0);
 }
 
 function validateUser(loginInfo) {
