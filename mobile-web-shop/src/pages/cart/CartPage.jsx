@@ -118,51 +118,34 @@ function CartPage() {
     debouncedUpdateCart(user.id, productId, newQuantity);
   }
 
-  useEffect(() => {
-    const fetchUserCartItems = async (userId) => {
-      try {
-        const response = await fetch(`/api/carts/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        const data = await response.json();
-
-        if (data.status === 404) {
-          console.error(data.message);
-          setCartItems([]);
-        } else {
-          setCartItems(data.cartItems);
+  const fetchUserCartItems = async (userId) => {
+    try {
+      const response = await fetch(`/api/carts/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         }
-      } catch (err) {
-        console.error('Error fetching user cart:', err);
+      })
+      const data = await response.json();
+
+      if (data.status === 404) {
+        console.error(data.message);
         setCartItems([]);
+      } else {
+        setCartItems(data.cartItems);
       }
+    } catch (err) {
+      console.error('Error fetching user cart:', err);
+      setCartItems([]);
     }
-
-    if (user) {
-      fetchUserCartItems(user.id);
-    }
-  }, []);
-
-  useEffect(() => {
-    let totalAmount = 0;
-    if (selectedItems.size > 0) {
-      totalAmount = [...selectedItems].reduce((total, productId) => {
-        const item = cartItems.find(item => item.productId === productId);
-
-        return total + item.price * item.quantity;
-      }, 0);
-    }
-
-    setTotalCheckOutAmount(totalAmount);
-  }, [selectedItems, cartItems]);
+  }
 
   let cartDisplay;
 
   if (user) {
     useEffect(() => {
+      fetchUserCartItems(user.id);
+
       const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       setStripePromise(stripePromise);
 
@@ -170,6 +153,19 @@ function CartPage() {
         setStripePromise(null)
       }
     }, []);
+
+    useEffect(() => {
+      let totalAmount = 0;
+      if (selectedItems.size > 0) {
+        totalAmount = [...selectedItems].reduce((total, productId) => {
+          const item = cartItems.find(item => item.productId === productId);
+
+          return total + item.price * item.quantity;
+        }, 0);
+      }
+
+      setTotalCheckOutAmount(totalAmount);
+    }, [selectedItems, cartItems]);
 
     cartDisplay = cartItems.map(item => {
       return (
