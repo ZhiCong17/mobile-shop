@@ -63,4 +63,33 @@ export default [
       })
     }
   },
+  {
+    url: '/api/checkout-session-status/:sessionId',
+    method: 'get',
+    rawResponse: async (req, res) => {
+      const sessionId = req.url.split('/').pop();;
+
+      try {
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+        const paymentStatus = session.payment_status === 'paid' ? 'success' : 'pending';
+
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.end(JSON.stringify({
+          status: 200,
+          paymentStatus: paymentStatus,
+        }));
+      } catch (error) {
+        console.error('Detailed error:', error);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 500;
+        res.end(JSON.stringify({
+          status: 500,
+          message: error.message,
+          error: error.toString(),
+        }));
+      }
+    }
+  },
 ];
