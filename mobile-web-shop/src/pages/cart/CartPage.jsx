@@ -4,14 +4,50 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@/store';
 import { Button } from '@/components/ui/button';
+import { loadStripe } from '@stripe/stripe-js';
 
 function CartPage() {
   const user = useUserStore(state => state.user);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState(new Set());
+  const selectedItemsCount = selectedItems.size;
   const [cartItems, setCartItems] = useState([]);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
-  const checkoutItems = cartItems.filter(item => selectedItems.has(item.productId));
+  const [stripePromise, setStripePromise] = useState(null);
+
+  const handleCheckout = async () => {
+    try {
+      const stripe = await stripePromise;
+      const checkoutItems = cartItems.filter(item => selectedItems.has(item.productId));
+
+      if (!stripe) {
+        throw new Error('Stripe has not been initialized');
+      }
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: checkoutItems
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === 200) {
+        const session = await stripe.redirectToCheckout({
+          sessionId: data.sessionId,
+        });
+
+        if (session.error) {
+          throw session.error;
+        }
+      }
+    } catch(err) {
+      console.error('Checkout error:', err);
+    }
+  }
 
   const handleSelectAllChange = (checked) => {
     setSelectAll(checked);
@@ -126,6 +162,15 @@ function CartPage() {
   let cartDisplay;
 
   if (user) {
+    useEffect(() => {
+      const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      setStripePromise(stripePromise);
+
+      return () => {
+        setStripePromise(null)
+      }
+    }, []);
+
     cartDisplay = cartItems.map(item => {
       return (
         <ProductCard
@@ -161,9 +206,10 @@ function CartPage() {
       {user ? (
         <Footer
           totalAmount={totalCheckOutAmount.toFixed(2)}
-          checkoutItems={checkoutItems}
+          selectedItemsCount={selectedItemsCount}
           selectAll={selectAll}
           onSelectAllChange={handleSelectAllChange}
+          onCheckout={handleCheckout}
         />
       ) : null}
     </>
