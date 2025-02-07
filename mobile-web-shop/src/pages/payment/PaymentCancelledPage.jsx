@@ -2,6 +2,7 @@ import { XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import HandleAfterPayment from './HandleAfterPayment';
 
 const PaymentCancelledPage = () => {
   return (
@@ -14,6 +15,7 @@ const PaymentCancelledPage = () => {
             <h1 className="mt-4 text-2xl font-semibold text-gray-900">
               Payment Cancelled
             </h1>
+            <HandleAfterPayment />
 
             <p className="mt-2 text-gray-600">
               Your payment was not completed. No charges have been made to your account.
