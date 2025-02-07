@@ -171,17 +171,24 @@ function CartPage() {
       setTotalCheckOutAmount(totalAmount);
     }, [selectedItems, cartItems]);
 
-    cartDisplay = cartItems.map(item => {
-      return (
-        <ProductCard
-          key={item.productId}
-          item={item}
-          handlePlusMinusClick={e => handlePlusMinusClick(item.productId, e)}
-          isSelected={selectedItems.has(item.productId)}
-          onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
-        />
-      )
-    })
+    cartDisplay = cartItems.length > 0 ?
+      cartItems.map(item => {
+        return (
+          <ProductCard
+            key={item.productId}
+            item={item}
+            handlePlusMinusClick={e => handlePlusMinusClick(item.productId, e)}
+            isSelected={selectedItems.has(item.productId)}
+            onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
+          />
+        )
+      }) :
+      <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
+        <p>Your cart is empty. </p>
+        <p>
+          Click <Link to='/' className='text-blue-500 underline underline-offset-4'>here</Link> to browse our products.
+        </p>
+      </div>
   } else {
     cartDisplay = <p className='text-center'>Please <Link className='text-blue-500 underline underline-offset-4' to='/login'>log in</Link> to view your cart.</p>;
   }
@@ -210,6 +217,7 @@ function CartPage() {
           selectAll={selectAll}
           onSelectAllChange={handleSelectAllChange}
           onCheckout={handleCheckout}
+          isSelectAllDisabled={cartItems.length === 0}
         />
       ) : null}
     </>
