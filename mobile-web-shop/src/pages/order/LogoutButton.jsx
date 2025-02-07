@@ -3,9 +3,11 @@ import { useUserStore } from '../../store';
 
 const logout = useUserStore.getState().logout;
 
-function LogoutButton() {
+function LogoutButton(props) {
+  const { className } = props;
+
   return (
-    <Button onClick={logout}>Logout</Button>
+    <Button className={className} onClick={logout}>Logout</Button>
   );
 }
 

@@ -2,6 +2,7 @@ import LogoutButton from './LogoutButton';
 import { useUserStore } from '@/store';
 import { useEffect, useState } from 'react';
 import OrderCard from './OrderCard';
+import { Link } from 'react-router-dom';
 
 function OrderPage() {
   const user = useUserStore(state => state.user);
@@ -37,8 +38,12 @@ function OrderPage() {
 
   return (
     <div className='m-5'>
-      <h1>Order Page</h1>
-      <LogoutButton />
+      <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
+      <div className='flex items-center relative p-7'>
+        <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Orders</h1>
+        <LogoutButton className='absolute right-0' />
+      </div>
+      <hr className='mb-5'/>
       {user && orderDisplay}
     </div>
   );
