@@ -71,7 +71,7 @@ export default [
 
       try {
         const session = await stripe.checkout.sessions.retrieve(sessionId);
-        const paymentStatus = session.payment_status === 'paid' ? 'success' : 'pending';
+        const paymentStatus = session.payment_status === 'paid' ? 'success' : 'fail';
 
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;

@@ -33,7 +33,7 @@ const OrderCard = ({ order }) => {
         <hr className='my-1'/>
         <div className='flex justify-between font-bold'>
           <p>Total</p>
-          <p>${totalAmount}</p>
+          <p>${totalAmount.toFixed(2)}</p>
         </div>
       </CardContent>
     </Card>
