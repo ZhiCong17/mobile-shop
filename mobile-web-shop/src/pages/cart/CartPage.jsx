@@ -37,7 +37,7 @@ function CartPage() {
 
       if (data.status === 200) {
         localStorage.setItem('stripeSessionId', data.sessionId);
-        localStorage.setItem('checkoutItemsId', JSON.stringify(Array.from(selectedItems)));
+        localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems));
         localStorage.setItem('orderUpdated', 'false');
 
         const session = await stripe.redirectToCheckout({

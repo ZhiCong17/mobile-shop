@@ -2,26 +2,9 @@ import { CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Link } from 'react-router-dom';
-import sendItemsToOrders from './sendItemsToOrders';
-import { useEffect } from 'react';
+import HandleAfterPayment from './HandleAfterPayment';
 
 const PaymentSuccessPage = () => {
-  const stripeSessionId = localStorage.getItem('stripeSessionId');
-  const checkoutItemsId = JSON.parse(localStorage.getItem('checkoutItemsId'));
-  const userId = JSON.parse(localStorage.getItem('user')).id;
-
-  useEffect(() => {
-    if (localStorage.getItem('orderUpdated') === 'true') {
-      localStorage.removeItem('stripeSessionId');
-      localStorage.removeItem('checkoutItemsId');
-      localStorage.removeItem('orderUpdated');
-      return;
-    }
-
-    sendItemsToOrders(stripeSessionId, userId, checkoutItemsId);
-    localStorage.setItem('orderUpdated', 'true');
-  }, []);
-
   return (
     <div className="min-h-screen flex items-center justify-center p-5">
       <Card className="w-full max-w-md">
@@ -32,6 +15,7 @@ const PaymentSuccessPage = () => {
             <h1 className="mt-4 text-2xl font-semibold text-gray-900">
               Payment Successful!
             </h1>
+            <HandleAfterPayment />
 
             <p className="mt-2 text-gray-600">
               Thank you for your purchase.
