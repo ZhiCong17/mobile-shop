@@ -10,10 +10,17 @@ export default [
         const { items, status, userId } = req.body;
         const orders = JSON.parse(fs.readFileSync('./mock/data/orders.json', 'utf-8'));
         const latestOrderId = getLatestId(orders);
-        const newOrder = { id: latestOrderId + 1, items, status, userId };
+        const newOrderId = latestOrderId + 1;
+        const newOrder = { id: newOrderId, items, status, userId };
         const updatedOrders = [...orders, newOrder];
+        const totalAmount = items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
 
         fs.writeFileSync('./mock/data/orders.json', JSON.stringify(updatedOrders, null, 2));
+
+        return {
+          status: 200,
+          data: {id: newOrderId, totalAmount},
+        }
       } catch (err) {
         console.error('Error:', err);
       }

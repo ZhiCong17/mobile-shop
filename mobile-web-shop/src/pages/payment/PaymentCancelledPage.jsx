@@ -2,9 +2,27 @@ import { XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
-import HandleAfterPayment from './HandleAfterPayment';
+import { useEffect, useState } from 'react';
+import handleAfterPayment from './handleAfterPayment';
 
 const PaymentCancelledPage = () => {
+  const [orderId, setOrderId] = useState(null);
+
+  useEffect(() => {
+    const processPayment = async () => {
+      await handleAfterPayment();
+
+      const orderData = JSON.parse(sessionStorage.getItem('orderData'));
+
+      if (orderData?.id) {
+        setOrderId(orderData.id);
+        sessionStorage.removeItem('orderData');
+      }
+    }
+
+    processPayment();
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
@@ -15,22 +33,23 @@ const PaymentCancelledPage = () => {
             <h1 className="mt-4 text-2xl font-semibold text-gray-900">
               Payment Cancelled
             </h1>
-            <HandleAfterPayment />
 
             <p className="mt-2 text-gray-600">
               Your payment was not completed. No charges have been made to your account.
             </p>
 
-            <div className="mt-6 bg-gray-50 rounded-lg p-4">
-              <div className="flex justify-between mb-2">
-                <span className="text-gray-600">Order reference:</span>
-                <span className="text-gray-900 font-medium">#REF-2024-1234</span>
+            {orderId && (
+              <div className="mt-6 bg-gray-50 rounded-lg p-4">
+                <div className="flex justify-between mb-2">
+                  <span className="text-gray-600">Order reference:</span>
+                  <span className="text-gray-900 font-medium">#{orderId}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Status:</span>
+                  <span className="text-red-500 font-medium">Cancelled</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Status:</span>
-                <span className="text-red-500 font-medium">Cancelled</span>
-              </div>
-            </div>
+            )}
 
             <div className="mt-6 space-y-3">
               <Button className="w-full bg-blue-500 hover:bg-blue-600">
