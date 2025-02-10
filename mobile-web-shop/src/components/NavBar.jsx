@@ -15,7 +15,7 @@ function NavBar() {
           <Link className='flex flex-col items-center' to="/cart" onClick={() => setReturnPath('/cart')}><ShoppingCart size={32}/>Cart</Link>
         </li>
         <li className='w-1/3' >
-          <Link className='flex flex-col items-center' to="/order" onClick={() => setReturnPath('/order')}><ScrollText size={32}/>Order</Link>
+          <Link className='flex flex-col items-center' to="/orders" onClick={() => setReturnPath('/order')}><ScrollText size={32}/>Orders</Link>
         </li>
       </ul>
     </nav>

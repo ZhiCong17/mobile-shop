@@ -55,7 +55,7 @@ const PaymentSuccessPage = () => {
 
 
             <div className="mt-6 space-y-3">
-              <Link to='/order' className='block'>
+              <Link to='/orders' className='block'>
                 <Button className="w-full bg-green-500 hover:bg-green-600">
                   View Order History
                 </Button>
