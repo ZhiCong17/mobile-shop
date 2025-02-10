@@ -2,18 +2,23 @@ import ProductCard from './ProductCard';
 import Footer from './Footer';
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useUserStore } from '@/store';
+import { useUserStore, usePathStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { loadStripe } from '@stripe/stripe-js';
 
 function CartPage() {
   const user = useUserStore(state => state.user);
+  const setReturnPath = usePathStore(state => state.setReturnPath);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState(new Set());
   const selectedItemsCount = selectedItems.size;
   const [cartItems, setCartItems] = useState([]);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
+
+  useEffect(() => {
+    setReturnPath('/cart');
+  });
 
   const handleCheckout = async () => {
     try {
