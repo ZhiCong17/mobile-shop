@@ -190,7 +190,7 @@ function CartPage() {
         </p>
       </div>
   } else {
-    cartDisplay = <p className='text-center'>Please <Link className='text-blue-500 underline underline-offset-4' to='/login'>log in</Link> to view your cart.</p>;
+    cartDisplay = <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.</p>;
   }
 
   return (
