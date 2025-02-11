@@ -4,28 +4,22 @@ import { useEffect, useState } from 'react';
 import OrderCard from './OrderCard';
 import { Link } from 'react-router-dom';
 import { usePathStore } from '@/store';
+import { Button } from '@/components/ui/button';
 
 function OrderPage() {
   const user = useUserStore(state => state.user);
-  const [orders, setOrders] = useState([]);
   const setReturnPath = usePathStore(state => state.setReturnPath);
+  const [orders, setOrders] = useState([]);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [statusActive, setStatusActive] = useState('success');
 
-  const fetchOrder = async () => {
-    try {
-      const response = await fetch(`/api/orders/${user.id}`, {
-        method: 'GET',
-      });
-      const result = await response.json();
+  const buttons = [
+    { label: 'Success' },
+    { label: 'Fail' },
+  ]
 
-      if (result.status === 200) {
-        const userOrders = result.data
-        setOrders(userOrders);
-      } else {
-        console.error('Error fetching orders:', result.message);
-      }
-    } catch (err) {
-      console.error('Error fetching orders:', err);
-    }
+  const filterOrders = (status) => {
+    return orders.filter(order => order.status === status);
   }
 
   useEffect(() => {
@@ -36,16 +30,43 @@ function OrderPage() {
     setReturnPath('/orders');
   }, []);
 
+  useEffect(() => {
+    if (orders.length > 0) {
+      setFilteredOrders(filterOrders(statusActive));
+    }
+  }, [statusActive, orders]);
+
+  const fetchOrder = async () => {
+    try {
+      const response = await fetch(`/api/orders/${user.id}`, {
+        method: 'GET',
+      });
+      const result = await response.json();
+
+      if (result.status === 200) {
+        const orders = result.data.reverse();
+        setOrders(orders);
+      } else {
+        console.error('Error fetching orders:', result.message);
+      }
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+    }
+  }
+
+  const handleStatusButtonClick = (e) => {
+    const status = e.target.innerText.toLowerCase();
+
+    setStatusActive(status.toLowerCase());
+  }
+
   const orderDisplay = user ?
-    orders.length > 0 ?
-      orders.map(order => {
+    filteredOrders.length > 0 ?
+      filteredOrders.map(order => {
         return <OrderCard key={order.id} order={order} />
       }) :
       <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
-        <p>Your order history is empty. </p>
-        <p>
-          Click <Link to='/cart' className='text-blue-500 underline underline-offset-4'>here</Link> to checkout from your cart.
-        </p>
+        <p>No order history found.</p>
       </div> :
     <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your orders.</p>
 
@@ -56,7 +77,21 @@ function OrderPage() {
         <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Orders</h1>
         {user && <LogoutButton className='absolute right-0' />}
       </div>
-      <hr className='mb-5'/>
+      <hr/>
+      {user && <div className='flex justify-center my-3 gap-3'>
+        {buttons.map((button) => {
+          return (
+            <Button
+              key={button.label}
+              className={`w-full ${statusActive === button.label.toLowerCase() ? '!bg-blue-500' : 'bg-blue-200'}`}
+              onClick={handleStatusButtonClick}
+            >
+              {button.label}
+            </Button>
+          )
+        })}
+      </div>}
+      <hr />
       {orderDisplay}
     </div>
   );
