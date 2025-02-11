@@ -10,8 +10,9 @@ function SearchBar({ className }) {
       <input
         className='w-full bg-gray-200 pl-9 py-2 pr-4 rounded-full'
         onChange={handleSearch}
-        type="text"
-        placeholder="Search..."
+        type='text'
+        placeholder='Search...'
+        name='searchProducts'
       />
       <Search className='absolute top-1/2 left-3 transform -translate-y-1/2' size={16} />
     </div>
