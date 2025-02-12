@@ -14,8 +14,7 @@ function ProductCard({ product }) {
       <div className='w-24 h-24 flex-shrink-0'>
         {loading && (
           <Skeleton className='w-full h-full rounded' />
-        )
-        }
+        )}
         <img
           src={product.image}
           alt={product.name}

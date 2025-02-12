@@ -1,14 +1,29 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
 
 function ProductCard(props) {
   const { item,  handlePlusMinusClick, isSelected, onSelectChange } = props;
   const { name, price, quantity, image } = item;
+  const [loading, setLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setLoading(false);
+  }
 
   return (
     <div className='flex items-center gap-4 pb-4'>
       <Checkbox checked={isSelected} onCheckedChange={onSelectChange} />
-      <img className='w-24 h-24 rounded object-cover' src={image} />
+      {loading && (
+        <Skeleton className='w-24 h-24 rounded' />
+      )}
+      <img
+        src={image}
+        alt={name}
+        className={`w-24 h-24 rounded object-cover ${loading ? 'hidden' : ''}`}
+        onLoad={handleImageLoad}
+      />
       <div className='relative h-24 flex-grow'>
         <p className='mt-2'>{name}</p>
         <div className='absolute bottom-2 left-0 flex justify-between w-full'>
