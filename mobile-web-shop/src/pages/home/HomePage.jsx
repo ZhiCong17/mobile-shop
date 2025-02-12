@@ -2,10 +2,12 @@ import ProductDisplay from './ProductDisplay';
 import SearchBar from './SearchBar';
 import CategoryFilterMenu from './CategoryFilterMenu';
 import NavBar from '@/components/NavBar';
-import { useEffect } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useEffect, useState } from 'react';
 import { useCategoryStore } from '@/store';
 
 function HomePage() {
+  const [loading, setLoading] = useState(true);
   const clearCategory = useCategoryStore(state => state.clearCategory);
 
   useEffect(() => {
@@ -16,13 +18,24 @@ function HomePage() {
 
   return (
     <div className='pb-20'>
-      <SearchBar className='m-5'/>
+      {loading ? (
+        <div className='m-5'>
+          <Skeleton className="w-full h-10 rounded-full" />
+        </div>
+      ) : (
+        <SearchBar className='m-5'/>
+      )}
+
       <div className='grid grid-cols-4'>
         <div className='col-span-1'>
-          <CategoryFilterMenu />
+          {loading ? (
+            <Skeleton className="h-lvh rounded-r-lg" />
+          ) : (
+            <CategoryFilterMenu />
+          )}
         </div>
         <div className='col-span-3 mr-5'>
-          <ProductDisplay />
+          <ProductDisplay loading={loading} setLoading={setLoading} />
         </div>
       </div>
       <NavBar />

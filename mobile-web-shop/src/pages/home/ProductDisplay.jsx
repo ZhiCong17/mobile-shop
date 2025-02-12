@@ -1,9 +1,11 @@
 import ProductCard from './ProductCard';
+import PaginationSection from './PaginationSection';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useSearchStore, useCategoryStore } from '../../store';
 import { useEffect, useState } from 'react';
-import PaginationSection from './PaginationSection';
 
-function ProductDisplay() {
+
+function ProductDisplay({ loading, setLoading }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -26,6 +28,8 @@ function ProductDisplay() {
         } else {
           console.error('Products not found');
         }
+
+        setLoading(false);
       } catch (err) {
         console.error('Error fetching products:', err);
       }
@@ -34,7 +38,7 @@ function ProductDisplay() {
     fetchProducts();
   }, []);
 
-  // Filter products by search and category
+  // Filter products by search input and selected category
   const search = useSearchStore(state => state.search);
   const category = useCategoryStore(state => state.category);
   const filteredProducts = products.filter(product => {
@@ -58,6 +62,17 @@ function ProductDisplay() {
     return <ProductCard key={product.id} product={product} />
   });
 
+  // Display skeleton loading while fetching products
+  if (loading) {
+    return (
+      <>
+        {[...Array(5)].map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </>
+    )
+  }
+
   return (
     <>
       {display}
@@ -74,3 +89,18 @@ function ProductDisplay() {
 }
 
 export default ProductDisplay;
+
+const ProductCardSkeleton = () => {
+  return (
+    <div className='flex pl-4 pb-4 pr-0 gap-2'>
+      <Skeleton className='h-24 w-24 rounded flex-shrink-0' />
+      <div className='relative w-full'>
+        <Skeleton className='h-6 w-32 mt-2' />
+        <div className='absolute bottom-2 left-0 flex justify-between w-full'>
+          <Skeleton className='h-6 w-12 my-auto' />
+          <Skeleton className='h-6 w-6 rounded-full' />
+        </div>
+      </div>
+    </div>
+  )
+}
