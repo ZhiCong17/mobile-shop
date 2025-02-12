@@ -1,10 +1,13 @@
 import ProductCard from './ProductCard';
 import Footer from './Footer';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+
+import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useUserStore, usePathStore } from '@/store';
-import { Button } from '@/components/ui/button';
-import { loadStripe } from '@stripe/stripe-js';
 
 function CartPage() {
   const user = useUserStore(state => state.user);
@@ -15,6 +18,7 @@ function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setReturnPath('/cart');
@@ -135,6 +139,7 @@ function CartPage() {
           'Content-Type': 'application/json',
         }
       })
+
       const data = await response.json();
 
       if (data.status === 404) {
@@ -146,6 +151,8 @@ function CartPage() {
     } catch (err) {
       console.error('Error fetching user cart:', err);
       setCartItems([]);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -177,7 +184,12 @@ function CartPage() {
     }, [selectedItems, cartItems]);
 
     cartDisplay = cartItems.length > 0 ?
-      cartItems.map(item => {
+      loading ? (
+        <>
+          {[...Array(cartItems.length)].map((_, index) => <ProductCardSkeleton key={index} />)}
+        </>
+      ) :
+        cartItems.map(item => {
         return (
           <ProductCard
             key={item.productId}
@@ -187,35 +199,47 @@ function CartPage() {
             onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
           />
         )
-      }) :
-      <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
-        <p>Your cart is empty. </p>
-        <p>
-          Click <Link to='/' className='text-blue-500 underline underline-offset-4'>here</Link> to browse our products.
-        </p>
-      </div>
+      }) : (
+        <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
+          <p>Your cart is empty. </p>
+          <p>
+            Click <Link to='/' className='text-blue-500 underline underline-offset-4'>here</Link> to browse our products.
+          </p>
+        </div>
+      )
   } else {
-    cartDisplay = <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.</p>;
+    cartDisplay = (
+      <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>
+        Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.
+      </p>
+    );
   }
 
   return (
     <>
       <div className='m-5 pb-20'>
         <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
+
         <div className='flex items-center relative p-7'>
           <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
-          {cartItems.length > 0 && <Button
-            className='absolute right-0'
-            variant='destructive'
-            onClick={() => handleDeleteSelectedItems(user.id, selectedItems)}
-          >
-            Delete
-          </Button>}
+
+          {cartItems.length > 0 && (
+            <Button
+              className='absolute right-0'
+              variant='destructive'
+              onClick={() => handleDeleteSelectedItems(user.id, selectedItems)}
+            >
+              Delete
+            </Button>
+          )}
         </div>
+
         <hr className='mb-5'/>
+
         {cartDisplay}
       </div>
-      {user ? (
+
+      {user && (
         <Footer
           totalAmount={totalCheckOutAmount.toFixed(2)}
           selectedItemsCount={selectedItemsCount}
@@ -224,12 +248,31 @@ function CartPage() {
           onCheckout={handleCheckout}
           isSelectAllDisabled={cartItems.length === 0}
         />
-      ) : null}
+      )}
     </>
   );
 }
 
 export default CartPage;
+
+const ProductCardSkeleton = () => {
+  return (
+    <div className='flex items-center gap-4 pb-4'>
+      <Skeleton className='w-4 h-4 rounded' />
+      <Skeleton className='w-24 h-24 rounded' />
+      <div className='relative h-24 flex-grow'>
+        <Skeleton className='mt-2 w-28 h-6' />
+        <div className='absolute bottom-2 left-0 flex justify-between w-full'>
+          <Skeleton className='w-12 h-6 my-auto' />
+          <div className='flex gap-3'>
+            <Skeleton className='w-7 h-7' />
+            <Skeleton className='w-2 h-7' />
+            <Skeleton className='w-7 h-7' />
+          </div>        </div>
+      </div>
+    </div>
+  );
+}
 
 function updateCart(userId, productId, quantity) {
   try {
