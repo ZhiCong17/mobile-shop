@@ -22,7 +22,30 @@ function CartPage() {
 
   useEffect(() => {
     setReturnPath('/cart');
-  });
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserCartItems(user.id);
+
+      const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      setStripePromise(stripePromise);
+    }
+
+    return () => {
+      setStripePromise(null);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const totalAmount = [...selectedItems].reduce((total, productId) => {
+      const item = cartItems.find(item => item.productId === productId);
+
+      return total + item.price * item.quantity;
+    }, 0);
+
+    setTotalCheckOutAmount(totalAmount);
+  }, [selectedItems]);
 
   const handleCheckout = async () => {
     try {
@@ -158,39 +181,22 @@ function CartPage() {
 
   let cartDisplay;
 
-  if (user) {
-    useEffect(() => {
-      fetchUserCartItems(user.id);
-
-      const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-      setStripePromise(stripePromise);
-
-      return () => {
-        setStripePromise(null)
-      }
-    }, []);
-
-    useEffect(() => {
-      let totalAmount = 0;
-      if (selectedItems.size > 0) {
-        totalAmount = [...selectedItems].reduce((total, productId) => {
-          const item = cartItems.find(item => item.productId === productId);
-
-          return total + item.price * item.quantity;
-        }, 0);
-      }
-
-      setTotalCheckOutAmount(totalAmount);
-    }, [selectedItems, cartItems]);
-
-    cartDisplay = cartItems.length > 0 ?
-      loading ? (
-        <>
-          {[...Array(cartItems.length)].map((_, index) => <ProductCardSkeleton key={index} />)}
-        </>
-      ) :
-        cartItems.map(item => {
-        return (
+  if (!user) {
+    cartDisplay = (
+      <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>
+        Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.
+      </p>
+    );
+  } else if (loading) {
+    cartDisplay = (
+      <>
+          {[...Array(3)].map((_, index) => <ProductCardSkeleton key={index} />)}
+      </>
+    )
+  } else if (cartItems.length > 0) {
+    cartDisplay = (
+      <>
+        {cartItems.map(item => (
           <ProductCard
             key={item.productId}
             item={item}
@@ -198,21 +204,18 @@ function CartPage() {
             isSelected={selectedItems.has(item.productId)}
             onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
           />
-        )
-      }) : (
-        <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
-          <p>Your cart is empty. </p>
-          <p>
-            Click <Link to='/' className='text-blue-500 underline underline-offset-4'>here</Link> to browse our products.
-          </p>
-        </div>
-      )
+        ))}
+      </>
+    )
   } else {
     cartDisplay = (
-      <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>
-        Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.
-      </p>
-    );
+      <div className='min-h-[calc(100vh-240px)] flex flex-col justify-center text-center'>
+        <p>Your cart is empty. </p>
+        <p>
+          Click <Link to='/' className='text-blue-500 underline underline-offset-4'>here</Link> to browse our products.
+        </p>
+      </div>
+    )
   }
 
   return (
