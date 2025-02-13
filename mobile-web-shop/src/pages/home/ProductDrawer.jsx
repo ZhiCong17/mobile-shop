@@ -39,11 +39,10 @@ function ProductDrawer({ product }) {
   function handleClickWithoutLogin() {
     const toastId = toast({
       description: 'Please login to proceed.',
-      action: <ToastAction altText='Login' onClick={() => navigate('/login')}>Login</ToastAction>,
-      duration: 3000
+      action: <ToastAction className='bg-slate-400' altText='Login' onClick={() => navigate('/login')}>Login</ToastAction>,
     });
 
-    setTimeout(() => toastId.dismiss(), 5000);
+    setTimeout(() => toastId.dismiss(), 4000);
     setReturnPath('/');
   }
 
