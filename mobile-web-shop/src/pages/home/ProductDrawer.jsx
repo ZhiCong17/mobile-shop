@@ -1,9 +1,3 @@
-import { useState } from 'react';
-import { useUserStore } from '@/store';
-import { usePathStore } from '@/store';
-import { useNavigate } from 'react-router-dom';
-import { CirclePlus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -14,12 +8,23 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
+import { CirclePlus } from 'lucide-react';
+
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+import { useUserStore } from '@/store';
+import { usePathStore } from '@/store';
 
 function ProductDrawer({ product }) {
   const [count, setCount] = useState(1);
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
   const setReturnPath = usePathStore((state) => state.setReturnPath);
+  const { toast } = useToast();
 
   function handlePlusClick() {
     setCount(count + 1);
@@ -32,9 +37,12 @@ function ProductDrawer({ product }) {
   }
 
   function handleClickWithoutLogin() {
-    alert('Please login to proceed');
+    toast({
+      description: 'Please login to proceed.',
+      action: <ToastAction altText='Login' onClick={() => navigate('/login')}>Login</ToastAction>,
+      duration: 3000
+    });
     setReturnPath('/');
-    navigate('/login');
   }
 
   async function handleAddToCartClick() {
@@ -44,15 +52,36 @@ function ProductDrawer({ product }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, productId: product.id, quantity: count }),
       })
-      if (response.ok) {
-        const data = await response.json();
 
+      if (!response.ok) {
+        const errorResult = await response.json();
+        console.error('Failed to add to cart:', errorResult.message);
+        toast({
+          variant: 'destructive',
+          description: `There was an error adding ${product.name} to the cart. Please try again later.`
+        })
+        return;
+      }
+
+      const data = await response.json();
+
+      if (data.status === 200) {
         setCount(1);
-        alert(`${product.name} ${data.message}`);
+        toast({
+          description: `${product.name} added to cart.`,
+        })
+      } else if (data.status === 409) {
+        toast({
+          variant: 'destructive',
+          description: `${product.name} is already in cart.`,
+        })
       }
     } catch (error) {
       console.error('Error:', error);
-      alert(`There was an error adding ${product.name} to the cart. Please try again later.`);
+      toast({
+        variant: 'destructive',
+        description: `There was an error adding ${product.name} to the cart.\nPlease try again later.`
+      })
     }
   }
 

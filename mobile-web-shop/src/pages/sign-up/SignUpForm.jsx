@@ -1,23 +1,32 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/hooks/use-toast';
+
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
-      alert('Please fill in all fields');
+      toast({
+        variant: 'destructive',
+        description: 'Please fill in all fields.'
+      });
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      toast({
+        variant: 'destructive',
+        description: 'Passwords do not match.'
+      });
       return;
     }
 
@@ -33,14 +42,22 @@ function SignUpForm() {
       const result = await response.json();
 
       if (result.status === 200) {
-        alert(result.message);
+        toast({
+          description: result.message
+        });
         navigate('/login');
       } else {
-        alert(result.message);
+        toast({
+          variant: 'destructive',
+          description: result.message
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('There was an error during signing up. Please try again later.');
+      toast({
+        variant: 'destructive',
+        description: 'There was an error during signing up. Please try again later.'
+      });
     }
   }
 

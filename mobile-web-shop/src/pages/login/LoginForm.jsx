@@ -1,8 +1,11 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useUserStore } from '@/store';
+import { useToast } from '@/components/hooks/use-toast';
+
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { usePathStore } from '@/store';
+import { useUserStore } from '@/store';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -10,12 +13,16 @@ function LoginForm() {
   const login = useUserStore(state => state.login);
   const navigate = useNavigate();
   const returnPath = usePathStore(state => state.returnPath);
+  const { toast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert('Email and password are required');
+      toast({
+        variant: 'destructive',
+        description: 'Email and password are required.'
+      });
       return;
     }
 
@@ -37,11 +44,17 @@ function LoginForm() {
         navigate(returnPath);
       } else {
         console.error('Error:', result.message);
-        alert(result.message);
+        toast({
+          variant: 'destructive',
+          description: result.message
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('There was an error during login. Please try again later.');
+      toast({
+        variant: 'destructive',
+        description: 'There was an error during login. Please try again later.'
+      });
     }
   }
 

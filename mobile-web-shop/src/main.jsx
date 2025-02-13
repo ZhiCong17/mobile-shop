@@ -3,6 +3,8 @@ import './index.css';
 import ReactDOMClient from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { Toaster } from '@/components/ui/toaster';
+
 // Import Pages
 import HomePage from './pages/home/HomePage';
 import CartPage from './pages/cart/CartPage';
@@ -52,5 +54,6 @@ const root = ReactDOMClient.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
     <RouterProvider router={router} />
+    <Toaster />
   </StrictMode>
 )
