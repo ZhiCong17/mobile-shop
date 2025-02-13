@@ -2,6 +2,8 @@ import ProductCard from './ProductCard';
 import Footer from './Footer';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect, useCallback } from 'react';
@@ -19,6 +21,7 @@ function CartPage() {
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     setReturnPath('/cart');
@@ -105,7 +108,20 @@ function CartPage() {
     }
   }
 
-  const handleDeleteSelectedItems = async (userId, selectedItems) => {
+  const handleDeleteButtonClick = () => {
+    toast({
+      variant: 'destructive',
+      description: 'Are you sure you want to delete the selected items?',
+      action: (
+        <div className='flex flex-col gap-2'>
+          <ToastAction className='bg-slate-400' altText='Confirm' onClick={() => handleDelete(user.id, selectedItems)}>Confirm</ToastAction>
+          <ToastAction className='bg-slate-400' altText='Cancel'>Cancel</ToastAction>
+        </div>
+      )
+    })
+  }
+
+  const handleDelete = async (userId, selectedItems) => {
     try {
       const response = await fetch('/api/remove-from-cart', {
         method: 'DELETE',
@@ -230,7 +246,8 @@ function CartPage() {
             <Button
               className='absolute right-0'
               variant='destructive'
-              onClick={() => handleDeleteSelectedItems(user.id, selectedItems)}
+              disabled={selectedItemsCount === 0}
+              onClick={handleDeleteButtonClick}
             >
               Delete
             </Button>
