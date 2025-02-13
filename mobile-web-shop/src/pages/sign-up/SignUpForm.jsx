@@ -15,18 +15,22 @@ function SignUpForm() {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
-      toast({
+      const toastId = toast({
         variant: 'destructive',
         description: 'Please fill in all fields.'
       });
+
+      setTimeout(() => toastId.dismiss(), 3000);
       return;
     }
 
     if (password !== confirmPassword) {
-      toast({
+      const toastId = toast({
         variant: 'destructive',
         description: 'Passwords do not match.'
       });
+
+      setTimeout(() => toastId.dismiss(), 3000);
       return;
     }
 
@@ -42,22 +46,28 @@ function SignUpForm() {
       const result = await response.json();
 
       if (result.status === 200) {
-        toast({
+        const toastId = toast({
           description: result.message
         });
+
+        setTimeout(() => toastId.dismiss(), 3000);
         navigate('/login');
       } else {
-        toast({
+        const toastId = toast({
           variant: 'destructive',
           description: result.message
         });
+
+        setTimeout(() => toastId.dismiss(), 3000);
       }
     } catch (error) {
       console.error('Error:', error);
-      toast({
+      const toastId = toast({
         variant: 'destructive',
         description: 'There was an error during signing up. Please try again later.'
       });
+
+      setTimeout(() => toastId.dismiss(), 3000);
     }
   }
 

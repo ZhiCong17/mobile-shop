@@ -37,11 +37,13 @@ function ProductDrawer({ product }) {
   }
 
   function handleClickWithoutLogin() {
-    toast({
+    const toastId = toast({
       description: 'Please login to proceed.',
       action: <ToastAction altText='Login' onClick={() => navigate('/login')}>Login</ToastAction>,
       duration: 3000
     });
+
+    setTimeout(() => toastId.dismiss(), 5000);
     setReturnPath('/');
   }
 
@@ -56,10 +58,12 @@ function ProductDrawer({ product }) {
       if (!response.ok) {
         const errorResult = await response.json();
         console.error('Failed to add to cart:', errorResult.message);
-        toast({
+        const toastId = toast({
           variant: 'destructive',
           description: `There was an error adding ${product.name} to the cart. Please try again later.`
         })
+
+        setTimeout(() => toastId.dismiss(), 3000);
         return;
       }
 
@@ -67,21 +71,27 @@ function ProductDrawer({ product }) {
 
       if (data.status === 200) {
         setCount(1);
-        toast({
+        const toastId = toast({
           description: `${product.name} added to cart.`,
         })
+
+        setTimeout(() => toastId.dismiss(), 3000);
       } else if (data.status === 409) {
-        toast({
+        const toastId = toast({
           variant: 'destructive',
           description: `${product.name} is already in cart.`,
         })
+
+        setTimeout(() => toastId.dismiss(), 3000);
       }
     } catch (error) {
       console.error('Error:', error);
-      toast({
+      const toastId = toast({
         variant: 'destructive',
         description: `There was an error adding ${product.name} to the cart.\nPlease try again later.`
       })
+
+      setTimeout(() => toastId.dismiss(), 3000);
     }
   }
 

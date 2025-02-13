@@ -19,10 +19,12 @@ function LoginForm() {
     e.preventDefault();
 
     if (!email || !password) {
-      toast({
+      const toastId = toast({
         variant: 'destructive',
         description: 'Email and password are required.'
       });
+
+      setTimeout(() => toastId.dismiss(), 3000);
       return;
     }
 
@@ -45,7 +47,6 @@ function LoginForm() {
 
         const toastId = toast({
           description: 'You have logged in successfully.',
-          duration: 2000
         })
 
         setTimeout(() => {
@@ -53,17 +54,23 @@ function LoginForm() {
         }, 2000);
       } else {
         console.error('Error:', result.message);
-        toast({
+
+        const toastId = toast({
           variant: 'destructive',
           description: result.message
         });
+
+        setTimeout(() => toastId.dismiss(), 3000);
       }
     } catch (error) {
       console.error('Error:', error);
-      toast({
+
+      const toastId = toast({
         variant: 'destructive',
         description: 'There was an error during login. Please try again later.'
       });
+
+      setTimeout(() => toastId.dismiss(), 3000);
     }
   }
 
