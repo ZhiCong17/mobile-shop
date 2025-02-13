@@ -42,6 +42,15 @@ function LoginForm() {
 
         login(user);
         navigate(returnPath);
+
+        const toastId = toast({
+          description: 'You have logged in successfully.',
+          duration: 2000
+        })
+
+        setTimeout(() => {
+          toastId.dismiss();
+        }, 2000);
       } else {
         console.error('Error:', result.message);
         toast({
