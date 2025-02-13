@@ -141,6 +141,13 @@ function CartPage() {
         setCartItems(updatedCartItems);
         setSelectedItems(new Set());
         setSelectAll(false);
+
+        const toastId = toast({
+          variant: 'destructive',
+          description: 'Product(s) removed from cart.',
+        })
+
+        setTimeout(() => toastId.dismiss(), 3000);
       }
     } catch (error) {
       console.error('Error:', error);
