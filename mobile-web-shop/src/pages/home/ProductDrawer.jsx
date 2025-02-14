@@ -18,12 +18,14 @@ import { useState } from 'react';
 
 import { useUserStore } from '@/store';
 import { usePathStore } from '@/store';
+import { useCartStore } from '@/store';
 
 function ProductDrawer({ product }) {
   const [count, setCount] = useState(1);
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
   const setReturnPath = usePathStore((state) => state.setReturnPath);
+  const { addCountToCart } = useCartStore();
   const { toast } = useToast();
 
   function handlePlusClick() {
@@ -70,6 +72,8 @@ function ProductDrawer({ product }) {
 
       if (data.status === 200) {
         setCount(1);
+        addCountToCart();
+
         const toastId = toast({
           description: `${product.name} added to cart.`,
         })

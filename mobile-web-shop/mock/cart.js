@@ -133,6 +133,31 @@ export default [
     }
   },
   {
+    url: '/api/cart-product-count/:userId',
+    method: 'get',
+    response: ({ query }) => {
+      const { userId } = query;
+
+      try {
+        const carts = JSON.parse(fs.readFileSync('./mock/data/carts.json', 'utf-8'));
+        const userCart = carts.find(cart => cart.userId === parseInt(userId));
+        const productCountInCart = userCart.items.length;
+
+        return {
+          status: 200,
+          productCountInCart,
+        }
+      } catch(err) {
+        console.error('Error reading file:', err);
+
+        return {
+          status: 500,
+          message: 'failed to fetch product count in cart',
+        }
+      }
+    }
+  },
+  {
     url: '/api/remove-from-cart',
     method: 'DELETE',
     response: ({ body }) => {

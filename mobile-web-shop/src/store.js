@@ -38,3 +38,14 @@ export const usePathStore = create((set) => {
     setReturnPath: (returnPath) => set({ returnPath }),
   }
 })
+
+export const useCartStore = create((set, get) => {
+  return {
+    productCountInCart: null,
+    setProductCountInCart: (productCountInCart) => set({ productCountInCart }),
+    addCountToCart: () => {
+      const newCount = get().productCountInCart + 1;
+      set({ productCountInCart: newCount });
+    }
+  }
+})
