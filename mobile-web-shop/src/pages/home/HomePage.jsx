@@ -3,18 +3,25 @@ import SearchBar from './SearchBar';
 import CategoryFilterMenu from './CategoryFilterMenu';
 import NavBar from '@/components/NavBar';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useEffect, useState } from 'react';
-import { useCategoryStore } from '@/store';
+
+import { useEffect } from 'react';
+
+import useProductStore from '@/store/useProductStore';
 
 function HomePage() {
-  const [loading, setLoading] = useState(true);
-  const clearCategory = useCategoryStore(state => state.clearCategory);
+  const { fetchProducts, hasFetched, loading, clearCategoryFilter } = useProductStore();
+
+  useEffect(() => {
+    if (!hasFetched) {
+      fetchProducts();
+    }
+  }, [fetchProducts, hasFetched]);
 
   useEffect(() => {
     return () => {
-      clearCategory();
+      clearCategoryFilter();
     }
-  }, [clearCategory])
+  }, [clearCategoryFilter]);
 
   return (
     <div className='pb-20'>
@@ -28,14 +35,10 @@ function HomePage() {
 
       <div className='grid grid-cols-4'>
         <div className='col-span-1'>
-          {loading ? (
-            <Skeleton className="h-lvh rounded-r-lg" />
-          ) : (
-            <CategoryFilterMenu />
-          )}
+          <CategoryFilterMenu />
         </div>
         <div className='col-span-3 mr-5'>
-          <ProductDisplay loading={loading} setLoading={setLoading} />
+          <ProductDisplay />
         </div>
       </div>
       <NavBar />

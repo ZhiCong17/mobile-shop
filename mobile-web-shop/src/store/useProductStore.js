@@ -21,7 +21,11 @@ const useProductStore = create((set) => ({
       console.error('Error fetching products:', error);
       set({ loading: false });
     }
-  }
+  },
+
+  categoryFilter: '',
+  setCategoryFilter: (categoryFilter) => set({ categoryFilter }),
+  clearCategoryFilter: () => set({ categoryFilter: '' }),
 }))
 
 export default useProductStore;

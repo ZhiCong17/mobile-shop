@@ -24,14 +24,6 @@ export const useSearchStore = create((set) => {
   }
 })
 
-export const useCategoryStore = create((set) => {
-  return {
-    category: '',
-    setCategory: (category) => set({ category }),
-    clearCategory: () => set({ category: '' }),
-  }
-})
-
 export const usePathStore = create((set) => {
   return {
     returnPath: '/',
