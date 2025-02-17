@@ -1,48 +1,17 @@
 import ProductCard from './ProductCard';
 import PaginationSection from './PaginationSection';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useSearchStore, useCategoryStore } from '../../store';
+
 import { useEffect, useState } from 'react';
 
+import useProductStore from '@/store/useProductStore';
 
-function ProductDisplay({ loading, setLoading }) {
-  const [products, setProducts] = useState([]);
+function ProductDisplay() {
+  const { loading, products, categoryFilter, searchInput } = useProductStore();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products', {
-          method: 'GET',
-        });
-
-        if (!response.ok) {
-          const errorResult = await response.json();
-          console.error('Failed to fetch products:', errorResult.message);
-          return;
-        }
-
-        const result = await response.json();
-
-        if (result.data) {
-          setProducts(result.data);
-        } else {
-          console.error('Products not found');
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching products:', err);
-      }
-    }
-
-    fetchProducts();
-  }, []);
-
-  // Filter products by search input and selected category
-  const search = useSearchStore(state => state.search);
-  const category = useCategoryStore(state => state.category);
-  const filteredProducts = products.filter(product => {
-    return product.name.toLowerCase().includes(search) && product.category.includes(category);
+  const filteredProducts = products.filter((product) => {
+    const isIncluded = product.name.toLowerCase().includes(searchInput) && product.category.includes(categoryFilter);
+    return isIncluded;
   });
 
   // Pagination
@@ -55,7 +24,7 @@ function ProductDisplay({ loading, setLoading }) {
   // Reset pagination when category changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [category]);
+  }, [categoryFilter]);
 
   // Display products after filtering and pagination
   const display = currentItems.map((product) => {
@@ -63,6 +32,21 @@ function ProductDisplay({ loading, setLoading }) {
   });
 
   // Display skeleton loading while fetching products
+  const ProductCardSkeleton = () => {
+    return (
+      <div className='flex pl-4 pb-4 pr-0 gap-2'>
+        <Skeleton className='h-24 w-24 rounded flex-shrink-0' />
+        <div className='relative w-full'>
+          <Skeleton className='h-6 w-32 mt-2' />
+          <div className='absolute bottom-2 left-0 flex justify-between w-full'>
+            <Skeleton className='h-6 w-12 my-auto' />
+            <Skeleton className='h-6 w-6 rounded-full' />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (loading) {
     return (
       <>
@@ -89,18 +73,3 @@ function ProductDisplay({ loading, setLoading }) {
 }
 
 export default ProductDisplay;
-
-const ProductCardSkeleton = () => {
-  return (
-    <div className='flex pl-4 pb-4 pr-0 gap-2'>
-      <Skeleton className='h-24 w-24 rounded flex-shrink-0' />
-      <div className='relative w-full'>
-        <Skeleton className='h-6 w-32 mt-2' />
-        <div className='absolute bottom-2 left-0 flex justify-between w-full'>
-          <Skeleton className='h-6 w-12 my-auto' />
-          <Skeleton className='h-6 w-6 rounded-full' />
-        </div>
-      </div>
-    </div>
-  )
-}
