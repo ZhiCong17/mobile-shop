@@ -26,6 +26,9 @@ const useProductStore = create((set) => ({
   categoryFilter: '',
   setCategoryFilter: (categoryFilter) => set({ categoryFilter }),
   clearCategoryFilter: () => set({ categoryFilter: '' }),
+
+  searchInput: '',
+  setSearchInput: (searchInput) => set({ searchInput }),
 }))
 
 export default useProductStore;

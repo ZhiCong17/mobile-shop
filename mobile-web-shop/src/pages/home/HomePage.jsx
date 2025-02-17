@@ -2,14 +2,13 @@ import ProductDisplay from './ProductDisplay';
 import SearchBar from './SearchBar';
 import CategoryFilterMenu from './CategoryFilterMenu';
 import NavBar from '@/components/NavBar';
-import { Skeleton } from '@/components/ui/skeleton';
 
 import { useEffect } from 'react';
 
 import useProductStore from '@/store/useProductStore';
 
 function HomePage() {
-  const { fetchProducts, hasFetched, loading, clearCategoryFilter } = useProductStore();
+  const { fetchProducts, hasFetched, clearCategoryFilter } = useProductStore();
 
   useEffect(() => {
     if (!hasFetched) {
@@ -25,22 +24,18 @@ function HomePage() {
 
   return (
     <div className='pb-20'>
-      {loading ? (
-        <div className='m-5'>
-          <Skeleton className="w-full h-10 rounded-full" />
-        </div>
-      ) : (
-        <SearchBar className='m-5'/>
-      )}
+      <SearchBar className='m-5'/>
 
       <div className='grid grid-cols-4'>
         <div className='col-span-1'>
           <CategoryFilterMenu />
         </div>
+
         <div className='col-span-3 mr-5'>
           <ProductDisplay />
         </div>
       </div>
+
       <NavBar />
     </div>
   );

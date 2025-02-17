@@ -1,15 +1,26 @@
 import { Search } from 'lucide-react';
-import { useSearchStore } from '../../store';
+import { Skeleton } from '@/components/ui/skeleton';
+
+import useProductStore from '@/store/useProductStore';
 
 function SearchBar({ className }) {
-  const setSearch = useSearchStore(state => state.setSearch);
-  const handleSearch = (e) => setSearch(e.target.value.toLowerCase());
+  const { loading, setSearchInput } = useProductStore();
+
+  const handleSearchInput = (e) => setSearchInput(e.target.value.toLowerCase());
+
+  if (loading) {
+    return (
+      <div className={className}>
+        <Skeleton className="w-full h-10 rounded-full" />
+      </div>
+    )
+  }
 
   return (
     <div className={`relative ${className}`}>
       <input
         className='w-full bg-gray-200 pl-9 py-2 pr-4 rounded-full'
-        onChange={handleSearch}
+        onChange={handleSearchInput}
         type='text'
         placeholder='Search...'
         name='searchProducts'
