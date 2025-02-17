@@ -1,11 +1,13 @@
 import ProductDrawer from './ProductDrawer';
 import { Skeleton } from '@/components/ui/skeleton';
+
 import { useState } from 'react';
 
 function ProductCard({ product }) {
   const [loading, setLoading] = useState(true);
+  const { name, price, image_url: imageUrl } = product;
 
-  const handleImageLoad = () => {
+  const onImageLoad = () => {
     setLoading(false);
   }
 
@@ -16,18 +18,18 @@ function ProductCard({ product }) {
           <Skeleton className='w-full h-full rounded' />
         )}
         <img
-          src={product.image}
-          alt={product.name}
-          className={`w-full h-full rounded object-cover ${loading ? 'hidden' : ''}`}
-          onLoad={handleImageLoad}
+          src={imageUrl}
+          alt={name}
+          className={`w-full h-full rounded object-cover ${loading && 'hidden'}`}
+          onLoad={onImageLoad}
         />
       </div>
 
       <div className='relative w-full'>
-        <p className='mt-2'>{product.name}</p>
+        <p className='mt-2'>{name}</p>
 
         <div className='absolute bottom-2 left-0 flex justify-between w-full'>
-          <p className='my-auto'>${product.price}</p>
+          <p className='my-auto'>${price}</p>
           <ProductDrawer product={product} />
         </div>
       </div>
