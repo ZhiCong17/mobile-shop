@@ -8,8 +8,8 @@ import { usePathStore } from '@/store';
 import { useUserStore } from '@/store';
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('john@example.com');
+  const [password, setPassword] = useState('password');
   const login = useUserStore(state => state.login);
   const navigate = useNavigate();
   const returnPath = usePathStore(state => state.returnPath);
@@ -77,7 +77,7 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <label className='font-bold mb-1' htmlFor='email'>Email</label>
-      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='email' value={email} name='email' id='email' autoComplete='email' placeholder='me@example.com' onChange={e => setEmail(e.target.value)} />
+      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='email' value={email} name='email' id='email' autoComplete='email' placeholder='john@example.com' onChange={e => setEmail(e.target.value)} />
       <label className='font-bold mb-1' htmlFor='password'>Password</label>
       <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='password' value={password} name='password' id='password' placeholder='********' onChange={e => setPassword(e.target.value)} />
       <Button className='w-full' type='submit'>Login</Button>

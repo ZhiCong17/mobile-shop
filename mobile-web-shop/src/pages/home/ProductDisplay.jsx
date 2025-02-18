@@ -25,11 +25,13 @@ function ProductDisplay() {
   useEffect(() => {
     setCurrentPage(1);
   }, [categoryFilter]);
-
+console.log(currentItems)
   // Display products after filtering and pagination
-  const display = currentItems.map((product) => {
-    return <ProductCard key={product.id} product={product} />
-  });
+  const display = currentItems?.length
+    ? currentItems.map((product) => {
+      return <ProductCard key={product.id} product={product} />
+    })
+    : <div className='mt-8 text-center'>No product found</div>
 
   // Display skeleton loading while fetching products
   const ProductCardSkeleton = () => {
