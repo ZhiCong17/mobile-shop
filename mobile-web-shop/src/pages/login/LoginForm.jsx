@@ -1,85 +1,90 @@
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/hooks/use-toast';
+import { showToast } from '@/utils/toastUtils';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { usePathStore } from '@/store';
-import { useUserStore } from '@/store';
+import useReturnPathStore from '@/store/useReturnPathStore';
+import useUserStore from '@/store/useUserStore';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useUserStore(state => state.login);
+
   const navigate = useNavigate();
-  const returnPath = usePathStore(state => state.returnPath);
   const { toast } = useToast();
+
+  const { returnPath } = useReturnPathStore();
+  const { login, fetchUser } = useUserStore();
+
+  // Temporary manually authenicate user, will be replaced with Supabase auth
+  let fetchedUser;
+  const fetchUserData = async () => await fetchUser(email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      const toastId = toast({
+      showToast({
+        toast,
         variant: 'destructive',
         description: 'Email and password are required.'
       });
-
-      setTimeout(() => toastId.dismiss(), 3000);
       return;
     }
 
-    const loginData = { email, password };
+    fetchedUser = await fetchUserData();
 
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData),
-      })
-
-      const result = await response.json();
-
-      if (result.status === 200) {
-        const user = result.user;
-
-        login(user);
-        navigate(returnPath);
-
-        const toastId = toast({
-          description: 'You have logged in successfully.',
-        })
-
-        setTimeout(() => {
-          toastId.dismiss();
-        }, 2000);
-      } else {
-        console.error('Error:', result.message);
-
-        const toastId = toast({
-          variant: 'destructive',
-          description: result.message
-        });
-
-        setTimeout(() => toastId.dismiss(), 3000);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-
-      const toastId = toast({
+    if (!fetchedUser) {
+      showToast({
+        toast,
         variant: 'destructive',
-        description: 'There was an error during login. Please try again later.'
+        description: 'User not found.'
       });
+      return;
+    }
 
-      setTimeout(() => toastId.dismiss(), 3000);
+    if (fetchedUser.password === password) {
+      login(fetchedUser.id);
+      navigate(returnPath);
+      showToast({
+        toast,
+        description: 'You have logged in successfully.',
+        timeout: 2000
+      })
+    } else {
+      showToast({
+        toast,
+        variant: 'destructive',
+        description: 'Incorrect password.'
+      });
     }
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label className='font-bold mb-1' htmlFor='email'>Email</label>
-      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='email' value={email} name='email' id='email' autoComplete='email' placeholder='me@example.com' onChange={e => setEmail(e.target.value)} />
+      <input
+        className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full'
+        type='email'
+        value={email}
+        name='email'
+        id='email'
+        autoComplete='email'
+        placeholder='me@example.com'
+        onChange={e => setEmail(e.target.value)}
+      />
       <label className='font-bold mb-1' htmlFor='password'>Password</label>
-      <input className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full' type='password' value={password} name='password' id='password' placeholder='********' onChange={e => setPassword(e.target.value)} />
+      <input
+        className='mb-5 pl-3 h-10 border border-neutral-500 rounded w-full'
+        type='password'
+        value={password}
+        name='password'
+        id='password'
+        placeholder='********'
+        onChange={e => setPassword(e.target.value)}
+      />
       <Button className='w-full' type='submit'>Login</Button>
     </form>
   )
