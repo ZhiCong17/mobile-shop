@@ -10,23 +10,39 @@ import {
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/hooks/use-toast';
-import { ToastAction } from '@/components/ui/toast';
+import { showToast, createToastAction } from '@/utils/toastUtils';
 import { CirclePlus } from 'lucide-react';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import { useUserStore } from '@/store';
-import { usePathStore } from '@/store';
+import useUserStore from '@/store/useUserStore';
+import useReturnPathStore from '@/store/useReturnPathStore';
 import { useCartStore } from '@/store';
 
 function ProductDrawer({ product }) {
-  const [count, setCount] = useState(1);
-  const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
-  const setReturnPath = usePathStore((state) => state.setReturnPath);
-  const { addCountToCart } = useCartStore();
   const { toast } = useToast();
+  const { setReturnPath } = useReturnPathStore();
+
+  const handleClickWithoutLogin = () => {
+    const action = createToastAction({
+      className: 'bg-slate-400',
+      altText: 'Login',
+      onClick: () => navigate('/login'),
+    });
+
+    showToast({
+      toast,
+      description: 'Please login to proceed.',
+      timeout: 4000,
+      action
+    })
+
+    setReturnPath('/');
+  }
+
+  const [count, setCount] = useState(1);
 
   function handlePlusClick() {
     setCount(count + 1);
@@ -38,22 +54,15 @@ function ProductDrawer({ product }) {
     }
   }
 
-  function handleClickWithoutLogin() {
-    const toastId = toast({
-      description: 'Please login to proceed.',
-      action: <ToastAction className='bg-slate-400' altText='Login' onClick={() => navigate('/login')}>Login</ToastAction>,
-    });
-
-    setTimeout(() => toastId.dismiss(), 4000);
-    setReturnPath('/');
-  }
+  const { userId } = useUserStore();
+  const { addCountToCart } = useCartStore();
 
   async function handleAddToCartClick() {
     try {
       const response = await fetch('api/add-to-cart', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user.id, productId: product.id, quantity: count }),
+        body: JSON.stringify({ userId: userId, productId: product.id, quantity: count }),
       })
 
       if (!response.ok) {
@@ -100,7 +109,7 @@ function ProductDrawer({ product }) {
 
   return (
     <Drawer>
-      {user ? <DrawerTrigger><CirclePlus /></DrawerTrigger> : <CirclePlus onClick={handleClickWithoutLogin} />}
+      {userId ? <DrawerTrigger><CirclePlus /></DrawerTrigger> : <CirclePlus onClick={handleClickWithoutLogin} />}
       <DrawerContent>
         <DrawerHeader className='gap-4'>
           <img className='rounded-lg w-full aspect-[4/3] object-cover' src={product.image} alt={product.name} />
