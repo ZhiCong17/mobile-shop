@@ -7,6 +7,13 @@
     <title>SaaS Mall</title>
   </head>
   <body>
+    <script type="text/javascript">
+      // 如果是桌面端浏览器，就跳转到桌面端
+      const isDesktop = window.innerWidth > 880
+      if (isDesktop) {
+        window.location.href = window.location.origin.replace(window.location.port, window.location.port + 1)
+      }
+    </script>
     <div id="root" data-aria-hidden="false" aria-hidden="false"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
