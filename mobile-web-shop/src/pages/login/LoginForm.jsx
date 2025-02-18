@@ -11,7 +11,7 @@ import useUserStore from '@/store/useUserStore';
 function LoginForm() {
   const [email, setEmail] = useState('john@example.com');
   const [password, setPassword] = useState('password');
-  const login = useUserStore(state => state.login);
+
   const navigate = useNavigate();
   const { toast } = useToast();
 
