@@ -25,6 +25,28 @@ const useCartStore = create((set, get) => ({
       return {status: 500, error};
     }
   },
+
+  cartItems: [],
+  loading: false,
+  hasFetched: false,
+
+  fetchCartItems: async (userId) => {
+    set({ loading: true });
+
+    try {
+      const { data: cartItems, error } = await supabase
+        .from('cart_item')
+        .select('product_id, quantity, product(name, price, image_url)')
+        .eq('user_id', userId);
+
+      if (error) throw error;
+
+      set({ cartItems, loading: false, hasFetched: true });
+    } catch (error) {
+      console.error('Failed to fetch cart items:', error);
+      set({ loading: false });
+    }
+  },
 }))
 
 export default useCartStore;

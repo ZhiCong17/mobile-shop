@@ -1,35 +1,41 @@
 import ProductCard from './ProductCard';
 import Footer from './Footer';
+import ProductCardSkeleton from './ProductCardSkeleton';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/components/hooks/use-toast';
+import { showToast, createToastAction } from '@/utils/toastUtils';
 import { ToastAction } from '@/components/ui/toast';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useUserStore, usePathStore } from '@/store';
+import useReturnPathStore from '@/store/useReturnPathStore';
+import useUserStore from '@/store/useUserStore';
+import useCartStore from '@/store/useCartStore';
 
 function CartPage() {
-  const user = useUserStore(state => state.user);
-  const setReturnPath = usePathStore(state => state.setReturnPath);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState(new Set());
   const selectedItemsCount = selectedItems.size;
-  const [cartItems, setCartItems] = useState([]);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
-  const [stripePromise, setStripePromise] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
+  const { setReturnPath } = useReturnPathStore();
+
+  // Redirect user back to cart page after login
   useEffect(() => {
     setReturnPath('/cart');
-  }, []);
+  }, [setReturnPath]);
+
+  // Fetch user's cart items and initiate a Stripe promise
+  const { userId } = useUserStore();
+  const { cartItems, loading, hasFetched, fetchCartItems } = useCartStore();
+  const [stripePromise, setStripePromise] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      fetchUserCartItems(user.id);
+    if (userId && !hasFetched) {
+      fetchCartItems(userId);
 
       const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       setStripePromise(stripePromise);
@@ -38,7 +44,7 @@ function CartPage() {
     return () => {
       setStripePromise(null);
     }
-  }, [user]);
+  }, [userId, hasFetched]);
 
   useEffect(() => {
     const totalAmount = [...selectedItems].reduce((total, productId) => {
@@ -177,34 +183,9 @@ function CartPage() {
     debouncedUpdateCart(user.id, productId, newQuantity);
   }
 
-  const fetchUserCartItems = async (userId) => {
-    try {
-      const response = await fetch(`/api/carts/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-
-      const data = await response.json();
-
-      if (data.status === 404) {
-        console.error(data.message);
-        setCartItems([]);
-      } else {
-        setCartItems(data.cartItems);
-      }
-    } catch (err) {
-      console.error('Error fetching user cart:', err);
-      setCartItems([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   let cartDisplay;
 
-  if (!user) {
+  if (!userId) {
     cartDisplay = (
       <p className='min-h-[calc(100vh-240px)] flex items-center justify-center'>
         Please <Link className='text-blue-500 underline underline-offset-4 m-1' to='/login'>log in</Link> to view your cart.
@@ -219,13 +200,13 @@ function CartPage() {
   } else if (cartItems.length > 0) {
     cartDisplay = (
       <>
-        {cartItems.map(item => (
+        {cartItems.map(({product, product_id: productId, quantity}) => (
           <ProductCard
-            key={item.productId}
-            item={item}
-            handlePlusMinusClick={e => handlePlusMinusClick(item.productId, e)}
-            isSelected={selectedItems.has(item.productId)}
-            onSelectChange={checked => handleItemSelectChange(item.productId, checked)}
+            key={productId}
+            product={{...product, quantity}}
+            handlePlusMinusClick={e => handlePlusMinusClick(productId, e)}
+            isSelected={selectedItems.has(productId)}
+            onSelectChange={checked => handleItemSelectChange(productId, checked)}
           />
         ))}
       </>
@@ -247,7 +228,7 @@ function CartPage() {
         <Link className='text-blue-500 block mt-5' to='/'>Back to Home</Link>
 
         <div className='flex items-center relative p-7'>
-          <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Cart Page {user ? `(${cartItems.length})` : ''}</h1>
+          <h1 className='m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2'>Cart Page {userId ? `(${cartItems.length})` : ''}</h1>
 
           {cartItems.length > 0 && (
             <Button
@@ -266,7 +247,7 @@ function CartPage() {
         {cartDisplay}
       </div>
 
-      {user && (
+      {userId && (
         <Footer
           totalAmount={totalCheckOutAmount.toFixed(2)}
           selectedItemsCount={selectedItemsCount}
@@ -281,25 +262,6 @@ function CartPage() {
 }
 
 export default CartPage;
-
-const ProductCardSkeleton = () => {
-  return (
-    <div className='flex items-center gap-4 pb-4'>
-      <Skeleton className='w-4 h-4 rounded' />
-      <Skeleton className='w-24 h-24 rounded' />
-      <div className='relative h-24 flex-grow'>
-        <Skeleton className='mt-2 w-28 h-6' />
-        <div className='absolute bottom-2 left-0 flex justify-between w-full'>
-          <Skeleton className='w-12 h-6 my-auto' />
-          <div className='flex gap-3'>
-            <Skeleton className='w-7 h-7' />
-            <Skeleton className='w-2 h-7' />
-            <Skeleton className='w-7 h-7' />
-          </div>        </div>
-      </div>
-    </div>
-  );
-}
 
 function updateCart(userId, productId, quantity) {
   try {

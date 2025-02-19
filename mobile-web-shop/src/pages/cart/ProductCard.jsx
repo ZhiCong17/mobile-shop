@@ -4,35 +4,39 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
 
 function ProductCard(props) {
-  const { item,  handlePlusMinusClick, isSelected, onSelectChange } = props;
-  const { name, price, quantity, image } = item;
+  const { product,  handlePlusMinusClick, isSelected, onSelectChange } = props;
+  const { name, price, image_url: imageUrl, quantity } = product;
   const [loading, setLoading] = useState(true);
-
-  const handleImageLoad = () => {
-    setLoading(false);
-  }
 
   return (
     <div className='flex items-center gap-4 pb-4'>
       <Checkbox checked={isSelected} onCheckedChange={onSelectChange} />
+
       {loading && (
         <Skeleton className='w-24 h-24 rounded' />
       )}
+
       <img
-        src={image}
+        src={imageUrl}
         alt={name}
-        className={`w-24 h-24 rounded object-cover ${loading ? 'hidden' : ''}`}
-        onLoad={handleImageLoad}
+        className={`w-24 h-24 rounded object-cover ${loading && 'hidden'}`}
+        onLoad={() => setLoading(false)}
       />
+
       <div className='relative h-24 flex-grow'>
         <p className='mt-2'>{name}</p>
+
         <div className='absolute bottom-2 left-0 flex justify-between w-full'>
           <p className='my-auto'>${price}</p>
+
           <div className='flex gap-3'>
             <Button className='w-7 h-7 p-0' onClick={handlePlusMinusClick} variant='outline'>-</Button>
+
             <span>{quantity}</span>
+
             <Button className='w-7 h-7 p-0' onClick={handlePlusMinusClick} variant='outline'>+</Button>
           </div>
+
         </div>
       </div>
     </div>
