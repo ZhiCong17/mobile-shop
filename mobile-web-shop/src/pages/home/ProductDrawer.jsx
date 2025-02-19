@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 import useUserStore from '@/store/useUserStore';
 import useReturnPathStore from '@/store/useReturnPathStore';
-import { useCartStore } from '@/store';
+import useCartStore from '@/store/useCartStore';
 
 function ProductDrawer({ product }) {
   const navigate = useNavigate();
@@ -54,56 +54,35 @@ function ProductDrawer({ product }) {
     }
   }
 
+  const { id: productId, name, price, description, image_url: imageUrl } = product;
   const { userId } = useUserStore();
-  const { addCountToCart } = useCartStore();
+  const { addCountToCart, addToCart } = useCartStore();
+
+  const addProductToCart = async () => await addToCart(userId, productId, count);
 
   async function handleAddToCartClick() {
-    try {
-      const response = await fetch('api/add-to-cart', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: userId, productId: product.id, quantity: count }),
-      })
+    const result = await addProductToCart();
 
-      if (!response.ok) {
-        const errorResult = await response.json();
-        console.error('Failed to add to cart:', errorResult.message);
-        const toastId = toast({
-          variant: 'destructive',
-          description: `There was an error adding ${product.name} to the cart. Please try again later.`
-        })
+    if (result.status === 200) {
+      setCount(1);
+      addCountToCart();
 
-        setTimeout(() => toastId.dismiss(), 3000);
-        return;
-      }
-
-      const data = await response.json();
-
-      if (data.status === 200) {
-        setCount(1);
-        addCountToCart();
-
-        const toastId = toast({
-          description: `${product.name} added to cart.`,
-        })
-
-        setTimeout(() => toastId.dismiss(), 3000);
-      } else if (data.status === 409) {
-        const toastId = toast({
-          variant: 'destructive',
-          description: `${product.name} is already in cart.`,
-        })
-
-        setTimeout(() => toastId.dismiss(), 3000);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      const toastId = toast({
+      showToast({
+        toast,
+        description: `${name} added to cart.`,
+      });
+    } else if (result.status === 500 && result.error.code === '23505') {
+      showToast({
+        toast,
         variant: 'destructive',
-        description: `There was an error adding ${product.name} to the cart.\nPlease try again later.`
-      })
-
-      setTimeout(() => toastId.dismiss(), 3000);
+        description: `${name} is already in cart.`,
+      });
+    } else {
+      showToast({
+        toast,
+        variant: 'destructive',
+        description: `There was an error adding ${name} to the cart.`,
+      });
     }
   }
 
@@ -112,10 +91,10 @@ function ProductDrawer({ product }) {
       {userId ? <DrawerTrigger><CirclePlus /></DrawerTrigger> : <CirclePlus onClick={handleClickWithoutLogin} />}
       <DrawerContent>
         <DrawerHeader className='gap-4'>
-          <img className='rounded-lg w-full aspect-[4/3] object-cover' src={product.image} alt={product.name} />
-          <DrawerTitle>{product.name}</DrawerTitle>
-          <DrawerDescription>${product.price}</DrawerDescription>
-          <DrawerDescription>{product.description}</DrawerDescription>
+          <img className='rounded-lg w-full aspect-[4/3] object-cover' src={imageUrl} alt={name} />
+          <DrawerTitle>{name}</DrawerTitle>
+          <DrawerDescription>${price}</DrawerDescription>
+          <DrawerDescription>{description}</DrawerDescription>
           <div className='flex justify-center gap-4 items-center'>
             <Button onClick={handleMinusClick} variant='outline'>-</Button>
             <span className='px-4'>{count}</span>
