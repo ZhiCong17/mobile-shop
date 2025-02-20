@@ -20,6 +20,7 @@ const useCartStore = create((set, get) => ({
 
       if (error) throw error;
 
+      set({ hasFetched: false });
       return {status: 200};
     } catch (error) {
       console.error('Failed to add to cart:', error);
