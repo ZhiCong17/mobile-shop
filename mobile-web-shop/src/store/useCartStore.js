@@ -9,6 +9,7 @@ const useCartStore = create((set, get) => ({
     set({ cartProductCount: newCount });
   },
 
+  // Create
   addToCart: async (userId, productId, quantity) => {
     try {
       const { data, error } = await supabase
@@ -26,6 +27,7 @@ const useCartStore = create((set, get) => ({
     }
   },
 
+  // Read
   cartItems: [],
   setCartItems: (items) => set({ cartItems: items }),
   loading: false,
@@ -49,6 +51,7 @@ const useCartStore = create((set, get) => ({
     }
   },
 
+  // Update
   updateCartItem: async (userId, productId, newQuantity) => {
     try {
       const { data, error } = await supabase
@@ -62,6 +65,24 @@ const useCartStore = create((set, get) => ({
       return {status: 200};
     } catch (error) {
       console.error('Failed to update cart:', error);
+      return {status: 500, error};
+    }
+  },
+
+  // Delete
+  deleteCartItem: async (userId, productId) => {
+    try {
+      const { data, error } = await supabase
+        .from('cart_item')
+        .delete()
+        .eq('user_id', userId)
+        .eq('product_id', productId);
+
+      if (error) throw error;
+
+      return {status: 200};
+    } catch (error) {
+      console.error('Failed to delete cart item:', error);
       return {status: 500, error};
     }
   },

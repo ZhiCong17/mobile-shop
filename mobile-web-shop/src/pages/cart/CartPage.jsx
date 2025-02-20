@@ -4,7 +4,6 @@ import ProductCardSkeleton from './ProductCardSkeleton';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/hooks/use-toast';
 import { showToast, createToastAction } from '@/utils/toastUtils';
-import { ToastAction } from '@/components/ui/toast';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect, useCallback } from 'react';
@@ -15,7 +14,6 @@ import useUserStore from '@/store/useUserStore';
 import useCartStore from '@/store/useCartStore';
 
 function CartPage() {
-  const [selectedAll, setSelectedAll] = useState(false);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const { toast } = useToast();
 
@@ -28,9 +26,17 @@ function CartPage() {
   }, [setReturnPath]);
 
   // Fetch user's cart items and initiate a Stripe promise
-  const { userId } = useUserStore();
-  const { cartItems, setCartItems, loading, hasFetched, fetchCartItems, updateCartItem } = useCartStore();
   const [stripePromise, setStripePromise] = useState(null);
+  const { userId } = useUserStore();
+  const {
+    cartItems,
+    setCartItems,
+    loading,
+    hasFetched,
+    fetchCartItems,
+    updateCartItem,
+    deleteCartItem
+  } = useCartStore();
 
   useEffect(() => {
     if (userId && !hasFetched) {
@@ -98,15 +104,73 @@ function CartPage() {
     debouncedUpdateCartItem(userId, productId, newQuantity);
   }
 
-  useEffect(() => {
-    const totalAmount = [...selectedItems].reduce((total, productId) => {
-      const item = cartItems.find(item => item.productId === productId);
+  // Handle deleting selected cart items
+  const handleDelete = async (userId, selectedItems) => {
+    selectedItems.forEach((item) => {
+      deleteCartItem(userId, item);
+    })
 
-      return total + item.price * item.quantity;
-    }, 0);
+    showToast({
+      toast,
+      variant: 'destructive',
+      description: `${selectedItems.size === 1 ? "Product" : "Products"} removed from cart.`,
+    })
 
-    setTotalCheckOutAmount(totalAmount);
-  }, [selectedItems]);
+    const updatedCartItems = cartItems.filter(item => !selectedItems.has(item.product_id));
+    setCartItems(updatedCartItems);
+    setSelectedItems(new Set());
+    setSelectedAll(false);
+  }
+
+  const handleDeleteButtonClick = () => {
+    const confirmAction = createToastAction({
+      className: 'bg-slate-400',
+      altText: 'Confirm',
+      onClick: () => handleDelete(userId, selectedItems)
+    })
+
+    const cancelAction = createToastAction({
+      className: 'bg-slate-400',
+      altText: 'Cancel',
+      onClick: () => {}
+    })
+
+    showToast({
+      toast,
+      variant: 'destructive',
+      timeout: 5000,
+      description: 'Are you sure you want to delete the selected items?',
+      action: (
+        <div className='flex flex-col gap-2'>
+          {confirmAction}
+          {cancelAction}
+        </div>
+      )
+    })
+  }
+
+  // Handle clicking select all checkbox
+  const [selectedAll, setSelectedAll] = useState(false);
+
+  const handleSelectAllChange = (checked) => {
+    setSelectedAll(checked);
+    if (checked) {
+      const allProductIds = cartItems.map((item) => item.product_id);
+      setSelectedItems(new Set(allProductIds));
+    } else {
+      setSelectedItems(new Set());
+    }
+  }
+
+  // useEffect(() => {
+  //   const totalAmount = [...selectedItems].reduce((total, productId) => {
+  //     const item = cartItems.find(item => item.productId === productId);
+
+  //     return total + item.price * item.quantity;
+  //   }, 0);
+
+  //   setTotalCheckOutAmount(totalAmount);
+  // }, [selectedItems]);
 
   const handleCheckout = async () => {
     try {
@@ -146,61 +210,11 @@ function CartPage() {
     }
   }
 
-  const handleSelectAllChange = (checked) => {
-    setSelectedAll(checked);
-    if (checked) {
-      const allProductIds = cartItems.map(item => item.productId);
-      setSelectedItems(new Set(allProductIds));
-    } else {
-      setSelectedItems(new Set());
-    }
-  }
 
-  const handleDeleteButtonClick = () => {
-    toast({
-      variant: 'destructive',
-      description: 'Are you sure you want to delete the selected items?',
-      action: (
-        <div className='flex flex-col gap-2'>
-          <ToastAction className='bg-slate-400' altText='Confirm' onClick={() => handleDelete(user.id, selectedItems)}>Confirm</ToastAction>
-          <ToastAction className='bg-slate-400' altText='Cancel'>Cancel</ToastAction>
-        </div>
-      )
-    })
-  }
 
-  const handleDelete = async (userId, selectedItems) => {
-    try {
-      const response = await fetch('/api/remove-from-cart', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId,
-          selectedItems: [...selectedItems],
-        }),
-      });
 
-      const data = await response.json();
 
-      if (data.status === 200) {
-        const updatedCartItems = cartItems.filter(item => !selectedItems.has(item.productId));
-        setCartItems(updatedCartItems);
-        setSelectedItems(new Set());
-        setSelectedAll(false);
 
-        const toastId = toast({
-          variant: 'destructive',
-          description: 'Product(s) removed from cart.',
-        })
-
-        setTimeout(() => toastId.dismiss(), 3000);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
 
 
 
