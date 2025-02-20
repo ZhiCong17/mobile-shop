@@ -15,22 +15,21 @@ import useUserStore from '@/store/useUserStore';
 import useCartStore from '@/store/useCartStore';
 
 function CartPage() {
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedItems, setSelectedItems] = useState(new Set());
-  const selectedItemsCount = selectedItems.size;
+  const [selectedAll, setSelectedAll] = useState(false);
   const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const { toast } = useToast();
 
-  const { setReturnPath } = useReturnPathStore();
 
   // Redirect user back to cart page after login
+  const { setReturnPath } = useReturnPathStore();
+
   useEffect(() => {
     setReturnPath('/cart');
   }, [setReturnPath]);
 
   // Fetch user's cart items and initiate a Stripe promise
   const { userId } = useUserStore();
-  const { cartItems, loading, hasFetched, fetchCartItems } = useCartStore();
+  const { cartItems, setCartItems, loading, hasFetched, fetchCartItems, updateCartItem } = useCartStore();
   const [stripePromise, setStripePromise] = useState(null);
 
   useEffect(() => {
@@ -45,6 +44,59 @@ function CartPage() {
       setStripePromise(null);
     }
   }, [userId, hasFetched]);
+
+  // Handle clicking checkbox of individual cart items
+  const [selectedItems, setSelectedItems] = useState(new Set());
+  const selectedItemsCount = selectedItems.size;
+
+  const handleItemSelectChange = (productId, checked) => {
+    if (checked) {
+      setSelectedItems(new Set([...selectedItems, productId]));
+    } else {
+      selectedItems.delete(productId);
+      setSelectedItems(new Set(selectedItems));
+      setSelectedAll(false);
+    }
+  }
+
+  // Handle adding or minus quantity of cart items
+  // ** To fix issue of cart items sequence changing when quantity is updated
+  const debounce = (fn, delay) => {
+    let timeoutId;
+
+    return function (...args) {
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    }
+  }
+
+  const debouncedUpdateCartItem = useCallback(debounce((userId, productId, newQuantity) => {
+    updateCartItem(userId, productId, newQuantity);
+  }, 1000), []);
+
+  const handlePlusMinusClick = (productId, e) => {
+    const item = cartItems.find((item) => item.product_id === productId);
+
+    if (!item) return;
+
+    let newQuantity;
+
+    if (e.target.textContent === '+') {
+      newQuantity = item.quantity + 1;
+    } else if (e.target.textContent === '-' && item.quantity > 1) {
+      newQuantity = item.quantity - 1;
+    }
+
+    const updatedCartItems = cartItems.map((item) =>
+      item.product_id === productId ? { ...item, quantity: newQuantity} : item
+    );
+
+    setCartItems(updatedCartItems);
+    debouncedUpdateCartItem(userId, productId, newQuantity);
+  }
 
   useEffect(() => {
     const totalAmount = [...selectedItems].reduce((total, productId) => {
@@ -95,22 +147,12 @@ function CartPage() {
   }
 
   const handleSelectAllChange = (checked) => {
-    setSelectAll(checked);
+    setSelectedAll(checked);
     if (checked) {
       const allProductIds = cartItems.map(item => item.productId);
       setSelectedItems(new Set(allProductIds));
     } else {
       setSelectedItems(new Set());
-    }
-  }
-
-  const handleItemSelectChange = (productId, checked) => {
-    if (checked) {
-      setSelectedItems(new Set([...selectedItems, productId]));
-    } else {
-      selectedItems.delete(productId);
-      setSelectedItems(new Set(selectedItems));
-      setSelectAll(false);
     }
   }
 
@@ -146,7 +188,7 @@ function CartPage() {
         const updatedCartItems = cartItems.filter(item => !selectedItems.has(item.productId));
         setCartItems(updatedCartItems);
         setSelectedItems(new Set());
-        setSelectAll(false);
+        setSelectedAll(false);
 
         const toastId = toast({
           variant: 'destructive',
@@ -160,28 +202,7 @@ function CartPage() {
     }
   }
 
-  const debouncedUpdateCart = useCallback(debounce((userId, productId, newQuantity) => {
-    updateCart(userId, productId, newQuantity);
-  }, 1000), []);
 
-  function handlePlusMinusClick(productId, e) {
-    const itemIndex = cartItems.findIndex(item => item.productId === productId);
-    if (itemIndex === -1) return;
-
-    const updatedCartItems = [...cartItems];
-    let newQuantity = updatedCartItems[itemIndex].quantity;
-
-    if (e.target.textContent === '+') {
-      newQuantity = newQuantity + 1;
-    } else if (e.target.textContent === '-' && newQuantity > 1) {
-      newQuantity = newQuantity - 1;
-    }
-
-    updatedCartItems[itemIndex].quantity = newQuantity
-
-    setCartItems(updatedCartItems);
-    debouncedUpdateCart(user.id, productId, newQuantity);
-  }
 
   let cartDisplay;
 
@@ -251,7 +272,7 @@ function CartPage() {
         <Footer
           totalAmount={totalCheckOutAmount.toFixed(2)}
           selectedItemsCount={selectedItemsCount}
-          selectAll={selectAll}
+          selectedAll={selectedAll}
           onSelectAllChange={handleSelectAllChange}
           onCheckout={handleCheckout}
           isSelectAllDisabled={cartItems.length === 0}
@@ -262,33 +283,3 @@ function CartPage() {
 }
 
 export default CartPage;
-
-function updateCart(userId, productId, quantity) {
-  try {
-    fetch('/api/edit-cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId,
-        productId,
-        quantity,
-      }),
-    });
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-function debounce(fn, delay) {
-  let timeoutId;
-
-  return function (...args) {
-    clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
-  }
-}

@@ -27,6 +27,7 @@ const useCartStore = create((set, get) => ({
   },
 
   cartItems: [],
+  setCartItems: (items) => set({ cartItems: items }),
   loading: false,
   hasFetched: false,
 
@@ -45,6 +46,23 @@ const useCartStore = create((set, get) => ({
     } catch (error) {
       console.error('Failed to fetch cart items:', error);
       set({ loading: false });
+    }
+  },
+
+  updateCartItem: async (userId, productId, newQuantity) => {
+    try {
+      const { data, error } = await supabase
+        .from('cart_item')
+        .update({ quantity: newQuantity })
+        .eq('user_id', userId)
+        .eq('product_id', productId);
+
+      if (error) throw error;
+
+      return {status: 200};
+    } catch (error) {
+      console.error('Failed to update cart:', error);
+      return {status: 500, error};
     }
   },
 }))
