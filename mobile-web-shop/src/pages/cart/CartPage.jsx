@@ -14,9 +14,7 @@ import useUserStore from '@/store/useUserStore';
 import useCartStore from '@/store/useCartStore';
 
 function CartPage() {
-  const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
   const { toast } = useToast();
-
 
   // Redirect user back to cart page after login
   const { setReturnPath } = useReturnPathStore();
@@ -57,6 +55,10 @@ function CartPage() {
 
   const handleItemSelectChange = (productId, checked) => {
     if (checked) {
+      if (selectedItems.size === cartItems.length - 1) {
+        setSelectedAll(true);
+      }
+
       setSelectedItems(new Set([...selectedItems, productId]));
     } else {
       selectedItems.delete(productId);
@@ -162,15 +164,19 @@ function CartPage() {
     }
   }
 
-  // useEffect(() => {
-  //   const totalAmount = [...selectedItems].reduce((total, productId) => {
-  //     const item = cartItems.find(item => item.productId === productId);
+  // Calculate total amount of selected items
+  const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
 
-  //     return total + item.price * item.quantity;
-  //   }, 0);
+  useEffect(() => {
+    const totalAmount = [...selectedItems].reduce((total, productId) => {
+      const item = cartItems.find((item) => item.product_id === productId);
+      return total + item.product.price * item.quantity;
+    }, 0);
 
-  //   setTotalCheckOutAmount(totalAmount);
-  // }, [selectedItems]);
+    setTotalCheckOutAmount(totalAmount);
+  }, [selectedItems, handlePlusMinusClick]);
+
+
 
   const handleCheckout = async () => {
     try {
