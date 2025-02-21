@@ -39,13 +39,8 @@ function CartPage() {
   useEffect(() => {
     if (userId && !hasFetched) {
       fetchCartItems(userId);
-
       const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       setStripePromise(stripePromise);
-    }
-
-    return () => {
-      setStripePromise(null);
     }
   }, [userId, hasFetched]);
 
@@ -176,32 +171,38 @@ function CartPage() {
     setTotalCheckOutAmount(totalAmount);
   }, [selectedItems, handlePlusMinusClick]);
 
-
-
+  // Handle checkout
   const handleCheckout = async () => {
     try {
       const stripe = await stripePromise;
-      const checkoutItems = cartItems.filter(item => selectedItems.has(item.productId));
+      const checkoutItems = cartItems.filter((item) => selectedItems.has(item.product_id));
 
       if (!stripe) {
         throw new Error('Stripe has not been initialized');
       }
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: checkoutItems
-        }),
-      });
 
-      const data = await response.json();
+      const response = await fetch(
+        'https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/create-stripe-session',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            items: checkoutItems
+          }),
+        }
+      );
 
-      if (data.status === 200) {
-        localStorage.setItem('stripeSessionId', data.sessionId);
-        localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems));
-        localStorage.setItem('orderUpdated', 'false');
+      if (!response.ok) {
+        const errorData = await response.json();
+
+        throw new Error(errorData.error || 'Failed to create Stripe checkout session');
+      }
+
+      if (response.ok) {
+        const data = await response.json();
 
         const session = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
@@ -211,18 +212,10 @@ function CartPage() {
           throw session.error;
         }
       }
-    } catch(err) {
-      console.error('Checkout error:', err);
+    } catch(error) {
+      console.error('Checkout error:', error);
     }
   }
-
-
-
-
-
-
-
-
 
   let cartDisplay;
 
