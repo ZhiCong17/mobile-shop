@@ -1,7 +1,7 @@
-import ProductDrawer from './ProductDrawer';
-import { Skeleton } from '@/components/ui/skeleton';
+import ProductDrawer from "./ProductDrawer";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 function ProductCard({ product }) {
   const [loading, setLoading] = useState(true);
@@ -9,27 +9,27 @@ function ProductCard({ product }) {
 
   const onImageLoad = () => {
     setLoading(false);
-  }
+  };
 
   return (
-    <div className='flex pl-4 pb-4 pr-0 gap-2'>
-      <div className='w-24 h-24 flex-shrink-0'>
-        {loading && (
-          <Skeleton className='w-full h-full rounded' />
-        )}
+    <div className="flex pl-4 pb-4 pr-0 gap-2">
+      <div className="w-24 h-24 flex-shrink-0">
+        {loading && <Skeleton className="w-full h-full rounded" />}
         <img
           src={imageUrl}
           alt={name}
-          className={`w-full h-full rounded object-cover ${loading && 'hidden'}`}
+          className={`w-full h-full rounded object-cover ${
+            loading && "hidden"
+          }`}
           onLoad={onImageLoad}
         />
       </div>
 
-      <div className='relative w-full'>
-        <p className='mt-2'>{name}</p>
+      <div className="relative w-full">
+        <p className="mt-1 leading-[1.2] font-semibold">{name}</p>
 
-        <div className='absolute bottom-2 left-0 flex justify-between w-full'>
-          <p className='my-auto'>${price}</p>
+        <div className="absolute bottom-2 left-0 flex justify-between w-full">
+          <p className="my-auto">${price}</p>
           <ProductDrawer product={product} />
         </div>
       </div>
