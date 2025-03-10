@@ -1,11 +1,11 @@
-import ProductDisplay from './ProductDisplay';
-import SearchBar from './SearchBar';
-import CategoryFilterMenu from './CategoryFilterMenu';
-import NavBar from '@/components/NavBar';
+import ProductDisplay from "./ProductDisplay";
+import SearchBar from "./SearchBar";
+import CategoryFilterMenu from "./CategoryFilterMenu";
+import NavBar from "@/components/NavBar";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import useProductStore from '@/store/useProductStore';
+import useProductStore from "@/store/useProductStore";
 
 function HomePage() {
   const { fetchProducts, hasFetched, clearCategoryFilter } = useProductStore();
@@ -19,19 +19,19 @@ function HomePage() {
   useEffect(() => {
     return () => {
       clearCategoryFilter();
-    }
+    };
   }, [clearCategoryFilter]);
 
   return (
-    <div className='pb-20'>
-      <SearchBar className='m-5'/>
+    <div className="pb-20">
+      <SearchBar className="m-5" />
 
-      <div className='grid grid-cols-4'>
-        <div className='col-span-1'>
+      <div className="grid grid-cols-4 sm:flex">
+        <div className="col-span-1">
           <CategoryFilterMenu />
         </div>
 
-        <div className='col-span-3 mr-5'>
+        <div className="col-span-3 sm:grid sm:grid-cols-2 w-full h-fit">
           <ProductDisplay />
         </div>
       </div>

@@ -33,7 +33,7 @@ export function PaginationSection({
   };
 
   return (
-    <Pagination className="transform scale-75">
+    <Pagination className="transform scale-75 sm:scale-100">
       <PaginationContent className="gap-0">
         <PaginationItem>
           <PaginationPrevious className="pr-2" onClick={handlePrevClick} />

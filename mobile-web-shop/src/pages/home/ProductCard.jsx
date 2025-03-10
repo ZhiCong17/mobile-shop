@@ -12,7 +12,7 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="flex pl-4 pb-4 pr-0 gap-2">
+    <div className="flex px-4 pb-4 gap-2">
       <div className="w-24 h-24 flex-shrink-0">
         {loading && <Skeleton className="w-full h-full rounded" />}
         <img
