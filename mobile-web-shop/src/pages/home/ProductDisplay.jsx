@@ -40,13 +40,12 @@ function ProductDisplay() {
   // Display skeleton loading while fetching products
   const ProductCardSkeleton = () => {
     return (
-      <div className="flex px-4 pb-4 gap-2">
+      <div className="flex flex-1 mx-4 mb-4 gap-2 rounded-lg shadow-md">
         <Skeleton className="h-24 w-24 rounded flex-shrink-0" />
         <div className="relative w-full">
-          <Skeleton className="h-6 w-30 mt-2" />
-          <div className="absolute bottom-2 left-0 flex justify-between w-full">
+          <Skeleton className="h-6 w-20 mt-1" />
+          <div className="absolute bottom-1 left-0 flex justify-between w-full">
             <Skeleton className="h-6 w-12 my-auto" />
-            <Skeleton className="h-6 w-6 rounded-full" />
           </div>
         </div>
       </div>
