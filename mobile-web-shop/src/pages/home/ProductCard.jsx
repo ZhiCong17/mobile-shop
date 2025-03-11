@@ -12,28 +12,24 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="flex px-4 pb-4 gap-2">
-      <div className="w-24 h-24 flex-shrink-0">
-        {loading && <Skeleton className="w-full h-full rounded" />}
-        <img
-          src={imageUrl}
-          alt={name}
-          className={`w-full h-full rounded object-cover ${
-            loading && "hidden"
-          }`}
-          onLoad={onImageLoad}
-        />
-      </div>
+    <ProductDrawer product={product}>
+      <div className="flex flex-1 mx-4 mb-4 gap-2 border border-gray-200 rounded-lg shadow-md overflow-hidden">
+        <div className="w-24 h-24 flex-shrink-0">
+          {loading && <Skeleton className="w-full h-full rounded" />}
+          <img
+            src={imageUrl}
+            alt={name}
+            className={`w-full h-full object-cover ${loading && "hidden"}`}
+            onLoad={onImageLoad}
+          />
+        </div>
 
-      <div className="relative w-full">
-        <p className="mt-1 leading-[1.2] font-semibold">{name}</p>
-
-        <div className="absolute bottom-2 left-0 flex justify-between w-full">
-          <p className="my-auto">${price}</p>
-          <ProductDrawer product={product} />
+        <div className="relative pr-2 text-left">
+          <p className="mt-1 leading-[1.2] font-semibold">{name}</p>
+          <p className="absolute bottom-1 left-0">${price}</p>
         </div>
       </div>
-    </div>
+    </ProductDrawer>
   );
 }
 
