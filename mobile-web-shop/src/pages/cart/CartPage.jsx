@@ -234,16 +234,26 @@ function CartPage() {
 
   if (!userId) {
     cartDisplay = (
-      <p className="min-h-[calc(100vh-240px)] flex items-center justify-center">
-        Please{" "}
-        <Link
-          className="text-blue-500 underline underline-offset-4 m-1"
-          to="/login"
-        >
-          log in
-        </Link>{" "}
-        to view your cart.
-      </p>
+      <div className="min-h-[calc(100vh-240px)] flex flex-col items-center justify-center">
+        <div className="w-[200px] h-[200px] rounded-full overflow-hidden mb-6">
+          <img
+            className="w-full h-full object-cover"
+            src="/public/empty-profile.png"
+            alt="empty profile"
+          />
+        </div>
+
+        <p>
+          Please{" "}
+          <Link
+            className="text-blue-500 underline underline-offset-4"
+            to="/login"
+          >
+            log in
+          </Link>{" "}
+          to view your cart.
+        </p>
+      </div>
     );
   } else if (loading) {
     cartDisplay = (
@@ -271,7 +281,13 @@ function CartPage() {
     );
   } else {
     cartDisplay = (
-      <div className="min-h-[calc(100vh-240px)] flex flex-col justify-center text-center">
+      <div className="min-h-[calc(100vh-240px)] flex flex-col justify-center items-center">
+        <img
+          className="mb-6"
+          width={200}
+          src="/public/empty-cart.avif"
+          alt="empty cart"
+        />
         <p>Your cart is empty. </p>
         <p>
           Click{" "}
