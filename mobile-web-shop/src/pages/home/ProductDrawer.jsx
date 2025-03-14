@@ -61,7 +61,7 @@ function ProductDrawer({ product, children }) {
     image_url: imageUrl,
   } = product;
   const { userId } = useUserStore();
-  const { addCountToCart, addToCart } = useCartStore();
+  const { addToCart } = useCartStore();
 
   const addProductToCart = async () =>
     await addToCart(userId, productId, count);
@@ -71,7 +71,6 @@ function ProductDrawer({ product, children }) {
 
     if (result.status === 200) {
       setCount(1);
-      addCountToCart();
 
       showToast({
         toast,
