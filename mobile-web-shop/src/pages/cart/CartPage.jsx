@@ -326,7 +326,7 @@ function CartPage() {
 
         <hr className="mb-5" />
 
-        {cartDisplay}
+        <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">{cartDisplay}</div>
       </div>
       {userId && (
         <Footer
