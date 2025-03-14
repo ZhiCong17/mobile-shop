@@ -40,9 +40,12 @@ const useCartStore = create((set, get) => ({
       set({
         cartItems,
         cartProductCount: cartItems.length,
-        loading: false,
         hasFetched: true,
       });
+
+      setTimeout(() => {
+        set({ loading: false });
+      }, 2000);
     } catch (error) {
       console.error("Failed to fetch cart items:", error);
       set({ loading: false });

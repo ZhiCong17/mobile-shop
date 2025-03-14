@@ -258,7 +258,7 @@ function CartPage() {
   } else if (loading) {
     cartDisplay = (
       <>
-        {[...Array(3)].map((_, index) => (
+        {[...Array(4)].map((_, index) => (
           <ProductCardSkeleton key={index} />
         ))}
       </>
