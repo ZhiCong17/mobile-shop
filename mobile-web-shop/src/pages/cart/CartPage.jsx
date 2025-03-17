@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/hooks/use-toast";
 import { showToast, createToastAction } from "@/utils/toastUtils";
 
-import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import useReturnPathStore from "@/store/useReturnPathStore";
 import useUserStore from "@/store/useUserStore";
 import useCartStore from "@/store/useCartStore";
+import usePaymentStore from "@/store/usePaymentStore";
 
 function CartPage() {
   const { toast } = useToast();
@@ -23,8 +23,7 @@ function CartPage() {
     setReturnPath("/cart");
   }, [setReturnPath]);
 
-  // Fetch user's cart items and initiate a Stripe promise
-  const [stripePromise, setStripePromise] = useState(null);
+  // Fetch user's cart items
   const { userId } = useUserStore();
   const {
     cartItems,
@@ -39,12 +38,17 @@ function CartPage() {
   useEffect(() => {
     if (userId && !hasFetched) {
       fetchCartItems(userId);
-      const stripePromise = loadStripe(
-        import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-      );
-      setStripePromise(stripePromise);
     }
   }, [userId, hasFetched]);
+
+  // Initialize Stripe
+  const { stripe, hasInitiatedStripe, initStripe } = usePaymentStore();
+
+  useEffect(() => {
+    if (userId && !hasInitiatedStripe) {
+      initStripe();
+    }
+  }, [userId, hasInitiatedStripe]);
 
   // Handle clicking checkbox of individual cart items
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -183,14 +187,9 @@ function CartPage() {
   // Handle checkout
   const handleCheckout = async () => {
     try {
-      const stripe = await stripePromise;
       const checkoutItems = cartItems.filter((item) =>
         selectedItems.has(item.product_id)
       );
-
-      if (!stripe) {
-        throw new Error("Stripe has not been initialized");
-      }
 
       const response = await fetch(
         "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/create-stripe-session",

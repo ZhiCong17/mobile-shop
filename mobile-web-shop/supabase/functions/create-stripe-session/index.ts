@@ -1,17 +1,20 @@
 import { serve } from "https://deno.land/std@0.170.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Max-Age': '86400',
-}
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Max-Age": "86400",
+};
 
-const stripe = await import('https://esm.sh/stripe@12.8.0?target=deno&no-check');
+const stripe = await import(
+  "https://esm.sh/stripe@12.8.0?target=deno&no-check"
+);
 const Stripe = stripe.default;
 
-const stripeClient = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
-  apiVersion: '2023-10-16',
+const stripeClient = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
+  apiVersion: "2023-10-16",
   httpClient: Stripe.createFetchHttpClient(),
 });
 
@@ -27,11 +30,11 @@ interface CreateSessionRequest {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: corsHeaders
-    })
+      headers: corsHeaders,
+    });
   }
 
   try {
@@ -41,55 +44,52 @@ serve(async (req) => {
       const itemPriceInCents = +(item.product.price * 100).toFixed(2);
       return {
         price_data: {
-          currency: 'sgd',
+          currency: "sgd",
           product_data: {
             name: item.product.name,
           },
           unit_amount: itemPriceInCents,
         },
         quantity: item.quantity,
-      }
+      };
     });
 
     const session = await stripeClient.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: lineItemsData,
-      mode: 'payment',
-      success_url: 'http://localhost:5173/payment/success',
-      cancel_url: 'http://localhost:5173/payment/cancelled',
+      mode: "payment",
+      success_url: "http://localhost:8080/payment/success",
+      cancel_url: "http://localhost:8080/payment/cancelled",
     });
 
-    return new Response(JSON.stringify({ sessionId: session.id }),
-      {
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
+    return new Response(JSON.stringify({ sessionId: session.id }), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
       },
-    );
+    });
   } catch (error: unknown) {
-    console.error('Error creating Stripe session:', error);
+    console.error("Error creating Stripe session:", error);
 
     if (error instanceof Error) {
-      return new Response(JSON.stringify({ error: error.message }),
-        {
-          status: 400,
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "application/json"
-          },
-        }
-      );
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 400,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
+      });
     }
 
-    return new Response(JSON.stringify({ error: 'An unknown error occurred' }),
+    return new Response(
+      JSON.stringify({ error: "An unknown error occurred" }),
       {
         status: 400,
         headers: {
           ...corsHeaders,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-      }
+      },
     );
   }
-})
+});
