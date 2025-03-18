@@ -172,18 +172,6 @@ function CartPage() {
     }
   };
 
-  // Calculate total amount of selected items
-  const [totalCheckOutAmount, setTotalCheckOutAmount] = useState(0);
-
-  useEffect(() => {
-    const totalAmount = [...selectedItems].reduce((total, productId) => {
-      const item = cartItems.find((item) => item.product_id === productId);
-      return total + item.product.price * item.quantity;
-    }, 0);
-
-    setTotalCheckOutAmount(totalAmount);
-  }, [selectedItems, handlePlusMinusClick]);
-
   // Handle checkout
   const handleCheckout = async () => {
     try {
@@ -329,8 +317,7 @@ function CartPage() {
       </div>
       {userId && (
         <Footer
-          totalAmount={totalCheckOutAmount.toFixed(2)}
-          selectedItemsCount={selectedItemsCount}
+          selectedItems={selectedItems}
           selectedAll={selectedAll}
           onSelectAllChange={handleSelectAllChange}
           onCheckout={handleCheckout}
