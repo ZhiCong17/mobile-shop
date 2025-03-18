@@ -237,7 +237,7 @@ function CartPage() {
         <div className="w-[200px] h-[200px] rounded-full overflow-hidden mb-6">
           <img
             className="w-full h-full object-cover"
-            src="/public/empty-profile.png"
+            src="/empty-profile.png"
             alt="empty profile"
           />
         </div>
@@ -284,7 +284,7 @@ function CartPage() {
         <img
           className="mb-6"
           width={200}
-          src="/public/empty-cart.avif"
+          src="/empty-cart.avif"
           alt="empty cart"
         />
         <p>Your cart is empty. </p>
