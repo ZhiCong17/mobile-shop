@@ -1,8 +1,6 @@
 import Footer from "./Footer";
 import CartItemsDisplay from "./CartItemsDisplay";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/hooks/use-toast";
-import { showToast, createToastAction } from "@/utils/toastUtils";
+import DeleteButton from "./DeleteButton";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -21,13 +19,7 @@ function CartPage() {
 
   // Fetch user's cart items
   const { userId } = useUserStore();
-  const {
-    cartItems,
-    setCartItems,
-    hasFetched,
-    fetchCartItems,
-    deleteCartItem,
-  } = useCartStore();
+  const { cartItems, hasFetched, fetchCartItems } = useCartStore();
 
   useEffect(() => {
     if (userId && !hasFetched) {
@@ -48,57 +40,6 @@ function CartPage() {
     }
   }, [selectedItemsCount, cartItems]);
 
-  // Handle deleting selected cart items
-  const { toast } = useToast();
-
-  const handleDelete = async (userId, selectedItems) => {
-    selectedItems.forEach((item) => {
-      deleteCartItem(userId, item);
-    });
-
-    showToast({
-      toast,
-      variant: "destructive",
-      description: `${
-        selectedItems.size === 1 ? "Product" : "Products"
-      } removed from cart.`,
-    });
-
-    const updatedCartItems = cartItems.filter(
-      (item) => !selectedItems.has(item.product_id)
-    );
-    setCartItems(updatedCartItems);
-    setSelectedItems(new Set());
-    setSelectedAll(false);
-  };
-
-  const handleDeleteButtonClick = () => {
-    const confirmAction = createToastAction({
-      className: "bg-slate-400",
-      altText: "Confirm",
-      onClick: () => handleDelete(userId, selectedItems),
-    });
-
-    const cancelAction = createToastAction({
-      className: "bg-slate-400",
-      altText: "Cancel",
-      onClick: () => {},
-    });
-
-    showToast({
-      toast,
-      variant: "destructive",
-      timeout: 5000,
-      description: "Are you sure you want to delete the selected items?",
-      action: (
-        <div className="flex flex-col gap-2">
-          {confirmAction}
-          {cancelAction}
-        </div>
-      ),
-    });
-  };
-
   return (
     <>
       <div className="m-5 pb-20">
@@ -107,19 +48,17 @@ function CartPage() {
         </Link>
 
         <div className="flex items-center relative p-7">
-          <h1 className="m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2 -translate-x-1/2">
+          <h1 className="m-3 text-lg flex-1 font-bold absolute left-1/2 transform -translate-x-1/2">
             Cart Page {userId ? `(${cartItems.length})` : ""}
           </h1>
 
           {cartItems.length > 0 && (
-            <Button
+            <DeleteButton
               className="absolute right-0"
-              variant="destructive"
-              disabled={selectedItemsCount === 0}
-              onClick={handleDeleteButtonClick}
-            >
-              Delete
-            </Button>
+              selectedItems={selectedItems}
+              setSelectedItems={setSelectedItems}
+              setSelectedAll={setSelectedAll}
+            />
           )}
         </div>
 
