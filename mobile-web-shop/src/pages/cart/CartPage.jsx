@@ -1,11 +1,10 @@
-import ProductCard from "./ProductCard";
 import Footer from "./Footer";
-import ProductCardSkeleton from "./ProductCardSkeleton";
+import CartItemsDisplay from "./CartItemsDisplay";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/hooks/use-toast";
 import { showToast, createToastAction } from "@/utils/toastUtils";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import useReturnPathStore from "@/store/useReturnPathStore";
@@ -13,9 +12,6 @@ import useUserStore from "@/store/useUserStore";
 import useCartStore from "@/store/useCartStore";
 
 function CartPage() {
-  const { toast } = useToast();
-  const [selectedAll, setSelectedAll] = useState(false);
-
   // Redirect user back to cart page after login
   const { setReturnPath } = useReturnPathStore();
 
@@ -28,10 +24,8 @@ function CartPage() {
   const {
     cartItems,
     setCartItems,
-    loading,
     hasFetched,
     fetchCartItems,
-    updateCartItem,
     deleteCartItem,
   } = useCartStore();
 
@@ -41,67 +35,22 @@ function CartPage() {
     }
   }, [userId, hasFetched]);
 
-  // Handle clicking checkbox of individual cart items
+  // Check if all cart items are selected
+  const [selectedAll, setSelectedAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState(new Set());
   const selectedItemsCount = selectedItems.size;
 
-  const handleItemSelectChange = (productId, checked) => {
-    if (checked) {
-      if (selectedItemsCount === cartItems.length - 1) {
-        setSelectedAll(true);
-      }
-
-      setSelectedItems(new Set([...selectedItems, productId]));
+  useEffect(() => {
+    if (selectedItemsCount === cartItems.length) {
+      setSelectedAll(true);
     } else {
-      selectedItems.delete(productId);
-      setSelectedItems(new Set(selectedItems));
       setSelectedAll(false);
     }
-  };
-
-  // Handle adding or minus quantity of cart items
-  // ** To fix issue of cart items sequence changing when quantity is updated
-  const debounce = (fn, delay) => {
-    let timeoutId;
-
-    return function (...args) {
-      clearTimeout(timeoutId);
-
-      timeoutId = setTimeout(() => {
-        fn.apply(this, args);
-      }, delay);
-    };
-  };
-
-  const debouncedUpdateCartItem = useCallback(
-    debounce((userId, productId, newQuantity) => {
-      updateCartItem(userId, productId, newQuantity);
-    }, 1000),
-    []
-  );
-
-  const handlePlusMinusClick = (productId, e) => {
-    const item = cartItems.find((item) => item.product_id === productId);
-
-    if (!item) return;
-
-    let newQuantity;
-
-    if (e.target.textContent === "+") {
-      newQuantity = item.quantity + 1;
-    } else if (e.target.textContent === "-" && item.quantity > 1) {
-      newQuantity = item.quantity - 1;
-    }
-
-    const updatedCartItems = cartItems.map((item) =>
-      item.product_id === productId ? { ...item, quantity: newQuantity } : item
-    );
-
-    setCartItems(updatedCartItems);
-    debouncedUpdateCartItem(userId, productId, newQuantity);
-  };
+  }, [selectedItemsCount, cartItems]);
 
   // Handle deleting selected cart items
+  const { toast } = useToast();
+
   const handleDelete = async (userId, selectedItems) => {
     selectedItems.forEach((item) => {
       deleteCartItem(userId, item);
@@ -150,76 +99,6 @@ function CartPage() {
     });
   };
 
-  let cartDisplay;
-
-  if (!userId) {
-    cartDisplay = (
-      <div className="min-h-[calc(100vh-240px)] flex flex-col items-center justify-center">
-        <div className="w-[200px] h-[200px] rounded-full overflow-hidden mb-6">
-          <img
-            className="w-full h-full object-cover"
-            src="/empty-profile.png"
-            alt="empty profile"
-          />
-        </div>
-
-        <p>
-          Please{" "}
-          <Link
-            className="text-blue-500 underline underline-offset-4"
-            to="/login"
-          >
-            log in
-          </Link>{" "}
-          to view your cart.
-        </p>
-      </div>
-    );
-  } else if (loading) {
-    cartDisplay = (
-      <>
-        {[...Array(4)].map((_, index) => (
-          <ProductCardSkeleton key={index} />
-        ))}
-      </>
-    );
-  } else if (cartItems.length > 0) {
-    cartDisplay = (
-      <>
-        {cartItems.map(({ product, product_id: productId, quantity }) => (
-          <ProductCard
-            key={productId}
-            product={{ ...product, quantity }}
-            handlePlusMinusClick={(e) => handlePlusMinusClick(productId, e)}
-            isSelected={selectedItems.has(productId)}
-            onSelectChange={(checked) =>
-              handleItemSelectChange(productId, checked)
-            }
-          />
-        ))}
-      </>
-    );
-  } else {
-    cartDisplay = (
-      <div className="min-h-[calc(100vh-240px)] flex flex-col justify-center items-center">
-        <img
-          className="mb-6"
-          width={200}
-          src="/empty-cart.avif"
-          alt="empty cart"
-        />
-        <p>Your cart is empty. </p>
-        <p>
-          Click{" "}
-          <Link to="/" className="text-blue-500 underline underline-offset-4">
-            here
-          </Link>{" "}
-          to browse our products.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="m-5 pb-20">
@@ -246,7 +125,12 @@ function CartPage() {
 
         <hr className="mb-5" />
 
-        <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">{cartDisplay}</div>
+        <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">
+          <CartItemsDisplay
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
+          />
+        </div>
       </div>
       {userId && (
         <Footer
