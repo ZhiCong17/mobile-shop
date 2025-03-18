@@ -11,10 +11,10 @@ import { Link } from "react-router-dom";
 import useReturnPathStore from "@/store/useReturnPathStore";
 import useUserStore from "@/store/useUserStore";
 import useCartStore from "@/store/useCartStore";
-import usePaymentStore from "@/store/usePaymentStore";
 
 function CartPage() {
   const { toast } = useToast();
+  const [selectedAll, setSelectedAll] = useState(false);
 
   // Redirect user back to cart page after login
   const { setReturnPath } = useReturnPathStore();
@@ -40,15 +40,6 @@ function CartPage() {
       fetchCartItems(userId);
     }
   }, [userId, hasFetched]);
-
-  // Initialize Stripe
-  const { stripe, hasInitiatedStripe, initStripe } = usePaymentStore();
-
-  useEffect(() => {
-    if (userId && !hasInitiatedStripe) {
-      initStripe();
-    }
-  }, [userId, hasInitiatedStripe]);
 
   // Handle clicking checkbox of individual cart items
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -159,64 +150,6 @@ function CartPage() {
     });
   };
 
-  // Handle clicking select all checkbox
-  const [selectedAll, setSelectedAll] = useState(false);
-
-  const handleSelectAllChange = (checked) => {
-    setSelectedAll(checked);
-    if (checked) {
-      const allProductIds = cartItems.map((item) => item.product_id);
-      setSelectedItems(new Set(allProductIds));
-    } else {
-      setSelectedItems(new Set());
-    }
-  };
-
-  // Handle checkout
-  const handleCheckout = async () => {
-    try {
-      const checkoutItems = cartItems.filter((item) =>
-        selectedItems.has(item.product_id)
-      );
-
-      const response = await fetch(
-        "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/create-stripe-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            items: checkoutItems,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        throw new Error(
-          errorData.error || "Failed to create Stripe checkout session"
-        );
-      }
-
-      if (response.ok) {
-        const data = await response.json();
-
-        const session = await stripe.redirectToCheckout({
-          sessionId: data.sessionId,
-        });
-
-        if (session.error) {
-          throw session.error;
-        }
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-    }
-  };
-
   let cartDisplay;
 
   if (!userId) {
@@ -319,9 +252,8 @@ function CartPage() {
         <Footer
           selectedItems={selectedItems}
           selectedAll={selectedAll}
-          onSelectAllChange={handleSelectAllChange}
-          onCheckout={handleCheckout}
-          isSelectAllDisabled={cartItems.length === 0}
+          setSelectedAll={setSelectedAll}
+          setSelectedItems={setSelectedItems}
         />
       )}
     </>
