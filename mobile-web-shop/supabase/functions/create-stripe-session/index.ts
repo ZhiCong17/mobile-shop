@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.170.0/http/server.ts";
+import Stripe from "https://esm.sh/stripe@12.8.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,11 +8,6 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Max-Age": "86400",
 };
-
-const stripe = await import(
-  "https://esm.sh/stripe@12.8.0?target=deno&no-check"
-);
-const Stripe = stripe.default;
 
 const stripeClient = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
   apiVersion: "2023-10-16",
@@ -27,6 +23,7 @@ interface CreateSessionRequest {
     };
     quantity: number;
   }[];
+  userId: number;
 }
 
 serve(async (req) => {
@@ -38,7 +35,7 @@ serve(async (req) => {
   }
 
   try {
-    const { items } = await req.json() as CreateSessionRequest;
+    const { items, userId } = await req.json() as CreateSessionRequest;
 
     const lineItemsData = items.map((item) => {
       const itemPriceInCents = +(item.product.price * 100).toFixed(2);
@@ -58,8 +55,14 @@ serve(async (req) => {
       payment_method_types: ["card"],
       line_items: lineItemsData,
       mode: "payment",
-      success_url: "http://localhost:8080/payment/success",
-      cancel_url: "http://localhost:8080/payment/cancelled",
+      success_url:
+        `http://localhost:8080/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url:
+        `http://localhost:8080/payment/cancelled?session_id={CHECKOUT_SESSION_ID}`,
+      metadata: {
+        checkoutItems: JSON.stringify(items),
+        userId: userId.toString(),
+      },
     });
 
     return new Response(JSON.stringify({ sessionId: session.id }), {
