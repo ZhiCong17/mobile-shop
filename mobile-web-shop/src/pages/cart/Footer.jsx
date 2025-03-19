@@ -1,6 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
+import { useEffect } from "react";
+
 import useCartStore from "@/store/useCartStore";
 import usePaymentStore from "@/store/usePaymentStore";
 
@@ -27,14 +29,17 @@ function Footer(props) {
     return total + item.product.price * item.quantity;
   }, 0);
 
-  // Create and redirect to Stripe checkout session
+  // Initalize Stripe
   const { stripe, hasInitiatedStripe, initStripe } = usePaymentStore();
 
-  const handleCheckout = async () => {
+  useEffect(() => {
     if (!hasInitiatedStripe) {
-      await initStripe();
+      initStripe();
     }
+  }, []);
 
+  // Create and redirect to Stripe checkout session
+  const handleCheckout = async () => {
     try {
       const checkoutItems = cartItems.filter((item) =>
         selectedItems.has(item.product_id)
