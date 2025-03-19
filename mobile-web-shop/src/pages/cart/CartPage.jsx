@@ -64,12 +64,10 @@ function CartPage() {
 
         <hr className="mb-5" />
 
-        <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">
-          <CartItemsDisplay
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        </div>
+        <CartItemsDisplay
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
       </div>
       {userId && (
         <Footer

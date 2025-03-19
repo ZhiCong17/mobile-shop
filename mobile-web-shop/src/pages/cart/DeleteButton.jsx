@@ -3,10 +3,12 @@ import { useToast } from "@/components/hooks/use-toast";
 import { showToast, createToastAction } from "@/utils/toastUtils";
 
 import useCartStore from "@/store/useCartStore";
+import useUserStore from "@/store/useUserStore";
 
 const DeleteButton = (props) => {
   const { className, selectedItems, setSelectedItems, setSelectedAll } = props;
   const { cartItems, setCartItems, deleteCartItem } = useCartStore();
+  const { userId } = useUserStore();
 
   // Handle deleting selected cart items
   const { toast } = useToast();

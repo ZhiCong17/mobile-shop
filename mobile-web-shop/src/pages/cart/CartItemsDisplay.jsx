@@ -95,16 +95,16 @@ const CartItemsDisplay = (props) => {
   // Display loading skeleton
   if (loading) {
     return (
-      <>
+      <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">
         {[...Array(4)].map((_, index) => (
           <ProductCardSkeleton key={index} />
         ))}
-      </>
+      </div>
     );
   }
 
   return cartItems.length > 0 ? (
-    <>
+    <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">
       {cartItems.map(({ product, product_id: productId, quantity }) => (
         <ProductCard
           key={productId}
@@ -116,7 +116,7 @@ const CartItemsDisplay = (props) => {
           }
         />
       ))}
-    </>
+    </div>
   ) : (
     <div className="min-h-[calc(100vh-240px)] flex flex-col justify-center items-center">
       <img
