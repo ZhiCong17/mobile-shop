@@ -99,9 +99,9 @@ function ProductDrawer({ product, children }) {
         <div onClick={handleClickWithoutLogin}>{children}</div>
       )}
       <DrawerContent>
-        <DrawerHeader className="gap-4">
+        <DrawerHeader className="gap-4 flex flex-col items-center">
           <img
-            className="rounded-lg w-full aspect-[4/3] object-cover"
+            className="rounded-lg w-full max-w-96 aspect-[4/3] object-cover"
             src={imageUrl}
             alt={name}
           />
