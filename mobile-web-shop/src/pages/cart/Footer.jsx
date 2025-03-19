@@ -5,10 +5,12 @@ import { useEffect } from "react";
 
 import useCartStore from "@/store/useCartStore";
 import usePaymentStore from "@/store/usePaymentStore";
+import useUserStore from "@/store/useUserStore";
 
 function Footer(props) {
   const { selectedItems, selectedAll, setSelectedAll, setSelectedItems } =
     props;
+  const { userId } = useUserStore();
   const { cartItems } = useCartStore();
   const selectedItemsCount = selectedItems.size;
 
@@ -55,6 +57,7 @@ function Footer(props) {
           },
           body: JSON.stringify({
             items: checkoutItems,
+            userId,
           }),
         }
       );
