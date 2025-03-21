@@ -29,7 +29,7 @@ function Footer(props) {
   // Calculate total amount of selected items
   let totalCheckOutAmount = 0;
 
-  if (cartItems.length > 0) {
+  if (selectedItems.size > 0) {
     totalCheckOutAmount =
       [...selectedItems].reduce((total, productId) => {
         const item = cartItems.find((item) => item.product_id === productId);
@@ -59,6 +59,9 @@ function Footer(props) {
       checkoutItems.forEach((item) => {
         deleteCartItem(userId, item.product_id);
       });
+
+      selectedItems.clear();
+      setSelectedAll(false);
 
       // Create order and order items in database
       const { orderId } = await createOrder(userId, checkoutItems);
