@@ -6,12 +6,13 @@ import { useEffect } from "react";
 import useCartStore from "@/store/useCartStore";
 import usePaymentStore from "@/store/usePaymentStore";
 import useUserStore from "@/store/useUserStore";
+import useOrderStore from "@/store/useOrderStore";
 
 function Footer(props) {
   const { selectedItems, selectedAll, setSelectedAll, setSelectedItems } =
     props;
   const { userId } = useUserStore();
-  const { cartItems } = useCartStore();
+  const { cartItems, deleteCartItem } = useCartStore();
   const selectedItemsCount = selectedItems.size;
 
   // Check/uncheck all cart items
@@ -26,10 +27,15 @@ function Footer(props) {
   };
 
   // Calculate total amount of selected items
-  const totalCheckOutAmount = [...selectedItems].reduce((total, productId) => {
-    const item = cartItems.find((item) => item.product_id === productId);
-    return total + item.product.price * item.quantity;
-  }, 0);
+  let totalCheckOutAmount = 0;
+
+  if (cartItems.length > 0) {
+    totalCheckOutAmount =
+      [...selectedItems].reduce((total, productId) => {
+        const item = cartItems.find((item) => item.product_id === productId);
+        return total + item.product.price * item.quantity * 100;
+      }, 0) / 100;
+  }
 
   // Initalize Stripe
   const { stripe, hasInitiatedStripe, initStripe } = usePaymentStore();
@@ -41,12 +47,23 @@ function Footer(props) {
   }, []);
 
   // Create and redirect to Stripe checkout session
+  const { createOrder } = useOrderStore();
+
   const handleCheckout = async () => {
     try {
       const checkoutItems = cartItems.filter((item) =>
         selectedItems.has(item.product_id)
       );
 
+      // Delete selected items from cart
+      checkoutItems.forEach((item) => {
+        deleteCartItem(userId, item.product_id);
+      });
+
+      // Create order and order items in database
+      const { orderId } = await createOrder(userId, checkoutItems);
+
+      // Redirect to Stripe checkout session
       const response = await fetch(
         "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/create-stripe-session",
         {
@@ -57,7 +74,7 @@ function Footer(props) {
           },
           body: JSON.stringify({
             items: checkoutItems,
-            userId,
+            orderId,
           }),
         }
       );
@@ -95,7 +112,7 @@ function Footer(props) {
         className="w-4 h-4 ml-5 mr-3"
       />
       <p>All</p>
-      <p className="ml-auto">Total: ${totalCheckOutAmount.toFixed(2)}</p>
+      <p className="ml-auto">Total: ${totalCheckOutAmount}</p>
       <Button
         className="ml-3 mr-5 w-[112px]"
         onClick={handleCheckout}
