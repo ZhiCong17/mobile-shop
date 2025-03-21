@@ -23,7 +23,7 @@ interface CreateSessionRequest {
     };
     quantity: number;
   }[];
-  userId: number;
+  orderId: number;
 }
 
 serve(async (req) => {
@@ -35,7 +35,7 @@ serve(async (req) => {
   }
 
   try {
-    const { items, userId } = await req.json() as CreateSessionRequest;
+    const { items, orderId } = await req.json() as CreateSessionRequest;
 
     const lineItemsData = items.map((item) => {
       const itemPriceInCents = +(item.product.price * 100).toFixed(2);
@@ -60,8 +60,7 @@ serve(async (req) => {
       cancel_url:
         `http://localhost:8080/payment/cancelled?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
-        checkoutItems: JSON.stringify(items),
-        userId: userId.toString(),
+        orderId: orderId.toString(),
       },
     });
 
