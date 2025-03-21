@@ -1,26 +1,18 @@
-import { XCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import handleAfterPayment from './handleAfterPayment';
+import { XCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
+import useOrderStore from "@/store/useOrderStore";
 
 const PaymentCancelledPage = () => {
-  const [orderId, setOrderId] = useState(null);
+  const { orderData, loading, updateOrderStatus } = useOrderStore();
 
   useEffect(() => {
-    const processPayment = async () => {
-      await handleAfterPayment();
-
-      const orderData = JSON.parse(sessionStorage.getItem('orderData'));
-
-      if (orderData?.id) {
-        setOrderId(orderData.id);
-        sessionStorage.removeItem('orderData');
-      }
-    }
-
-    processPayment();
+    updateOrderStatus();
   }, []);
 
   return (
@@ -29,20 +21,23 @@ const PaymentCancelledPage = () => {
         <CardContent className="pt-6">
           <div className="text-center">
             <XCircle className="mx-auto h-12 w-12 text-red-500" />
-
             <h1 className="mt-4 text-2xl font-semibold text-gray-900">
               Payment Cancelled
             </h1>
-
             <p className="mt-2 text-gray-600">
-              Your payment was not completed. No charges have been made to your account.
+              Your payment was not completed. No charges have been made to your
+              account.
             </p>
 
-            {orderId && (
+            {loading ? (
+              <Skeleton className="mt-6 w-full h-[88px]" />
+            ) : (
               <div className="mt-6 bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between mb-2">
                   <span className="text-gray-600">Order reference:</span>
-                  <span className="text-gray-900 font-medium">#{orderId}</span>
+                  <span className="text-gray-900 font-medium">
+                    #{orderData.orderId}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Status:</span>
@@ -55,8 +50,7 @@ const PaymentCancelledPage = () => {
               <Button className="w-full bg-blue-500 hover:bg-blue-600">
                 Try Again
               </Button>
-
-              <Link to='/cart' className='block'>
+              <Link to="/cart" className="block">
                 <Button variant="outline" className="w-full">
                   Return to Cart
                 </Button>
@@ -67,6 +61,5 @@ const PaymentCancelledPage = () => {
       </Card>
     </div>
   );
-}
-
+};
 export default PaymentCancelledPage;
