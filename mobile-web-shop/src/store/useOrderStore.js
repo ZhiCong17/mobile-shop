@@ -33,6 +33,45 @@ const useOrderStore = create((set) => ({
       return { status: 500, error };
     }
   },
+
+  // Update order status
+  orderData: {},
+  loading: false,
+
+  updateOrderStatus: async () => {
+    const sessionId = new URLSearchParams(window.location.search).get(
+      "session_id"
+    );
+    set({ loading: true });
+
+    try {
+      const response = await fetch(
+        "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/verify-payment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            sessionId,
+          }),
+        }
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to verify payment");
+      }
+
+      const orderData = await response.json();
+      set({ orderData });
+      setTimeout(() => {
+        set({ loading: false });
+      }, 2000);
+    } catch (error) {
+      console.error("Payment verification error:", error);
+    }
+  },
 }));
 
 export default useOrderStore;
