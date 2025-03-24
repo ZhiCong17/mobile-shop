@@ -64,9 +64,12 @@ const PaymentCancelledPage = () => {
             )}
 
             <div className="mt-6 space-y-3">
-              <Button className="w-full bg-blue-500 hover:bg-blue-600">
-                Try Again
-              </Button>
+              <Link to={orderData.sessionUrl}>
+                <Button className="w-full bg-blue-500 hover:bg-blue-600">
+                  Try Again
+                </Button>
+              </Link>
+
               <Link to="/cart" className="block">
                 <Button variant="outline" className="w-full">
                   Return to Cart

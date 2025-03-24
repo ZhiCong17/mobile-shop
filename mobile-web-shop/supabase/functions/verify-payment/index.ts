@@ -31,6 +31,7 @@ serve(async (req) => {
     const { sessionId } = await req.json();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const orderId = session.metadata.orderId;
+    const sessionUrl = session.url;
 
     let status;
     let totalAmount = null;
@@ -51,7 +52,7 @@ serve(async (req) => {
       if (error) throw error;
 
       return new Response(
-        JSON.stringify({ success: true, orderId, totalAmount }),
+        JSON.stringify({ success: true, orderId, totalAmount, sessionUrl }),
         {
           status: 200,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
