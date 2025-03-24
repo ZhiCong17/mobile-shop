@@ -1,7 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,7 +26,25 @@ const PaymentSuccessPage = () => {
             <p className="mt-2 text-gray-600">Thank you for your purchase.</p>
 
             {loading ? (
-              <Skeleton className="mt-6 w-full h-[96px]" />
+              <div className="mt-6 w-full h-[96px] flex items-center justify-center">
+                <svg
+                  width="24"
+                  height="24"
+                  stroke="#000"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g className="spinner">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9.5"
+                      fill="none"
+                      strokeWidth="2"
+                    ></circle>
+                  </g>
+                </svg>
+              </div>
             ) : (
               <div className="mt-6 bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between mb-2">

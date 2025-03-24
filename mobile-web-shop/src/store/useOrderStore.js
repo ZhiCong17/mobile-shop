@@ -64,10 +64,7 @@ const useOrderStore = create((set) => ({
       }
 
       const orderData = await response.json();
-      set({ orderData });
-      setTimeout(() => {
-        set({ loading: false });
-      }, 2000);
+      set({ orderData, loading: false });
     } catch (error) {
       console.error("Payment verification error:", error);
     }
