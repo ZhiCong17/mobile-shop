@@ -69,6 +69,27 @@ const useOrderStore = create((set) => ({
       console.error("Payment verification error:", error);
     }
   },
+
+  // Fetch order by user ID
+  orders: [],
+  loadingOrders: false,
+  hasFetched: false,
+  fetchOrders: async (userId) => {
+    try {
+      set({ loadingOrders: true });
+
+      const { data, error } = await supabase
+        .from("order")
+        .select("id, status, order_item(quantity, product(name, price))")
+        .eq("user_id", userId);
+
+      if (error) throw error;
+
+      set({ orders: data, hasFetched: true, loadingOrders: false });
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    }
+  },
 }));
 
 export default useOrderStore;
