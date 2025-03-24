@@ -9,8 +9,13 @@ import useUserStore from "@/store/useUserStore";
 import useOrderStore from "@/store/useOrderStore";
 
 function Footer(props) {
-  const { selectedItems, selectedAll, setSelectedAll, setSelectedItems } =
-    props;
+  const {
+    selectedItems,
+    selectedAll,
+    setSelectedAll,
+    setSelectedItems,
+    setIsCheckingOut,
+  } = props;
   const { userId } = useUserStore();
   const { cartItems, deleteCartItem } = useCartStore();
   const selectedItemsCount = selectedItems.size;
@@ -50,6 +55,8 @@ function Footer(props) {
   const { createOrder } = useOrderStore();
 
   const handleCheckout = async () => {
+    setIsCheckingOut(true);
+
     try {
       const checkoutItems = cartItems.filter((item) =>
         selectedItems.has(item.product_id)

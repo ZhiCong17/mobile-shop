@@ -40,6 +40,34 @@ function CartPage() {
     }
   }, [selectedItemsCount, cartItems]);
 
+  // Loading when checking out
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  if (isCheckingOut) {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen gap-5">
+        <svg
+          width="48"
+          height="48"
+          stroke="#000"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g className="spinner">
+            <circle
+              cx="12"
+              cy="12"
+              r="9.5"
+              fill="none"
+              strokeWidth="3"
+            ></circle>
+          </g>
+        </svg>
+        <p>Redirecting to Payment...</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="m-5 pb-20">
@@ -75,6 +103,7 @@ function CartPage() {
           selectedAll={selectedAll}
           setSelectedAll={setSelectedAll}
           setSelectedItems={setSelectedItems}
+          setIsCheckingOut={setIsCheckingOut}
         />
       )}
     </>

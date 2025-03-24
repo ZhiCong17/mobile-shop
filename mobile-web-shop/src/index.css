@@ -3,6 +3,33 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
+  }
+}
+
+.spinner {
+  transform-origin: center;
+  animation: spinner_rotate 2s linear infinite,
+    spinner_dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+}
+@keyframes spinner_rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner_dash {
+  0% {
+    stroke-dasharray: 0 150;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -16;
+  }
+  95%,
+  100% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -59;
   }
 }
