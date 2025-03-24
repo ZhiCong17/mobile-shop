@@ -32,14 +32,13 @@ function Footer(props) {
   };
 
   // Calculate total amount of selected items
-  let totalCheckOutAmount = 0;
+  let totalCheckOutAmountCents = 0;
 
   if (selectedItems.size > 0) {
-    totalCheckOutAmount =
-      [...selectedItems].reduce((total, productId) => {
-        const item = cartItems.find((item) => item.product_id === productId);
-        return total + item.product.price * item.quantity * 100;
-      }, 0) / 100;
+    totalCheckOutAmountCents = [...selectedItems].reduce((total, productId) => {
+      const item = cartItems.find((item) => item.product_id === productId);
+      return total + Math.round(item.product.price * 100) * item.quantity;
+    }, 0);
   }
 
   // Initalize Stripe
@@ -122,7 +121,7 @@ function Footer(props) {
         className="w-4 h-4 ml-5 mr-3"
       />
       <p>All</p>
-      <p className="ml-auto">Total: ${totalCheckOutAmount}</p>
+      <p className="ml-auto">Total: ${totalCheckOutAmountCents / 100}</p>
       <Button
         className="ml-3 mr-5 w-[112px]"
         onClick={handleCheckout}
