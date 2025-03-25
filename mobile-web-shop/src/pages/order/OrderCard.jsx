@@ -26,12 +26,28 @@ const OrderCard = ({ order }) => {
     );
   });
 
+  let statusColor;
+
+  switch (order.status) {
+    case "success":
+      statusColor = "text-green-500";
+      break;
+    case "fail":
+      statusColor = "text-red-500";
+      break;
+    default:
+      statusColor = "text-neutral-500";
+  }
+
   return (
     <Card className="mb-5">
       <CardContent className="p-5">
         <div className="flex justify-between">
           <h2 className="font-bold">Order ID: #{order.id}</h2>
-          <p>Order Status: {order.status}</p>
+          <p className="text-right">
+            Order Status:{" "}
+            <span className={statusColor}>{order.status.toUpperCase()}</span>
+          </p>
         </div>
         <hr className="my-1" />
         {itemsDisplay}
