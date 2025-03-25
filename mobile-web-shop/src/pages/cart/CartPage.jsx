@@ -80,7 +80,7 @@ function CartPage() {
             Cart Page {userId ? `(${cartItems.length})` : ""}
           </h1>
 
-          {cartItems.length > 0 && (
+          {cartItems.length > 0 && userId && (
             <DeleteButton
               className="absolute right-0"
               selectedItems={selectedItems}
