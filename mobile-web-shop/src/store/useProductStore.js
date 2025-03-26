@@ -1,25 +1,26 @@
 import { create } from "zustand";
-import supabase from "@/utils/supabase";
 
-const useProductStore = create((set) => ({
+const useProductStore = create((set, get) => ({
+  // Fetch Products
   products: [],
-  loading: false,
-  hasFetched: false,
-
+  loadingProducts: false,
+  hasFetchedProducts: false,
   fetchProducts: async () => {
-    set({ loading: true });
+    const url = "http://localhost:3000/api/products";
+    set({ loadingProducts: true });
 
     try {
-      const { data: products, error } = await supabase
-        .from("product")
-        .select("*");
+      const response = await fetch(url);
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error("Response status", response.status);
+      }
 
-      set({ products, loading: false, hasFetched: true });
+      const products = await response.json();
+      set({ products, hasFetchedProducts: true, loadingProducts: false });
     } catch (error) {
       console.error("Error fetching products:", error);
-      set({ loading: false });
+      set({ loadingProducts: false });
     }
   },
 
@@ -30,11 +31,14 @@ const useProductStore = create((set) => ({
   searchInput: "",
   setSearchInput: (searchInput) => set({ searchInput }),
 
-  // Fetching Product Categories
+  // Fetch Product Categories
   categories: [],
+  loadingCategories: false,
   hasFetchedCategories: false,
   fetchCategories: async () => {
     const url = "http://localhost:3000/api/category";
+    set({ loadingCategories: true });
+
     try {
       const response = await fetch(url);
 
@@ -44,10 +48,16 @@ const useProductStore = create((set) => ({
 
       const data = await response.json();
       const categories = data.categories;
-      set({ categories, hasFetchedCategories: true });
+      set({ categories, hasFetchedCategories: true, loadingCategories: false });
     } catch (error) {
       console.error("Error fetching product categories:", error);
+      set({ loadingCategories: false });
     }
+  },
+
+  // Overall loading state
+  loading: () => {
+    return get().loadingProducts || get().loadingCategories;
   },
 }));
 
