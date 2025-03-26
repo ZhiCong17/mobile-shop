@@ -1,21 +1,27 @@
 import { create } from "zustand";
 import supabase from "@/utils/supabase";
 
-const useCartStore = create((set, get) => ({
+const useCartStore = create((set) => ({
   // Create
   addToCart: async (userId, productId, quantity) => {
-    try {
-      const { data, error } = await supabase
-        .from("cart_item")
-        .insert([{ user_id: userId, product_id: productId, quantity }]);
+    const url = "http://localhost:3000/api/cart/add";
 
-      if (error) throw error;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          user_id: userId,
+          product_id: productId,
+          quantity,
+        }),
+      });
+
+      if (!response.ok) throw new Error(response.statusText);
 
       set({ hasFetched: false });
       return { status: 200 };
     } catch (error) {
       console.error("Failed to add to cart:", error);
-      return { status: 500, error };
     }
   },
 
@@ -28,14 +34,15 @@ const useCartStore = create((set, get) => ({
 
   fetchCartItems: async (userId) => {
     set({ loading: true });
+    const url = `http://localhost:3000/api/cart?user_id=${userId}`;
 
     try {
-      const { data: cartItems, error } = await supabase
-        .from("cart_item")
-        .select("product_id, quantity, product(name, price, image_url)")
-        .eq("user_id", userId);
+      const response = await fetch(url);
 
-      if (error) throw error;
+      if (!response.ok) throw new Error("Error status:", response.status);
+
+      const data = await response.json();
+      const cartItems = data.body;
 
       set({
         cartItems,
