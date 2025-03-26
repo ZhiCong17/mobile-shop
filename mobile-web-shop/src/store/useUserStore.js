@@ -33,6 +33,27 @@ const useUserStore = create((set) => {
       set({ userId: null });
       localStorage.removeItem("userId");
     },
+
+    signUp: async (signUpData) => {
+      const url = "http://localhost:3000/api/user/signup";
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(signUpData),
+        });
+
+        if (!response.ok) {
+          const result = await response.json();
+          return { message: result.message };
+        }
+
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error("Error signing up:", error);
+      }
+    },
   };
 });
 

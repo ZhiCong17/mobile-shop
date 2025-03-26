@@ -31,7 +31,6 @@ function LoginForm() {
     }
 
     const token = await login({ email, password });
-    console.log(token);
 
     if (!token) {
       showToast({
