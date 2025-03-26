@@ -16,14 +16,15 @@ const useUserStore = create((set) => {
         });
 
         if (!response.ok) {
-          throw new Error("Response status:", response.status);
+          const result = await response.json();
+          return { message: result.message };
         }
 
         const { token, userId } = await response.json();
         set({ userId });
         localStorage.setItem("userId", JSON.stringify(userId));
 
-        return token;
+        return { token };
       } catch (error) {
         console.error("Error logging in:", error);
       }

@@ -30,13 +30,13 @@ function LoginForm() {
       return;
     }
 
-    const token = await login({ email, password });
+    const result = await login({ email, password });
 
-    if (!token) {
+    if (!result.token) {
       showToast({
         toast,
         variant: "destructive",
-        description: "Log in failed. Please try again.",
+        description: result.message,
       });
       return;
     }
