@@ -53,13 +53,7 @@ function ProductDrawer({ product, children }) {
     }
   }
 
-  const {
-    id: productId,
-    name,
-    price,
-    description,
-    image_url: imageUrl,
-  } = product;
+  const { id: productId, name, price, description, image } = product;
   const { userId } = useUserStore();
   const { addToCart } = useCartStore();
 
@@ -102,7 +96,7 @@ function ProductDrawer({ product, children }) {
         <DrawerHeader className="gap-4 flex flex-col items-center">
           <img
             className="rounded-lg w-full max-w-96 aspect-[4/3] object-cover"
-            src={imageUrl}
+            src={image}
             alt={name}
           />
           <DrawerTitle>{name}</DrawerTitle>

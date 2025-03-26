@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function ProductCard({ product }) {
   const [loading, setLoading] = useState(true);
-  const { name, price, image_url: imageUrl } = product;
+  const { name, price, image } = product;
 
   const onImageLoad = () => {
     setLoading(false);
@@ -17,7 +17,7 @@ function ProductCard({ product }) {
         <div className="w-24 h-24 flex-shrink-0">
           {loading && <Skeleton className="w-full h-full rounded" />}
           <img
-            src={imageUrl}
+            src={image}
             alt={name}
             className={`w-full h-full object-cover ${loading && "hidden"}`}
             onLoad={onImageLoad}
