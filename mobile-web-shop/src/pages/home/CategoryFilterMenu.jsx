@@ -57,7 +57,7 @@ function CategoryFilterMenu() {
   });
 
   // Display loading skeleton
-  if (loading) {
+  if (loading()) {
     return <Skeleton className="h-lvh rounded-r-lg sm:w-[160px]" />;
   }
 
