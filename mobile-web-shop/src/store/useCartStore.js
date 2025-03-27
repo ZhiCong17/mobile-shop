@@ -39,7 +39,11 @@ const useCartStore = create((set) => ({
     try {
       const response = await fetch(url);
 
-      if (!response.ok) throw new Error("Error status:", response.status);
+      if (!response.ok) {
+        const data = await response.json();
+        set({ loading: false, hasFetched: true });
+        return { status: response.status, message: data.message };
+      }
 
       const data = await response.json();
       const cartItems = data.body;
