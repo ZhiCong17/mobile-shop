@@ -14,8 +14,8 @@ const DeleteButton = (props) => {
   const { toast } = useToast();
 
   const handleDelete = async (userId, selectedItems) => {
-    selectedItems.forEach((item) => {
-      deleteCartItem(userId, item);
+    selectedItems.forEach((productId) => {
+      deleteCartItem(userId, productId);
     });
 
     showToast({
