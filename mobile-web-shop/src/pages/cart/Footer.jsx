@@ -42,7 +42,8 @@ function Footer(props) {
   }
 
   // Initalize Stripe
-  const { stripe, hasInitiatedStripe, initStripe } = usePaymentStore();
+  const { stripe, hasInitiatedStripe, initStripe, createStripeSession } =
+    usePaymentStore();
 
   useEffect(() => {
     if (!hasInitiatedStripe) {
@@ -70,43 +71,31 @@ function Footer(props) {
       setSelectedAll(false);
 
       // Create order and order items in database
-      const { orderId } = await createOrder(userId, checkoutItems);
+      const total = totalCheckOutAmountCents / 100;
+      let items = checkoutItems.map((item) => ({
+        product_id: item.product_id,
+        product_name: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+        image: item.product.image,
+      }));
+      const data = await createOrder(userId, total, items);
+      const orderId = data.body.order_id;
 
       // Redirect to Stripe checkout session
-      const response = await fetch(
-        "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/create-stripe-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            items: checkoutItems,
-            orderId,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        throw new Error(
-          errorData.error || "Failed to create Stripe checkout session"
-        );
-      }
-
-      if (response.ok) {
-        const data = await response.json();
-
-        const session = await stripe.redirectToCheckout({
-          sessionId: data.sessionId,
-        });
-
-        if (session.error) {
-          throw session.error;
-        }
-      }
+      items = checkoutItems.map((item) => ({
+        product: {
+          name: item.product.name,
+          price: item.product.price,
+          product_id: item.product_id,
+        },
+        quantity: item.quantity,
+      }));
+      const domain = window.location.protocol + "//" + window.location.host;
+      const { sessionId } = await createStripeSession(items, orderId, domain);
+      const session = await stripe.redirectToCheckout({
+        sessionId,
+      });
     } catch (error) {
       console.error("Checkout error:", error);
     }
