@@ -60,19 +60,20 @@ const useCartStore = create((set) => ({
 
   // Update
   updateCartItem: async (userId, productId, newQuantity) => {
+    const url = "http://localhost:3000/api/cart/update";
+
     try {
-      const { data, error } = await supabase
-        .from("cart_item")
-        .update({ quantity: newQuantity })
-        .eq("user_id", userId)
-        .eq("product_id", productId);
-
-      if (error) throw error;
-
-      return { status: 200 };
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userId,
+          product_id: productId,
+          quantity: newQuantity,
+        }),
+      });
     } catch (error) {
-      console.error("Failed to update cart:", error);
-      return { status: 500, error };
+      console.error("Failed to update cart item:", error);
     }
   },
 
