@@ -3,34 +3,26 @@ import supabase from "@/utils/supabase";
 
 const useOrderStore = create((set) => ({
   // Create a pending order and order items
-  createOrder: async (userId, items) => {
+  createOrder: async (userId, total, items) => {
+    const url = "https://saas-backend-api.vercel.app/api/order/add";
+
     try {
-      const { data, error } = await supabase
-        .from("order")
-        .insert([{ user_id: userId, status: "pending" }])
-        .select("id");
-
-      if (error) throw error;
-
-      const orderId = data[0].id;
-
-      // Create order items
-      items.forEach(async (item) => {
-        const { error } = await supabase.from("order_item").insert([
-          {
-            order_id: orderId,
-            product_id: item.product_id,
-            quantity: item.quantity,
-          },
-        ]);
-
-        if (error) throw error;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          pay_type: "credit-card",
+          total,
+          items,
+        }),
       });
-
-      return { status: 200, orderId };
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.error("Failed to create order or order items:", error);
-      return { status: 500, error };
     }
   },
 
@@ -38,32 +30,46 @@ const useOrderStore = create((set) => ({
   orderData: {},
   loading: false,
 
-  updateOrderStatus: async () => {
+  updateOrderStatus: async (userId) => {
     const sessionId = new URLSearchParams(window.location.search).get(
       "session_id"
     );
     set({ loading: true });
 
+    const url = "https://saas-backend-api.vercel.app/api/stripe/verify-payment";
     try {
-      const response = await fetch(
-        "https://ckrgxzagzopquyxawsdi.supabase.co/functions/v1/verify-payment",
-        {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sessionId }),
+      });
+
+      const data = await response.json();
+      const orderData = {
+        orderId: data.orderId,
+        totalAmount: data.totalAmount,
+        sessionUrl: data.sessionUrl,
+      };
+
+      // Update order status if paid in database
+      if (data.status === "success") {
+        const updateUrl =
+          "https://saas-backend-api.vercel.app/api/order/update";
+        const updateResponse = await fetch(updateUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           },
           body: JSON.stringify({
-            sessionId,
+            order_id: data.orderId,
+            status: "to-deliver",
+            user_id: userId,
           }),
-        }
-      );
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to verify payment");
+        });
       }
 
-      const orderData = await response.json();
       set({ orderData, loading: false });
     } catch (error) {
       console.error("Payment verification error:", error);
