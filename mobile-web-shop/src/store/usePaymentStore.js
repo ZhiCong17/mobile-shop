@@ -16,6 +16,29 @@ const usePaymentStore = create((set) => ({
 
     set({ stripe, hasInitiatedStripe: true });
   },
+  // Create a Stripe checkout session
+  createStripeSession: async (items, orderId, domain) => {
+    const url = "https://saas-backend-api.vercel.app/api/stripe/create-session";
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId,
+          items,
+          domain,
+        }),
+      });
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Failed to create Stripe checkout session:", error);
+    }
+  },
 }));
 
 export default usePaymentStore;
