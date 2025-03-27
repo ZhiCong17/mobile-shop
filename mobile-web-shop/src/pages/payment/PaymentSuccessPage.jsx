@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 import useOrderStore from "@/store/useOrderStore";
+import useUserStore from "@/store/useUserStore";
 
 const PaymentSuccessPage = () => {
   const { orderData, loading, updateOrderStatus } = useOrderStore();
+  const { userId } = useUserStore();
 
   useEffect(() => {
-    updateOrderStatus();
+    updateOrderStatus(userId);
   }, []);
 
   return (
