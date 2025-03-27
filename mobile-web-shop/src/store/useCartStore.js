@@ -27,7 +27,6 @@ const useCartStore = create((set) => ({
 
   // Read
   cartItems: [],
-  cartProductCount: 0,
   setCartItems: (items) => set({ cartItems: items }),
   loading: false,
   hasFetched: false,
@@ -50,7 +49,6 @@ const useCartStore = create((set) => ({
 
       set({
         cartItems,
-        cartProductCount: cartItems.length,
         hasFetched: true,
         loading: false,
       });

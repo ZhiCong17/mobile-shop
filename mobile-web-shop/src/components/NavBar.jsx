@@ -8,7 +8,7 @@ import useUserStore from "@/store/useUserStore";
 
 function NavBar() {
   const { userId } = useUserStore();
-  const { cartProductCount, fetchCartItems, hasFetched } = useCartStore();
+  const { cartItems, fetchCartItems, hasFetched } = useCartStore();
 
   useEffect(() => {
     if (userId && !hasFetched) {
@@ -32,7 +32,7 @@ function NavBar() {
           </Link>
           {userId && (
             <p className="absolute top-0 right-1/2 translate-x-7 -translate-y-1 bg-red-400 w-5 h-5 p-3 flex justify-center items-center rounded-full">
-              {cartProductCount}
+              {cartItems.length}
             </p>
           )}
         </li>
