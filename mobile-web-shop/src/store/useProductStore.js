@@ -6,7 +6,7 @@ const useProductStore = create((set, get) => ({
   loadingProducts: false,
   hasFetchedProducts: false,
   fetchProducts: async () => {
-    const url = "http://localhost:3000/api/products";
+    const url = "http://localhost:3000/api/products/prod_cat";
     set({ loadingProducts: true });
 
     try {
