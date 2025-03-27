@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function ProductCard(props) {
   const { product, handlePlusMinusClick, isSelected, onSelectChange } = props;
-  const { name, price, image_url: imageUrl, quantity } = product;
+  const { name, price, image: imageUrl, quantity } = product;
   const [loading, setLoading] = useState(true);
 
   return (
