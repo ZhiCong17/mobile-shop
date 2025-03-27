@@ -6,7 +6,7 @@ const useProductStore = create((set, get) => ({
   loadingProducts: false,
   hasFetchedProducts: false,
   fetchProducts: async () => {
-    const url = "http://localhost:3000/api/products/prod_cat";
+    const url = "https://saas-backend-api.vercel.app/api/products/prod_cat";
     set({ loadingProducts: true });
 
     try {
@@ -36,7 +36,7 @@ const useProductStore = create((set, get) => ({
   loadingCategories: false,
   hasFetchedCategories: false,
   fetchCategories: async () => {
-    const url = "http://localhost:3000/api/category";
+    const url = "https://saas-backend-api.vercel.app/api/category";
     set({ loadingCategories: true });
 
     try {

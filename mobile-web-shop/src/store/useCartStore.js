@@ -4,7 +4,7 @@ import supabase from "@/utils/supabase";
 const useCartStore = create((set) => ({
   // Create
   addToCart: async (userId, productId, quantity) => {
-    const url = "http://localhost:3000/api/cart/add";
+    const url = "https://saas-backend-api.vercel.app/api/cart/add";
 
     try {
       const response = await fetch(url, {
@@ -33,7 +33,7 @@ const useCartStore = create((set) => ({
 
   fetchCartItems: async (userId) => {
     set({ loading: true });
-    const url = `http://localhost:3000/api/cart?user_id=${userId}`;
+    const url = `https://saas-backend-api.vercel.app/api/cart?user_id=${userId}`;
 
     try {
       const response = await fetch(url);
@@ -60,7 +60,7 @@ const useCartStore = create((set) => ({
 
   // Update
   updateCartItem: async (userId, productId, newQuantity) => {
-    const url = "http://localhost:3000/api/cart/update";
+    const url = "https://saas-backend-api.vercel.app/api/cart/update";
 
     try {
       const response = await fetch(url, {
@@ -79,7 +79,7 @@ const useCartStore = create((set) => ({
 
   // Delete
   deleteCartItem: async (userId, productId) => {
-    const url = "http://localhost:3000/api/cart/remove";
+    const url = "https://saas-backend-api.vercel.app/api/cart/remove";
 
     try {
       const response = await fetch(url, {

@@ -8,7 +8,7 @@ const useUserStore = create((set) => {
     userId: loggedInUserId,
 
     login: async (loginDetails) => {
-      const url = "http://localhost:3000/api/user/login";
+      const url = "https://saas-backend-api.vercel.app/api/user/login";
       try {
         const response = await fetch(url, {
           method: "POST",
@@ -36,7 +36,7 @@ const useUserStore = create((set) => {
     },
 
     signUp: async (signUpData) => {
-      const url = "http://localhost:3000/api/user/signup";
+      const url = "https://saas-backend-api.vercel.app/api/user/signup";
       try {
         const response = await fetch(url, {
           method: "POST",
