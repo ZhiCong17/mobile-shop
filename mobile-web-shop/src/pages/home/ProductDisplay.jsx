@@ -9,10 +9,11 @@ import useProductStore from "@/store/useProductStore";
 function ProductDisplay() {
   const { loading, products, categoryFilter, searchInput } = useProductStore();
 
+  // Filter products by search input and selected category
   const filteredProducts = products.filter((product) => {
     const isIncluded =
       product.name.toLowerCase().includes(searchInput) &&
-      product.category.includes(categoryFilter);
+      (categoryFilter === "" || product.categories.includes(categoryFilter));
     return isIncluded;
   });
 
@@ -52,7 +53,7 @@ function ProductDisplay() {
     );
   };
 
-  if (loading) {
+  if (loading()) {
     return (
       <>
         {[...Array(window.innerWidth >= 640 ? 8 : 4)].map((_, index) => (
