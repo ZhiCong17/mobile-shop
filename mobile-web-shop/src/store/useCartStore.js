@@ -76,20 +76,22 @@ const useCartStore = create((set) => ({
 
   // Delete
   deleteCartItem: async (userId, productId) => {
+    const url = "http://localhost:3000/api/cart/remove";
+
     try {
-      const { data, error } = await supabase
-        .from("cart_item")
-        .delete()
-        .eq("user_id", userId)
-        .eq("product_id", productId);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userId,
+          product_id: productId,
+        }),
+      });
 
-      if (error) throw error;
-
-      set({ hasFetched: false });
-      return { status: 200 };
+      const result = await response.json();
+      return { status: result.status, message: result.message };
     } catch (error) {
       console.error("Failed to delete cart item:", error);
-      return { status: 500, error };
     }
   },
 }));
