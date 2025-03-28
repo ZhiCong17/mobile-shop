@@ -24,7 +24,6 @@ const OrderCard = ({ order }) => {
   });
 
   let statusColor;
-
   switch (order.status) {
     case "to-pay":
       statusColor = "text-red-500";
@@ -43,7 +42,7 @@ const OrderCard = ({ order }) => {
     <Card className="mb-5">
       <CardContent className="p-5">
         <div className="flex justify-between">
-          <h2 className="font-bold">Order ID: #{order.id}</h2>
+          <h2 className="font-bold">Order ID: #{order.order_id}</h2>
           <p className="text-right">
             Order Status: <span className={statusColor}>{order.status}</span>
           </p>
