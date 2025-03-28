@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 function OrderPage() {
   const { userId } = useUserStore();
   const { setReturnPath } = useReturnPathStore();
-  const [statusActive, setStatusActive] = useState("success");
+  const [statusActive, setStatusActive] = useState("to-pay");
 
   useEffect(() => {
     setReturnPath("/orders");
