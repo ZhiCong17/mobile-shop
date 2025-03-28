@@ -10,13 +10,14 @@ import useUserStore from "@/store/useUserStore";
 const OrderDisplay = ({ statusActive }) => {
   // Fetch user orders history
   const { userId } = useUserStore();
-  const { orders, loadingOrders, hasFetched, fetchOrders } = useOrderStore();
+  const { orders, loadingOrders, hasFetchedOrders, fetchOrders } =
+    useOrderStore();
 
   useEffect(() => {
-    if (userId && !hasFetched) {
+    if (userId && !hasFetchedOrders) {
       fetchOrders(userId);
     }
-  }, [hasFetched, fetchOrders]);
+  }, [userId]);
 
   // Filter orders by status
   const [filteredOrders, setFilteredOrders] = useState([]);
@@ -70,7 +71,7 @@ const OrderDisplay = ({ statusActive }) => {
         </div>
       ) : (
         filteredOrders.map((order) => (
-          <OrderCard key={order.id} order={order} />
+          <OrderCard key={order.order_id} order={order} />
         ))
       )}
     </div>

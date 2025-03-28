@@ -19,13 +19,13 @@ function CartPage() {
 
   // Fetch user's cart items
   const { userId } = useUserStore();
-  const { cartItems, hasFetched, fetchCartItems } = useCartStore();
+  const { cartItems, hasFetchedCartItems, fetchCartItems } = useCartStore();
 
   useEffect(() => {
-    if (userId && !hasFetched) {
+    if (userId && !hasFetchedCartItems) {
       fetchCartItems(userId);
     }
-  }, [userId, hasFetched]);
+  }, [userId]);
 
   // Check if all cart items are selected
   const [selectedAll, setSelectedAll] = useState(false);
