@@ -3,11 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 const OrderCard = ({ order }) => {
   let totalAmountCents = 0;
 
-  const itemsDisplay = order.order_item.map((item) => {
-    const {
-      product: { name, price },
-      quantity,
-    } = item;
+  const itemsDisplay = order.items.map((item) => {
+    const { product_name: name, price, quantity } = item;
 
     totalAmountCents += Math.round(price * 100) * quantity;
 
@@ -29,11 +26,14 @@ const OrderCard = ({ order }) => {
   let statusColor;
 
   switch (order.status) {
-    case "success":
-      statusColor = "text-green-500";
-      break;
-    case "fail":
+    case "to-pay":
       statusColor = "text-red-500";
+      break;
+    case "to-deliver":
+      statusColor = "text-blue-500";
+      break;
+    case "delivered":
+      statusColor = "text-green-500";
       break;
     default:
       statusColor = "text-neutral-500";
@@ -45,8 +45,7 @@ const OrderCard = ({ order }) => {
         <div className="flex justify-between">
           <h2 className="font-bold">Order ID: #{order.id}</h2>
           <p className="text-right">
-            Order Status:{" "}
-            <span className={statusColor}>{order.status.toUpperCase()}</span>
+            Order Status: <span className={statusColor}>{order.status}</span>
           </p>
         </div>
         <hr className="my-1" />
