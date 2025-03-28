@@ -80,6 +80,7 @@ const useOrderStore = create((set) => ({
   clearOrders: () => set({ orders: [] }),
   loadingOrders: false,
   hasFetchedOrders: false,
+  setHasFetchedOrders: (status) => set({ hasFetchedOrders: status }),
   fetchOrders: async (userId) => {
     const url = `https://saas-backend-api.vercel.app/api/order?user_id=${userId}`;
     try {

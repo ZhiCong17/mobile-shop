@@ -12,8 +12,8 @@ function LogoutButton({ className }) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { logout } = useUserStore();
-  const { clearOrders, hasFetchedOrders } = useOrderStore();
-  const { clearCart, hasFetchedCartItems } = useCartStore();
+  const { clearOrders, setHasFetchedOrders } = useOrderStore();
+  const { clearCart, setHasFetchedCartItems } = useCartStore();
 
   const handleLogoutButtonClick = () => {
     toast({
@@ -41,8 +41,8 @@ function LogoutButton({ className }) {
     navigate("/");
     clearOrders();
     clearCart();
-    hasFetchedOrders(false);
-    hasFetchedCartItems(false);
+    setHasFetchedOrders(false);
+    setHasFetchedCartItems(false);
 
     const toastId = toast({
       description: "You have logged out successfully.",

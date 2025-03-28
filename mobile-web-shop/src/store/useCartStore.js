@@ -30,6 +30,7 @@ const useCartStore = create((set) => ({
   setCartItems: (items) => set({ cartItems: items }),
   loading: false,
   hasFetchedCartItems: false,
+  setHasFetchedCartItems: (status) => set({ hasFetchedCartItems: status }),
 
   fetchCartItems: async (userId) => {
     set({ loading: true });
