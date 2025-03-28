@@ -19,7 +19,7 @@ const OrderStatusFilter = ({ statusActive, setStatusActive }) => {
           <Button
             key={button.label}
             className={`w-full active:bg-blue-500 ${
-              statusActive === button.value ? "!bg-blue-500" : "bg-blue-200"
+              statusActive === button.value ? "!bg-blue-500" : "!bg-blue-200"
             }`}
             style={{ transition: "background-color 0.3s" }}
             onClick={handleStatusButtonClick}
