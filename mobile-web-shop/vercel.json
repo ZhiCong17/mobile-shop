@@ -6,27 +6,27 @@
     },
     {
       "src": "/cart",
-      "dest": "/"
+      "dest": "/cart"
     },
     {
       "src": "/orders",
-      "dest": "/"
+      "dest": "/orders"
     },
     {
       "src": "/login",
-      "dest": "/"
+      "dest": "/login"
     },
     {
       "src": "/signup",
-      "dest": "/"
+      "dest": "/signup"
     },
     {
       "src": "/payment/success",
-      "dest": "/"
+      "dest": "/payment/success"
     },
     {
       "src": "/payment/cancelled",
-      "dest": "/"
+      "dest": "/payment/cancelled"
     },
     {
       "src": "*",
