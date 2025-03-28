@@ -5,11 +5,15 @@ import { ToastAction } from "@/components/ui/toast";
 import { useNavigate } from "react-router-dom";
 
 import useUserStore from "@/store/useUserStore";
+import useOrderStore from "@/store/useOrderStore";
+import useCartStore from "@/store/useCartStore";
 
 function LogoutButton({ className }) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { logout } = useUserStore();
+  const { clearOrders, hasFetchedOrders } = useOrderStore();
+  const { clearCart, hasFetchedCartItems } = useCartStore();
 
   const handleLogoutButtonClick = () => {
     toast({
@@ -35,6 +39,10 @@ function LogoutButton({ className }) {
   const handleLogOut = () => {
     logout();
     navigate("/");
+    clearOrders();
+    clearCart();
+    hasFetchedOrders(false);
+    hasFetchedCartItems(false);
 
     const toastId = toast({
       description: "You have logged out successfully.",
