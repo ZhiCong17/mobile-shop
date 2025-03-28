@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import supabase from "@/utils/supabase";
 
 const useCartStore = create((set) => ({
   // Create
@@ -27,9 +26,10 @@ const useCartStore = create((set) => ({
 
   // Read
   cartItems: [],
+  clearCart: () => set({ cartItems: [] }),
   setCartItems: (items) => set({ cartItems: items }),
   loading: false,
-  hasFetched: false,
+  hasFetchedCartItems: false,
 
   fetchCartItems: async (userId) => {
     set({ loading: true });
