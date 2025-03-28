@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import supabase from "@/utils/supabase";
 
 const useOrderStore = create((set) => ({
   // Create a pending order and order items
@@ -53,7 +52,7 @@ const useOrderStore = create((set) => ({
         sessionUrl: data.sessionUrl,
       };
 
-      // Update order status if paid in database
+      // Update order status in database if paid
       if (data.status === "success") {
         const updateUrl =
           "https://saas-backend-api.vercel.app/api/order/update";
@@ -78,20 +77,23 @@ const useOrderStore = create((set) => ({
 
   // Fetch order by user ID
   orders: [],
+  clearOrders: () => set({ orders: [] }),
   loadingOrders: false,
-  hasFetched: false,
+  hasFetchedOrders: false,
   fetchOrders: async (userId) => {
+    const url = `https://saas-backend-api.vercel.app/api/order?user_id=${userId}`;
     try {
       set({ loadingOrders: true });
 
-      const { data, error } = await supabase
-        .from("order")
-        .select("id, status, order_item(quantity, product(name, price))")
-        .eq("user_id", userId);
+      const response = await fetch(url);
 
-      if (error) throw error;
+      if (!response.ok) {
+        const error = await response.json();
+        return error;
+      }
 
-      set({ orders: data, hasFetched: true, loadingOrders: false });
+      const data = await response.json();
+      set({ orders: data.body, hasFetched: true, loadingOrders: false });
     } catch (error) {
       console.error("Failed to fetch orders:", error);
     }
