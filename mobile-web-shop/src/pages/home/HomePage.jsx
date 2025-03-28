@@ -6,14 +6,23 @@ import NavBar from "@/components/NavBar";
 import { useEffect } from "react";
 
 import useProductStore from "@/store/useProductStore";
+import useCartStore from "@/store/useCartStore";
+import useUserStore from "@/store/useUserStore";
 
 function HomePage() {
   const { fetchProducts, hasFetchedProducts, clearCategoryFilter } =
     useProductStore();
+  const { fetchCartItems, hasFetchedCartItems } = useCartStore();
+  const { userId } = useUserStore();
 
+  // Fetch products and categories on mount
   useEffect(() => {
     if (!hasFetchedProducts) {
       fetchProducts();
+    }
+
+    if (!hasFetchedCartItems && userId) {
+      fetchCartItems(userId);
     }
   }, []);
 

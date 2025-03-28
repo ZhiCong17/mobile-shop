@@ -49,7 +49,7 @@ const useCartStore = create((set) => ({
 
       set({
         cartItems,
-        hasFetched: true,
+        hasFetchedCartItems: true,
         loading: false,
       });
     } catch (error) {
