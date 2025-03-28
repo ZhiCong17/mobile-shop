@@ -8,13 +8,14 @@ import { useEffect } from "react";
 import useProductStore from "@/store/useProductStore";
 
 function HomePage() {
-  const { fetchProducts, hasFetched, clearCategoryFilter } = useProductStore();
+  const { fetchProducts, hasFetchedProducts, clearCategoryFilter } =
+    useProductStore();
 
   useEffect(() => {
-    if (!hasFetched) {
+    if (!hasFetchedProducts) {
       fetchProducts();
     }
-  }, [fetchProducts, hasFetched]);
+  }, []);
 
   useEffect(() => {
     return () => {
