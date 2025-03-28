@@ -9,9 +9,6 @@ import useReturnPathStore from "@/store/useReturnPathStore";
 import useUserStore from "@/store/useUserStore";
 
 function LoginForm() {
-  const [email, setEmail] = useState("john@example.com");
-  const [password, setPassword] = useState("password");
-
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -57,7 +54,6 @@ function LoginForm() {
       <input
         className="mb-5 pl-3 h-10 border border-neutral-500 rounded w-full"
         type="email"
-        value={email}
         name="email"
         id="email"
         autoComplete="email"
@@ -70,7 +66,6 @@ function LoginForm() {
       <input
         className="mb-5 pl-3 h-10 border border-neutral-500 rounded w-full"
         type="password"
-        value={password}
         name="password"
         id="password"
         placeholder="********"
