@@ -93,7 +93,7 @@ const useOrderStore = create((set) => ({
       }
 
       const data = await response.json();
-      set({ orders: data.body, hasFetched: true, loadingOrders: false });
+      set({ orders: data.body, hasFetchedOrders: true, loadingOrders: false });
     } catch (error) {
       console.error("Failed to fetch orders:", error);
     }
